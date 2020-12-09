@@ -1,5 +1,6 @@
 /*
-健康抽奖机
+健康抽奖机 ，活动于2020-12-31日结束
+脚本会给内置的码进行助力
 活动地址：https://h5.m.jd.com/babelDiy/Zeus/3HBUP66Gnx92mRt2bXbT9VamYWSx/index.html
 已支持IOS双京东账号,Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
@@ -36,7 +37,7 @@ if ($.isNode()) {
   cookiesArr.push(...[$.getdata('CookieJD'), $.getdata('CookieJD2')]);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
-const inviteCodes = [`P04z54XCjVUnoaW5nJcXCCyoR8C6i9QR16e`, 'P04z54XCjVUnoaW5nJcXCCyoR8C6i9QR16e'];
+const inviteCodes = [`P04z54XCjVUnoaW5jQNCmXw3HVPnJvJlD8@P04z54XCjVUnoaW5m9cZ2Wt3X1OkPkufEWVsGY@P04z54XCjVUnoaW5m9cZ2Xwjn4fwT6Up6mZvsE`,`P04z54XCjVUnoaW5mtaQj-mijYVyyQ@P04z54XCjVUnoaW5m9cZ2Wt3X1OkPkufEWVsGY@P04z54XCjVUnoaW5m9cZ2Xwjn4fwT6Up6mZvsE`,`P04z54XCjVUnoaW5mtaQj-mijYVyyQ@P04z54XCjVUnoaW5jQNCmXw3HVPnJvJlD8@P04z54XCjVUnoaW5m9cZ2Xwjn4fwT6Up6mZvsE`,`P04z54XCjVUnoaW5mtaQj-mijYVyyQ@P04z54XCjVUnoaW5jQNCmXw3HVPnJvJlD8@P04z54XCjVUnoaW5m9cZ2Wt3X1OkPkufEWVsGY`];
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {

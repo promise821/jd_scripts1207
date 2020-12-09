@@ -29,7 +29,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
 const randomCount = $.isNode() ? 20 : 5;
-const inviteCodes = [`40cd108f-9eed-4897-b795-45a5b221cd6b@49efb480-d6d7-456b-a4e0-14b170b161e0@`,'9d4262a5-1a02-4ae7-8a86-8d070d531464@687b14e0-ce0a-45eb-bf46-71aa0da05f18'];const inviteCodes = [`6f37cefc-4fa0-4127-a521-32105ea63348@379ac32b-279a-4734-9dae-57613cff8490@432379be-8112-4de0-939f-b8a50489d883`,`2e4010d6-d3d9-416c-96bf-eda20169db1f@379ac32b-279a-4734-9dae-57613cff8490@432379be-8112-4de0-939f-b8a50489d883`,`2e4010d6-d3d9-416c-96bf-eda20169db1f@6f37cefc-4fa0-4127-a521-32105ea63348@432379be-8112-4de0-939f-b8a50489d883`,`2e4010d6-d3d9-416c-96bf-eda20169db1f@6f37cefc-4fa0-4127-a521-32105ea63348@379ac32b-279a-4734-9dae-57613cff8490`];
+const inviteCodes = [`6f37cefc-4fa0-4127-a521-32105ea63348@379ac32b-279a-4734-9dae-57613cff8490@432379be-8112-4de0-939f-b8a50489d883`,`2e4010d6-d3d9-416c-96bf-eda20169db1f@379ac32b-279a-4734-9dae-57613cff8490@432379be-8112-4de0-939f-b8a50489d883`,`2e4010d6-d3d9-416c-96bf-eda20169db1f@6f37cefc-4fa0-4127-a521-32105ea63348@432379be-8112-4de0-939f-b8a50489d883`,`2e4010d6-d3d9-416c-96bf-eda20169db1f@6f37cefc-4fa0-4127-a521-32105ea63348@379ac32b-279a-4734-9dae-57613cff8490`];
 
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;

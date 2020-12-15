@@ -69,6 +69,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
   await getRedRain();
 	if(!$.activityId) return
   let nowTs = new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000
+  console.log(nowTs,$.st,$.ed)
   if (!($.st <= nowTs && nowTs < $.ed)) {
     console.log(`不在红包雨时间之内`)
     return

@@ -69,7 +69,7 @@ $.newShareCodes = [''];
     }
   }
   // 帮助作者，把作者助力码放到用户助力码之后
-  await getAuthorShareCode('https://raw.githubusercontent.com/nbzongzong/jd_scripts1207/master/jd_jdh.json');
+  //await getAuthorShareCode('https://raw.githubusercontent.com/nbzongzong/jd_scripts1207/master/jd_jdh.json');
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];

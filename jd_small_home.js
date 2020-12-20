@@ -99,7 +99,8 @@ const JD_API_HOST = 'https://lkyl.dianpusoft.cn/api';
         await createAssistUser(code, $.createAssistUserID || "1318106976846299138");
       }
       console.log(`\n去帮助作者:lxk0301\n`)
-      await helpFriends();
+	  console.log(`\n不去帮助作者:lxk0301\n`)
+      //await helpFriends();
     }
   }
 })()

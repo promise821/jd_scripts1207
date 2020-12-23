@@ -357,6 +357,7 @@ async function helpFriends() {
           continue;
         }
         const assistFriendRes = await assistFriend(code);
+        console.log(`助力朋友[${code}]成功`);
         if (assistFriendRes && assistFriendRes['ret'] === 0) {
           console.log(`助力朋友：${code}成功，因一次只能助力一个，故跳出助力`)
           break

@@ -33,8 +33,7 @@ let helpSelf = false // 循环助力
 let applyJdBean = 0
 let cookiesArr = [], cookie = '', message = '';
 const inviteCodes = [
-  'EdLPh8A6X5G1iWXu-uPYfA==@0gUO7F7N-4HVDh9mdQC2hg==@fUJTgR9z26fXdQgTvt_bgqt9zd5YaBeE',
-  'EdLPh8A6X5G1iWXu-uPYfA==@0gUO7F7N-4HVDh9mdQC2hg==@fUJTgR9z26fXdQgTvt_bgqt9zd5YaBeE'
+  'nohVJvmnzNdab-MBk27Njg=='
 ];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 if ($.isNode()) {
@@ -173,7 +172,7 @@ if ($.isNode()) {
     return;
   }
   await requireConfig();
-  $.nextCode = "EdLPh8A6X5G1iWXu-uPYfA=="
+  $.nextCode = "nohVJvmnzNdab-MBk27Njg=="
   $.selfCodes = []
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
@@ -282,7 +281,7 @@ function doApplyJdBean(bean = 1000) {
     })
   })
 }
-function getUserInfo(code = "EdLPh8A6X5G1iWXu-uPYfA==") {
+function getUserInfo(code = "nohVJvmnzNdab-MBk27Njg==") {
   let body = {"paramData": {"inviter": code}}
   return new Promise(async resolve => {
     $.get(taskUrl('crazyJoy_user_gameState', JSON.stringify(body)), async (err, resp, data) => {

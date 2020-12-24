@@ -32,16 +32,10 @@ let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭�
 let helpSelf = true // 循环助力
 let applyJdBean = 0
 let cookiesArr = [], cookie = '', message = '';
-const inviteCodes = [ 
- 'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE', 
- 'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE' 
- 'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE' 
- 'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE' 
- 'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE' 
- 'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE' 
- 'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE' 
- 'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE' 
- ]; 
+const inviteCodes = [
+  'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==',
+  'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg=='
+];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {

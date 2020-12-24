@@ -34,6 +34,7 @@ if ($.isNode()) {
   cookiesArr.reverse();
   cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
   cookiesArr.reverse();
+  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 
 const JD_API_HOST = `https://api.m.jd.com/api?appid=jdsupermarket`;
@@ -65,8 +66,6 @@ const JD_API_HOST = `https://api.m.jd.com/api?appid=jdsupermarket`;
 
         if ($.isNode()) {
           await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        } else {
-          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
         }
         continue
       }
@@ -103,7 +102,7 @@ async function PrizeIndex() {
       $.beanerr = `东哥今天不给换`;
       return ;
     }
-     if (prizeList[1] && prizeList[1].inStock === 506) {
+    if (prizeList[1] && prizeList[1].inStock === 506) {
       $.beanerr = `失败，1000京豆领光了，请明天再来`;
       return ;
     }

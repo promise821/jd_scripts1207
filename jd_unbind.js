@@ -34,6 +34,7 @@ if ($.isNode()) {
   cookiesArr.reverse();
   cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
   cookiesArr.reverse();
+  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 const jdNotify = $.getdata('jdUnsubscribeNotify');//是否关闭通知，false打开通知推送，true关闭通知推送
 let cardPageSize = $.getdata('jdUnsubscribePageSize') || 200;// 运行一次取消多少个会员卡。数字0表示不注销任何会员卡
@@ -60,8 +61,6 @@ const JD_API_HOST = 'https://api.m.jd.com/';
 
         if ($.isNode()) {
           await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        } else {
-          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
         }
         continue
       }
@@ -83,7 +82,7 @@ async function jdUnbind() {
 async function unsubscribeCards() {
   let count = 0
   for (let item of $.cardList) {
-	  if (count === cardPageSize * 1){
+    if (count === cardPageSize * 1){
       console.log(`已达到设定数量:${cardPageSize * 1}`)
       break
     }
@@ -126,7 +125,7 @@ function getCards() {
     }
     $.post(option, (err, resp, data) => {
       try {
-	if (err) {
+        if (err) {
           console.log(`${JSON.stringify(err)}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
@@ -162,7 +161,7 @@ function unsubscribeCard(vendorId) {
     }
     $.post(option, (err, resp, data) => {
       try {
-	 if (err) {
+        if (err) {
           console.log(`${JSON.stringify(err)}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
@@ -227,7 +226,7 @@ function requireConfig() {
     if ($.isNode() && process.env.UN_BIND_STOP_CARD) {
       if (process.env.UN_BIND_STOP_CARD.indexOf('&') > -1) {
         $.UN_BIND_STOP_CARD = process.env.UN_BIND_STOP_CARD.split('&');
-      } if (process.env.UN_BIND_STOP_CARD.indexOf('@') > -1) {
+      } else if (process.env.UN_BIND_STOP_CARD.indexOf('@') > -1) {
         $.UN_BIND_STOP_CARD = process.env.UN_BIND_STOP_CARD.split('@');
       } else if (process.env.UN_BIND_STOP_CARD.indexOf('\n') > -1) {
         $.UN_BIND_STOP_CARD = process.env.UN_BIND_STOP_CARD.split('\n');

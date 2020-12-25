@@ -36,6 +36,7 @@ if ($.isNode()) {
   cookiesArr.reverse();
   cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
   cookiesArr.reverse();
+  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 let message = '', subTitle = '';
 let FEED_NUM = ($.getdata('joyFeedCount') * 1) || 10;   //每次喂养数量 [10,20,40,80]
@@ -65,8 +66,6 @@ const weAppUrl = 'https://draw.jdfcloud.com//pet';
 
         if ($.isNode()) {
           await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        } else {
-          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
         }
         continue
       }
@@ -136,8 +135,8 @@ async function joinTwoPeopleRun() {
     let teamLevelTemp = [];
     teamLevelTemp = $.isNode() ? (process.env.JOY_TEAM_LEVEL ? process.env.JOY_TEAM_LEVEL.split('&') : teamLevel.split('&')) : ($.getdata('JOY_TEAM_LEVEL') ? $.getdata('JOY_TEAM_LEVEL').split('&') : teamLevel.split('&'));
     teamLevelTemp = teamLevelTemp[$.index - 1] ? teamLevelTemp[$.index - 1] : 2;
-    console.log(`\n===以下是京东账号${$.index} ${$.nickName} ${$.petRaceResult.data.teamLimitCount || teamLevelTemp}人赛跑信息===\n`)
     await getPetRace();
+    console.log(`\n===以下是京东账号${$.index} ${$.nickName} ${$.petRaceResult.data.teamLimitCount || teamLevelTemp}人赛跑信息===\n`)
     if ($.petRaceResult) {
       let petRaceResult = $.petRaceResult.data.petRaceResult;
       // let raceUsers = $.petRaceResult.data.raceUsers;
@@ -165,16 +164,15 @@ async function joinTwoPeopleRun() {
       if (petRaceResult === 'unreceive') {
         console.log('今日参赛的比赛已经结束，现在领取奖励');
         await getWinCoin();
-        let winCoin = 0, teamLimitCount = 2;
+        let winCoin = 0;
         if ($.getWinCoinRes && $.getWinCoinRes.success) {
           winCoin = $.getWinCoinRes.data.winCoin;
-          teamLimitCount = $.getWinCoinRes.data.teamLimitCount;
         }
         await receiveJoyRunAward();
         console.log(`领取赛跑奖励结果：${JSON.stringify($.receiveJoyRunAwardRes)}`)
         if ($.receiveJoyRunAwardRes.success) {
-          $.msg($.name, '', `【京东账号${$.index}】${$.nickName}\n太棒了,${teamLimitCount}人赛跑取得获胜\n恭喜您已获得${winCoin}积分奖励`);
-          if ($.isNode()) await notify.sendNotify(`${$.name} - 京东账号${$.index} - ${$.nickName}`, `京东账号${$.index}${$.nickName}\n${teamLimitCount}人赛跑取得获胜\n恭喜您已获得${winCoin}积分奖励`)
+          $.msg($.name, '', `【京东账号${$.index}】${$.nickName}\n太棒了，${$.name}赛跑取得获胜\n恭喜您已获得${winCoin}积分奖励`);
+          if ($.isNode()) await notify.sendNotify(`${$.name} - 京东账号${$.index} - ${$.nickName}`, `京东账号${$.index}${$.nickName}\n太棒了，${$.name}赛跑取得获胜\n恭喜您已获得${winCoin}积分奖励`)
         }
       }
       if (petRaceResult === 'participate') {

@@ -6,7 +6,6 @@
 每天4京豆，再小的苍蝇也是肉
 从 https://github.com/Zero-S1/JD_tools/blob/master/JD_speed.py 改写来的
 建议3小时运行一次，打卡时间间隔是6小时
-注：如果使用Node.js, 需自行安装'crypto-js,got,http-server,tough-cookie'模块. 例: npm install crypto-js http-server tough-cookie got --save
 */
 // quantumultx
 // [task_local]
@@ -512,8 +511,8 @@ function getMemBerList() {
                   await getReward(uuids['uuid']);
                 }
                 if ($.getRewardBeans > 0) {
-                   $.msg(`${$.name}`, '', `京东账号${$.index}  ${$.nickName}\n虫洞任务：获得${$.getRewardBeans}京豆`);
-                  await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `京东账号${$.index}  ${$.nickName}\n虫洞任务：获得${$.getRewardBeans}京豆`)
+                  $.msg(`${$.name}`, '', `京东账号${$.index}  ${$.nickName}\n虫洞任务：获得${$.getRewardBeans}京豆`);
+                  if ($.isNode()) await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `京东账号${$.index}  ${$.nickName}\n虫洞任务：获得${$.getRewardBeans}京豆`)
                 }
               } else {
                 console.log(`暂无可领取的虫洞京豆奖励`)

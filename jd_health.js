@@ -40,9 +40,10 @@ if ($.isNode()) {
   cookiesArr.reverse();
   cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
   cookiesArr.reverse();
+  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
-const inviteCodes = [`P04z54XCjVUnoaW5nJcXCCyoR8C6i9QR16e`, 'P04z54XCjVUnoaW5m9cZ2T6jChKkh8FWbFAplQ', `P04z54XCjVUnoaW5u2ak7ZCdan1Bdbpik_F9ud7lznm`, `P04z54XCjVUnoaW5m9cZ2ariXVJwFN5uKHNqnc`];
+const inviteCodes = [`P04z54XCjVUnoaW5uyqp7ZUcKXAOg@P04z54XCjVUnoaW5m9cZ2b-3SlCltnQk_5NpnQ@P04z54XCjVUnoaW5m9cZyWfoD8x4KmA1oIIFA@P04z54XCjVUnoaW5uC_sbVPZKnpNzRIcphoWA@P04z54XCjVUnoaW5m9cZz-Fgw426rXZhA98ww@P04z54XCjVUnoaW5m9cZ2Xx2igenEL2wQx3SpY@P04z54XCjVUnoaW5m9cZ2b5iSlNxHRajjOdJp8@P04z54XCjVUnoaW5jQAD2Px3XtJlAWaIi8@P04z54XCjVUnoaW5m9cZ2X82i5KkO2y3LCln7Q@P04z54XCjVUnoaW5m9cZ2eq3iobkQ60SsVcy1Q`];
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -64,8 +65,6 @@ const inviteCodes = [`P04z54XCjVUnoaW5nJcXCCyoR8C6i9QR16e`, 'P04z54XCjVUnoaW5m9c
 
         if ($.isNode()) {
           await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        } else {
-          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
         }
         continue
       }

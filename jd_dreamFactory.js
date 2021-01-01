@@ -1025,7 +1025,7 @@ async function joinLeaderTuan() {
     }
   }
   $.tuanIdS = null;
-  if (!$.tuanIdS) await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/jd_scripts1207/master/jd_updateFactoryTuanId.json');
+  if (!$.tuanIdS) await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json');
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
@@ -1184,7 +1184,7 @@ function tuanAward(activeId, tuanId, isTuanLeader = true) {
     })
   })
 }
-function updateTuanIds(url = 'https://raw.githubusercontent.com/nbzongzong/jd_scripts1207/master/jd_updateFactoryTuanId.json') {
+function updateTuanIds(url = 'https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json') {
   return new Promise(resolve => {
     $.get({url}, (err, resp, data) => {
       try {
@@ -1201,7 +1201,7 @@ function updateTuanIds(url = 'https://raw.githubusercontent.com/nbzongzong/jd_sc
     })
   })
 }
-function updateTuanIdsCDN(url = 'https://raw.githubusercontent.com/nbzongzong/jd_scripts1207/master/jd_updateFactoryTuanId.json') {
+function updateTuanIdsCDN(url = 'https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json') {
   return new Promise(async resolve => {
     $.get({url,
       headers:{
@@ -1342,7 +1342,7 @@ function shareCodesFormat() {
 }
 function requireConfig() {
   return new Promise(async resolve => {
-    await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/jd_scripts1207/master/jd_updateFactoryTuanId.json');
+    await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json');
     if (!$.tuanIdS) await updateTuanIds();
     //if (!$.tuanIdS) await updateTuanIdsCDN('https://cdn.jsdelivr.net/gh/lxk0301/updateTeam@master/jd_updateFactoryTuanId.json');
     if ($.tuanIdS && $.tuanIdS.tuanActiveId) {

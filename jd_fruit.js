@@ -980,8 +980,9 @@ async function gotStageAwardForFarm(type) {
 }
 //浇水API
 async function waterGoodForFarm() {
-  await $.wait(2000);
-  console.log('等待了2秒');
+  await $.wait(1000);
+  console.log('等待了1秒');
+
   const functionId = arguments.callee.name.toString();
   $.waterResult = await request(functionId);
 }

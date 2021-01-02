@@ -1,6 +1,6 @@
 /*
 京东京喜工厂
-更新时间：2020-12-07
+更新时间：2020-12-27
 活动入口 :京东APP->游戏与互动->查看更多->京喜工厂
 或者: 京东APP首页搜索 "玩一玩" ,造物工厂即可
 
@@ -35,6 +35,7 @@ let tuanActiveId = `6S9y4sJUfA2vPQP6TLdVIQ==`;
 const jxOpenUrl = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%20%22des%22:%20%22m%22,%20%22url%22:%20%22https://wqsd.jd.com/pingou/dream_factory/index.html%22%20%7D`;
 let cookiesArr = [], cookie = '', message = '';
 const inviteCodes = ['05tfe7_atmkggWus12BPbQ==@LDB0ch60vFA5g5dDUkH9hA==@Qw52BPIv6c_mchV7vruxzA==@y4nKp0iB1WZZ_jAE10cttw==@R3RhRk4tNdw1gi3_9Pn6LQ==@oITNgDJvBecBpsx3zv3b-A==@NeuVHXg0vw8-QRJS6fmL7A==@_BDKVoB5GwiWpDGS-XmjGw==@HUJ2O_0p_vfKmdtrd1PH6A==@ywJR3XfRtJKSZEO3L-AGQw==@rPtEhirgGvPefl2POGU2ww==@3GPLY9X60q0IiuNNjNdZ5Q=='];
+
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -566,8 +567,8 @@ function userInfo() {
                 } else if (data.factoryList && !data.productionList) {
                   console.log(`【提示】京东账号${$.index}[${$.nickName}]京喜工厂未选购商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选购\n`)
                   let nowTimes = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000);
-                  if (nowTimes.getHours() % 6 === 0) {
-                    //如按每小时运行一次，则此处将一天推送4次提醒
+                  if (nowTimes.getHours() % 12 === 0) {
+                    //如按每小时运行一次，则此处将一天推送2次提醒
                     $.msg($.name, '提醒⏰', `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品`);
                     if ($.isNode()) await notify.sendNotify(`${$.name} - 京东账号${$.index} - ${$.nickName}`, `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品`)
                   }

@@ -1036,7 +1036,7 @@ async function joinLeaderTuan() {
   // }
 }
 function JoinTuan(tuanId) {
-	console.log(`准备加入tuanId/n${tuanId}`);
+	console.log(`准备加入tuanId\n${tuanId}`);
   return new Promise((resolve) => {
     const options = {
       'url': `https://m.jingxi.com/dreamfactory/tuan/JoinTuan?activeId=${escape(tuanActiveId)}&tuanId=${escape(tuanId)}&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1`,

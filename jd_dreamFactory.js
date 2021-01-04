@@ -1020,7 +1020,7 @@ function CreateTuan() {
 async function joinLeaderTuan() {
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
-		console.log(`获取的tuanId为：${$.tuanId}`);
+		console.log(`获取的tuanId为：${$.tuanIdS.tuanIds}`);
       if (!tuanId) continue
       await JoinTuan(tuanId);
     }
@@ -1029,14 +1029,14 @@ async function joinLeaderTuan() {
   if (!$.tuanIdS) await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json');
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
-		console.log(`获取的tuanId为：${$.tuanId}`);
+		console.log(`获取的tuanId2为：${$.tuanIds}`);
       if (!tuanId) continue
       await JoinTuan(tuanId);
     }
   }
 }
 function JoinTuan(tuanId) {
-	console.log(`准备加入tuanId:${$.tuanId}`);
+	console.log(`准备加入tuanId:${$.tuanIds}`);
   return new Promise((resolve) => {
     const options = {
       'url': `https://m.jingxi.com/dreamfactory/tuan/JoinTuan?activeId=${escape(tuanActiveId)}&tuanId=${escape(tuanId)}&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1`,

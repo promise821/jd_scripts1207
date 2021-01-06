@@ -423,31 +423,49 @@ function qywxBotNotify(text, desp) {
 function qywxamNotify(text, desp) {
   return new Promise(resolve => {
     if (QYWX_AM) {
-	    var QYWX_AM_AY = QYWX_AM.split(',');
-	    const options_accesstoken = {
-	      url: `https://qyapi.weixin.qq.com/cgi-bin/gettoken`,
-	      json: {
-	        corpid:`${QYWX_AM_AY[0]}`,
-	        corpsecret:`${QYWX_AM_AY[1]}`,
-	      },
-	      headers: {
-	        'Content-Type': 'application/json',
-	      },
-	    };
-	  $.post(options_accesstoken, (err, resp, data) => {
-      html=desp.replace(/\n/g,"<br/>")	  
+      var QYWX_AM_AY = QYWX_AM.split(',');
+      const options_accesstoken = {
+        url: `https://qyapi.weixin.qq.com/cgi-bin/gettoken`,
+        json: {
+          corpid:`${QYWX_AM_AY[0]}`,
+          corpsecret:`${QYWX_AM_AY[1]}`,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+    $.post(options_accesstoken, (err, resp, data) => {
+      html=desp.replace(/\n/g,"<br/>")    
       var json = JSON.parse(data);
       accesstoken = json.access_token;
-		const options = {
-	      url: `https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${accesstoken}`,
-	      json: {
-	        touser:`${QYWX_AM_AY[2]}`,
-	        agentid:`${QYWX_AM_AY[3]}`,
-	        msgtype: 'mpnews',
-	        mpnews: {
+      const options_textcard = {
+        url: `https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${accesstoken}`,
+        json: {
+          touser:`${QYWX_AM_AY[2]}`,
+          agentid:`${QYWX_AM_AY[3]}`,
+          msgtype: 'textcard',
+          textcard: {
+            title: `${text}`,
+            description: `${desp}`,
+            url: '127.0.0.1',
+            btntxt: '更多'
+          },
+          safe:'0',
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const options_mpnews = {
+        url: `https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=${accesstoken}`,
+        json: {
+          touser:`${QYWX_AM_AY[2]}`,
+          agentid:`${QYWX_AM_AY[3]}`,
+          msgtype: 'mpnews',
+          mpnews: {
                   articles: [
                   {
-	          title: `${text}`,
+            title: `${text}`,
                   thumb_media_id: `${QYWX_AM_AY[4]}`,  
                   author : `智能助手` ,
                   content_source_url: ``,
@@ -455,14 +473,14 @@ function qywxamNotify(text, desp) {
                   digest: `${desp}`
                   }
                   ]
-	        },
-	        safe:'0',
-	      },
-	      headers: {
-	        'Content-Type': 'application/json',
-	      },
-	    };
-      $.post(options, (err, resp, data) => {
+          },
+          safe:'0',
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      $.post((QYWX_AM_AY[4]==0)?options_textcard:options_mpnews, (err, resp, data) => {
         try {
           if (err) {
             console.log('企业微信应用消息发送通知消息失败！！\n');
@@ -569,7 +587,7 @@ function pushPlusNotify(text, desp) {
         }
       })
     } else {
-      console.log('\n您未提供push+推送所需的PUSH_PLUS_TOKEN，取消push+推送消息通知\n');
+      console.log('您未提供push+推送所需的PUSH_PLUS_TOKEN，取消push+推送消息通知\n');
       resolve()
     }
   })

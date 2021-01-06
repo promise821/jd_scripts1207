@@ -33,7 +33,8 @@ let helpSelf = false // 循环助力，默认关闭
 let applyJdBean = 0
 let cookiesArr = [], cookie = '', message = '';
 const inviteCodes = [
-  'bJoXfp8V9utUNnCMnfWmsw==@LOz8_levK4e0GcyckDNV4w==@4ALKj3TrfQgfmOWFcHevhg==@Kydefb6d3EGTPscrnIC4HQ==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE'
+  'bJoXfp8V9utUNnCMnfWmsw==@yGQRsiegh4oD1ra8JiYok6t9zd5YaBeE@4ALKj3TrfQgfmOWFcHevhg==@1tZQgWQxw70FfftR15_W5qt9zd5YaBeE@LOz8_levK4e0GcyckDNV4w==@Kydefb6d3EGTPscrnIC4HQ==@ZbC1OMqTmUxiWPShGMsOiA==@RiX_N6GFHjsWwfu8NMuHpKt9zd5YaBeE@u-4kFeWLkjq00eA0xYROHat9zd5YaBeE@BJ_LUetmS3C4cnMrYfkOzat9zd5YaBeE',
+  
 ];
 const randomCount = $.isNode() ? 10 : 5;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
@@ -665,7 +666,7 @@ function readShareCode() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取${randomCount}个码放到您固定的互助码后面`)
+            console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }

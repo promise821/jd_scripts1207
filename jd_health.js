@@ -43,7 +43,7 @@ if ($.isNode()) {
   cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
-const inviteCodes = [`P04z54XCjVUnoaW5uyqp7ZUcKXAOg@P04z54XCjVUnoaW5m9cZ2b-3SlCltnQk_5NpnQ@P04z54XCjVUnoaW5m9cZyWfoD8x4KmA1oIIFA@P04z54XCjVUnoaW5uC_sbVPZKnpNzRIcphoWA@P04z54XCjVUnoaW5m9cZz-Fgw426rXZhA98ww@P04z54XCjVUnoaW5m9cZ2Xx2igenEL2wQx3SpY@P04z54XCjVUnoaW5m9cZ2b5iSlNxHRajjOdJp8@P04z54XCjVUnoaW5jQAD2Px3XtJlAWaIi8@P04z54XCjVUnoaW5m9cZ2X82i5KkO2y3LCln7Q@P04z54XCjVUnoaW5m9cZ2eq3iobkQ60SsVcy1Q`];
+const inviteCodes = [`P04z54XCjVUnoaW5nJcXCCyoR8C6i9QR16e`, 'P04z54XCjVUnoaW5m9cZ2T6jChKkh8FWbFAplQ', `P04z54XCjVUnoaW5u2ak7ZCdan1Bdbpik_F9ud7lznm`, `P04z54XCjVUnoaW5m9cZ2ariXVJwFN5uKHNqnc`];
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -265,7 +265,7 @@ function readShareCode() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取${randomCount}个码放到您固定的互助码后面`)
+            console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }

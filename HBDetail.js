@@ -262,29 +262,29 @@ function cal(data, nickName) {
         '京喜红包总额:' + jx + '<br>' +
         '京东红包总额:' + jd + '<br>' +
         '京东优惠小程序红包总额:' + jdyh + '<br>' +
-        '===================' + '<br>' +
+        '    ===================' + '<br>' +
         '今天过期总金额:' + expiresToDay + '<br>';;
     if (expiresToDay != 0) {
         pushNotify +=
-            '▼▼▼▼▼▼各平台今天过期详情▼▼▼▼▼▼' + '<br>' +
+            '▼▼▼▼▼▼今天过期详情▼▼▼▼▼▼' + '<br>' +
             '今天过期京喜红包总额:' + expiresToDayJX + '<br>' +
             '今天过期京东红包总额:' + expiresToDayJD + '<br>' +
             '今天过期京东优惠小程序红包总额:' + expiresToDayJDYH + '<br>';
     }
-    pushNotify += '===================' + '<br>' +
+    pushNotify += '    ===================' + '<br>' +
         '明天过期总金额:' + expiresTomorrow + '<br>';
     if (expiresTomorrow != 0) {
         pushNotify +=
-            '▼▼▼▼▼▼各平台明天过期详情▼▼▼▼▼▼' + '<br>' +
+            '▼▼▼▼▼▼明天过期详情▼▼▼▼▼▼' + '<br>' +
             '明天过期京喜红包总额:' + expiresTomorrowJX + '<br>' +
             '明天过期京东红包总额:' + expiresTomorrowJD + '<br>' +
             '明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH + '<br>';
     }
-    pushNotify += '===================' + '<br>' +
+    pushNotify += '    ===================' + '<br>' +
         '后天过期总金额:' + expiresDAT + '<br>';
     if (expiresDAT != 0) {
         pushNotify +=
-            '▼▼▼▼▼▼各平台后天过期详情▼▼▼▼▼▼' + '<br>' +
+            '▼▼▼▼▼▼后天过期详情▼▼▼▼▼▼' + '<br>' +
             '后天过期京喜红包总额:' + expiresDATJX + '<br>' +
             '后天过期京东红包总额:' + expiresDATJD + '<br>' +
             '后天过期京东优惠小程序红包总额:' + expiresDATJDYH;

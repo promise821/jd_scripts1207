@@ -141,7 +141,7 @@ if (process.env.ALLIN_KEY) {
 //==========================云端环境变量的判断与接收=========================
 
 
-async function sendNotify(text, desp, params = {}) {
+async function sendNotify(text, desp, params = {}, noticeid) {
   //提供7种通知
   await Promise.all([
     serverNotify(text, desp),//微信server酱
@@ -157,7 +157,7 @@ async function sendNotify(text, desp, params = {}) {
     qywxamNotify(text, desp), //企业微信应用消息推送
     iGotNotify(text, desp, params),//iGot
     CoolPush(text, desp),//QQ酷推
-    allInNotify(text, desp)//万能推
+    allInNotify(text, desp, noticeid)//万能推
   ])
 }
 
@@ -605,13 +605,14 @@ function pushPlusNotify(text, desp) {
   })
 }
 
-function allInNotify(text, desp) {
+function allInNotify(text, desp, noticeid) {
   return new Promise(resolve => {
     const options = {
       url: `${ALLIN_KEY}`,
       json: {
         title: `${text}`,
         content: `${desp}`,
+        wxid: `${noticeid}`,
       },
       headers: {
         'Content-Type': 'application/json',
@@ -632,7 +633,7 @@ function allInNotify(text, desp) {
 //               console.log(`${data.errmsg}\n`);
 //             }
             
-            console.log('推送成功...');
+            console.log('万能推推送成功...');
           }
         } catch (e) {
           $.logErr(e, resp);

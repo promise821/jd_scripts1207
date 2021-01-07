@@ -262,7 +262,7 @@ function cal(data, nickName) {
         '京喜红包总额:' + jx + '<br>' +
         '京东红包总额:' + jd + '<br>' +
         '京东优惠小程序红包总额:' + jdyh + '<br>' +
-        '    ===================' + '<br>' +
+        '&nbsp===================' + '<br>' +
         '今天过期总金额:' + expiresToDay + '<br>';;
     if (expiresToDay != 0) {
         pushNotify +=
@@ -271,7 +271,7 @@ function cal(data, nickName) {
             '今天过期京东红包总额:' + expiresToDayJD + '<br>' +
             '今天过期京东优惠小程序红包总额:' + expiresToDayJDYH + '<br>';
     }
-    pushNotify += '    ===================' + '<br>' +
+    pushNotify += '&nbsp===================' + '<br>' +
         '明天过期总金额:' + expiresTomorrow + '<br>';
     if (expiresTomorrow != 0) {
         pushNotify +=
@@ -280,7 +280,7 @@ function cal(data, nickName) {
             '明天过期京东红包总额:' + expiresTomorrowJD + '<br>' +
             '明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH + '<br>';
     }
-    pushNotify += '    ===================' + '<br>' +
+    pushNotify += '&nbsp===================' + '<br>' +
         '后天过期总金额:' + expiresDAT + '<br>';
     if (expiresDAT != 0) {
         pushNotify +=

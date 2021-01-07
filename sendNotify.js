@@ -66,6 +66,11 @@ let IGOT_PUSH_KEY = '';
 let PUSH_PLUS_TOKEN = '';
 let PUSH_PLUS_USER = '';
 
+// =======================================万能推通知设置区域===========================================
+//此处填接收数据的推送地址   （万能推）
+//注：此处设置github action用户填写到Settings-Secrets里面(Name输入ALLIN_KEY)
+let ALLIN_KEY = '';
+
 //==========================云端环境变量的判断与接收=========================
 if (process.env.PUSH_KEY) {
   SCKEY = process.env.PUSH_KEY;
@@ -128,6 +133,11 @@ if (process.env.PUSH_PLUS_TOKEN) {
 if (process.env.PUSH_PLUS_USER) {
   PUSH_PLUS_USER = process.env.PUSH_PLUS_USER;
 }
+
+if (process.env.ALLIN_KEY) {
+  ALLIN_KEY = process.env.ALLIN_KEY;
+}
+
 //==========================云端环境变量的判断与接收=========================
 
 
@@ -146,7 +156,8 @@ async function sendNotify(text, desp, params = {}) {
     qywxBotNotify(text, desp), //企业微信机器人
     qywxamNotify(text, desp), //企业微信应用消息推送
     iGotNotify(text, desp, params),//iGot
-    CoolPush(text, desp)//QQ酷推
+    CoolPush(text, desp),//QQ酷推
+    allInNotify(text, desp)//万能推
   ])
 }
 
@@ -592,6 +603,48 @@ function pushPlusNotify(text, desp) {
       resolve()
     }
   })
+}
+
+function allInNotify(text, desp) {
+  return new Promise(resolve => {
+    const options = {
+      url: `${ALLIN_KEY}`,
+      json: {
+        title: `${text}`,
+        content: `${desp}`,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    if (ALLIN_KEY) {
+      $.post(options, (err, resp, data) => {
+        try {
+          if (err) {
+            console.log('万能推发送通知消息失败！！\n');
+            console.log(err);
+          } else {
+            //留着之后再写返回值
+//             data = JSON.parse(data);
+//             if (data.errcode === 0) {
+//               console.log('企业微信发送通知消息完成。\n');
+//             } else {
+//               console.log(`${data.errmsg}\n`);
+//             }
+            
+            console.log('推送成功...');
+          }
+        } catch (e) {
+          $.logErr(e, resp);
+        } finally {
+          resolve(data);
+        }
+      });
+    } else {
+      console.log('您未提供万能推所需的ALLIN_KEY，取消万能推消息通知\n');
+      resolve();
+    }
+  });
 }
 
 module.exports = {

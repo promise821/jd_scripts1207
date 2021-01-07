@@ -26,7 +26,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
 //IOS等用户直接用NobyDa的jd cookie
-let cookiesArr = [], cookie = '';
+let cookiesArr = [], cookie = '', NoticeIDs = [];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -43,15 +43,13 @@ if ($.isNode()) {
 }
 
 
-let NoticeIDs = [ ] 
-
 // 获取通知人ID
  if (process.env.NOTICE_ID) { 
  if (process.env.NOTICE_ID.indexOf('#') > -1) { 
  console.log(`您的id选择的是用#隔开\n`) 
- CookieJDs = process.env.NOTICE_ID.split('#'); 
+ NoticeIDs = process.env.NOTICE_ID.split('#'); 
   } else { 
- CookieJDs = [process.env.NOTICE_ID]; 
+ NoticeIDs = [process.env.NOTICE_ID]; 
  } 
  } 
 

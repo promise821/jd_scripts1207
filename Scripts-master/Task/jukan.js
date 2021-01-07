@@ -21,6 +21,7 @@ let UA = 'JuKanDian/5.6.5 (iPhone; iOS 14.2; Scale/3.00)'
 let taskresult = "",sumnotify ="";
 
 if ($.isNode()) {
+	if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
   if (process.env.JUKAN_BODY && process.env.JUKAN_BODY.indexOf('&') > -1) {
   JKbody = process.env.JUKAN_BODY.split('&');
   }

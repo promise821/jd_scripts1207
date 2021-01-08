@@ -117,7 +117,7 @@ function collectElectricity(facId = $.factoryId, help = false, master) {
     // if (help && master) {
     //   url = `/dreamfactory/generator/CollectCurrentElectricity?zone=dream_factory&factoryid=${facId}&master=${master}&sceneval=2&g_login_type=1`;
     // }
-    let body = `factoryid=${facId}&apptoken=&pgtimestamp=&phoneID=&doubleflag=1`;
+    let body = `factoryid=${facId}&apptoken=&pgtimestamp=&phoneID=&doubleflag=1&_stk=_time,apptoken,doubleflag,factoryid,pgtimestamp,phoneID,timeStamp,zone`;
     if (help && master) {
       body += `factoryid=${facId}&master=${master}`;
     }
@@ -566,8 +566,8 @@ function userInfo() {
                 } else if (data.factoryList && !data.productionList) {
                   console.log(`【提示】京东账号${$.index}[${$.nickName}]京喜工厂未选购商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选购\n`)
                   let nowTimes = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000);
-                  if (nowTimes.getHours() % 6 === 0) {
-                    //如按每小时运行一次，则此处将一天推送4次提醒
+                  if (nowTimes.getHours() % 12 === 0) {
+                    //如按每小时运行一次，则此处将一天推送2次提醒
                     $.msg($.name, '提醒⏰', `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品`);
                     if ($.isNode()) await notify.sendNotify(`${$.name} - 京东账号${$.index} - ${$.nickName}`, `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品`)
                   }

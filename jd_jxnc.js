@@ -239,7 +239,7 @@ async function jdJXNC() {
         await $.wait(500);
         await createAssistUser();
     }
-    await showMsg()
+   await showMsg()
 }
 
 // 获取任务列表与用户信息

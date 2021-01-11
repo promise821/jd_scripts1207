@@ -52,7 +52,7 @@ if ($.isNode()) {
             }
             await getHB(`${$.nickName}`);
             await putMsg();
-			tasktext += `【京东账号${$.index}】${$.nickName || $.UserName}\n pushNotify \n\n`;
+			tasktext += `【京东账号${$.index}】${$.nickName || $.UserName}\n ${pushNotify} \n\n`;
         }
     }
 	notify.sendNotify($.name, tasktext);

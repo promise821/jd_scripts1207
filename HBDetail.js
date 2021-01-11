@@ -3,6 +3,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //IOS等用户直接用NobyDa的jd cookie
+let tasktext=[];	//合并通知
 let cookiesArr = [],
     cookie = '',
     message;
@@ -52,6 +53,7 @@ if ($.isNode()) {
             await putMsg();
         }
     }
+	notify.sendNotify($.name, tasktext);
 })()
     .catch((e) => {
         $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -267,30 +269,29 @@ function cal(data, nickName) {
     if (expiresToDay != 0) {
         pushNotify +=
             '▼▼▼▼▼▼今天过期详情▼▼▼▼▼▼' + '<br>' +
-            '今天过期京喜红包总额:' + expiresToDayJX + '<br>' +
-            '今天过期京东红包总额:' + expiresToDayJD + '<br>' +
-            '今天过期京东优惠小程序红包总额:' + expiresToDayJDYH + '<br>';
+            '京喜红包:' + expiresToDayJX + '<br>' +
+            '京东红包:' + expiresToDayJD + '<br>' +
+            '京东优惠小程序红包:' + expiresToDayJDYH + '<br>';
     }
     pushNotify += '=======================' + '<br>' +
         '明天过期总金额:' + expiresTomorrow + '<br>';
     if (expiresTomorrow != 0) {
         pushNotify +=
             '▼▼▼▼▼▼明天过期详情▼▼▼▼▼▼' + '<br>' +
-            '明天过期京喜红包总额:' + expiresTomorrowJX + '<br>' +
-            '明天过期京东红包总额:' + expiresTomorrowJD + '<br>' +
-            '明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH + '<br>';
+            '京喜红包:' + expiresTomorrowJX + '<br>' +
+            '京东红包:' + expiresTomorrowJD + '<br>' +
+            '京东优惠小程序红包:' + expiresTomorrowJDYH + '<br>';
     }
     pushNotify += '=======================' + '<br>' +
         '后天过期总金额:' + expiresDAT + '<br>';
     if (expiresDAT != 0) {
         pushNotify +=
             '▼▼▼▼▼▼后天过期详情▼▼▼▼▼▼' + '<br>' +
-            '后天过期京喜红包总额:' + expiresDATJX + '<br>' +
-            '后天过期京东红包总额:' + expiresDATJD + '<br>' +
-            '后天过期京东优惠小程序红包总额:' + expiresDATJDYH;
+            '京喜红包:' + expiresDATJX + '<br>' +
+            '京东红包:' + expiresDATJD + '<br>' +
+            '京东优惠小程序红包:' + expiresDATJDYH;
     }
-
-    notify.sendNotify($.name + ' - ' + nickName, pushNotify);
+	tasktext += nickName + pushNotify;
 }
 
 function calHB(orgLimitStr, hb, jx, jd, jdyh) {

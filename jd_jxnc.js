@@ -93,9 +93,10 @@ let assistUserShareCode = 0; // 随机助力用户 share code
             await tokenFormat(); // 处理当前账号 token
             await shareCodesFormat(); // 处理当前账号 助力码
             await jdJXNC(); // 执行当前账号 主代码流程
-			await showMsg()
+			
         }
     }
+	await showMsg()
 })()
     .catch((e) => {
         $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')

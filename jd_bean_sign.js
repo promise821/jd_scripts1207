@@ -95,7 +95,7 @@ async function execSign() {
       $.beanSignTime = timeFormat(UTC8);
       console.log(`脚本执行完毕时间：${$.beanSignTime}`)
       if (BarkContent) {
-		tasktext += `【签到号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}`;
+		tasktext += `【签到号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}\n\n`;
       }
     }
     //运行完成后，删除下载的文件

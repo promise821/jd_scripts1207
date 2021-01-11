@@ -261,7 +261,7 @@ async function jdJXNC() {
         }
     }
     //await showMsg()
-	tasktext =+ `${subTitle}\n${message}\n\n`;
+	tasktext += `${subTitle}\n${message}\n\n`;
 }
 
 // 获取任务列表与用户信息

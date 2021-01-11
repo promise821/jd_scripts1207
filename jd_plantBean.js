@@ -128,7 +128,7 @@ async function doGetReward() {
       $.msg($.name, subTitle, message);
       if ($.isNode()) {
 		  let sendtasktext=true;
-		  tasktext =+ `京东账号${$.index} ${$.nickName}\n${message}\n\n`;
+		  tasktext += `京东账号${$.index} ${$.nickName}\n${message}\n\n`;
         //await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName || $.UserName}`, `京东账号${$.index} ${$.nickName}\n${message}`);
       }
     }

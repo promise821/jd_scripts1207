@@ -43,6 +43,8 @@ let lastRoundId = null;//上期id
 let roundList = [];
 let awardState = '';//上期活动的京豆是否收取
 let randomCount = $.isNode() ? 20 : 5;
+let tasktext=[];	//合并通知
+let sendtasktext=false;	//合并通知开关
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -71,6 +73,8 @@ let randomCount = $.isNode() ? 20 : 5;
       option = {};
       await shareCodesFormat();
       await jdPlantBean();
+	  if (sendtasktext)
+	  await notify.sendNotify(`${$.name}`, `tasktext`);
       await showMsg();
     }
   }
@@ -123,7 +127,9 @@ async function doGetReward() {
       message += `【上期兑换京豆】${$.getReward.data.awardBean}个\n`;
       $.msg($.name, subTitle, message);
       if ($.isNode()) {
-        await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName || $.UserName}`, `京东账号${$.index} ${$.nickName}\n${message}`);
+		  let sendtasktext=true;
+		  tasktext =+ `京东账号${$.index} ${$.nickName}\n${message}\n\n`;
+        //await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName || $.UserName}`, `京东账号${$.index} ${$.nickName}\n${message}`);
       }
     }
   } else if (awardState === '6') {

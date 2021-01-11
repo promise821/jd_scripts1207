@@ -26,7 +26,7 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
-let helpAuthor = false
+let helpAuthor = true
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -48,7 +48,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
     return;
   }
   $.newShareCodes = []
-  //await getAuthorShareCode(); //不读取作者互助码
+  await getAuthorShareCode(); 
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -260,7 +260,7 @@ function taskUrl(functionId, body = {}) {
 
 function getAuthorShareCode() {
   return new Promise(resolve => {
-    $.get({url: "https://gitee.com/shylocks/updateTeam/raw/main/jd_cash.json",headers:{
+    $.get({url: "https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_cash.json",headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }}, async (err, resp, data) => {
       try {

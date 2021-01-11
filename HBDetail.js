@@ -292,7 +292,7 @@ function cal(data, nickName) {
             '京东红包:' + expiresDATJD + '<br>' +
             '京东优惠小程序红包:' + expiresDATJDYH;
     }
-	tasktext += `账号${$.index}：$.nickName\n$.pushNotify\n\n';
+	tasktext += `账号${$.index}：$.nickName\n$.pushNotify\n\n`;
 }
 
 function calHB(orgLimitStr, hb, jx, jd, jdyh) {

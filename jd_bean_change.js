@@ -70,13 +70,11 @@ if ($.isNode()) {
         continue
       }
       await bean();
-      num =num+1
       tasktext +=`账号${$.index}：${$.nickName || $.UserName}\n昨日收入：${$.incomeBean}京豆 🐶\n昨日支出：${$.expenseBean}京豆 🐶\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n\n`
-      if(num==cookiesArr.length){
-      await showMsg();
-      }
     }
   }
+
+  await showMsg();
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -88,7 +86,6 @@ async function showMsg() {
   if ($.errorMsg) return
   if ($.isNode()) {
     await notify.sendNotify(`${$.name} `, tasktext, { url: `https://bean.m.jd.com/beanDetail/index.action?resourceValue=bean` })
-  
   }
   $.msg($.name, '', `账号${$.index}：${$.nickName || $.UserName}\n昨日收入：${$.incomeBean}京豆 🐶\n昨日支出：${$.expenseBean}京豆 🐶\n当前京豆：${$.beanCount}京豆 🐶${$.message}`, {"open-url": "https://bean.m.jd.com/beanDetail/index.action?resourceValue=bean"});
 }

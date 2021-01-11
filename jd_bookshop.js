@@ -26,8 +26,9 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [], cookie = '', message;
 const ACT_ID = 'dz2010100034444201', shareUuid = '0b632c68677b4d7bbd2e28bc88f37736'
 
-let inviteCodes = ['0b632c68677b4d7bbd2e28bc88f37736,0547ceff2d2043e8a40bdc803743fbc3'
-  
+let inviteCodes = [
+  '0b632c68677b4d7bbd2e28bc88f37736@0547ceff2d2043e8a40bdc803743fbc3',
+  '0b632c68677b4d7bbd2e28bc88f37736@0547ceff2d2043e8a40bdc803743fbc3'
 ]
 
 if ($.isNode()) {

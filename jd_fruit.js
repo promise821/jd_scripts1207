@@ -22,6 +22,7 @@ cron "5 6-18/6 * * *" script-path=https://raw.githubusercontent.com/lxk0301/jd_s
 
 jd免费水果 搬的https://github.com/liuxiaoyucc/jd-helper/blob/a6f275d9785748014fc6cca821e58427162e9336/fruit/fruit.js
 */
+
 const $ = new Env('东东农场');
 let cookiesArr = [], cookie = '', jdFruitShareArr = [], isBox = false, notify, newShareCodes;
 //助力好友分享码(最多4个,否则后面的助力失败),原因:京东农场每人每天只有四次助力机会
@@ -33,6 +34,9 @@ let shareCodes = [ // 这个列表填入你要助力的好友的shareCode
   //账号二的好友shareCode,不同好友的shareCode中间用@符号隔开
 
 ]
+let tasktext=[];	//合并通知
+
+
 let message = '', subTitle = '', option = {}, isFruitFinished = false;
 const retainWater = 100;//保留水滴大于多少g,默认100g;
 let jdNotify = false;//是否关闭通知，false打开通知推送，true关闭通知推送
@@ -68,8 +72,10 @@ const urlSchema = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%2
       option = {};
       await shareCodesFormat();
       await jdFruit();
+	  tasktext +=`${subTitle}\n${message}\n\n`;
     }
   }
+await showMsg();
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -117,7 +123,7 @@ async function jdFruit() {
     console.log(`初始化农场数据异常, 请登录京东 app查看农场0元水果功能是否正常,农场初始化数据: ${JSON.stringify($.farmInfo)}`);
     message = `【京东账号${$.index}】 ${$.nickName || $.UserName}\n【数据异常】请手动登录京东app查看此账号${$.name}是否正常`;
   }
-  await showMsg();
+  //await showMsg();
 }
 async function doDailyTask() {
   await taskInitForFarm();
@@ -1221,7 +1227,8 @@ async function showMsg() {
   if (ctrTemp) {
     $.msg($.name, subTitle, message, option);
     if ($.isNode()) {
-      await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `${subTitle}\n${message}`);
+      await notify.sendNotify(`${$.name}`, tasktext);
+	  //await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `${subTitle}\n${message}`);
     }
   } else {
     $.log(`\n${message}\n`);

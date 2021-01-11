@@ -72,7 +72,7 @@ if ($.isNode()) {
       await bean();
       num =num+1
       tasktext +=`账号${$.index}：${$.nickName || $.UserName}\n昨日收入：${$.incomeBean}京豆 🐶\n昨日支出：${$.expenseBean}京豆 🐶\n当前京豆：${$.beanCount}京豆 🐶${$.message}\n\n`
-      if(num=cookiesArr.length){
+      if(num=10){
       await showMsg();
       }
     }

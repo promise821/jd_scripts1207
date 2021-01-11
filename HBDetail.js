@@ -37,7 +37,7 @@ if ($.isNode()) {
             $.isLogin = true;
             $.nickName = '';
             message = '';
-			$.pushNotify = '';
+			let pushNotify = '';
             await TotalBean();
             console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
             if (!$.isLogin) {
@@ -52,6 +52,7 @@ if ($.isNode()) {
             }
             await getHB(`${$.nickName}`);
             await putMsg();
+			tasktext += `【京东账号${$.index}】${$.nickName || $.UserName}\n pushNotify \n\n`;
         }
     }
 	notify.sendNotify($.name, tasktext);
@@ -260,7 +261,7 @@ function cal(data, nickName) {
     }
 
     //推送
-     $.pushNotify += '红包总额:' + subHB + '<br>' +
+      pushNotify += '红包总额:' + subHB + '<br>' +
         '▼▼▼▼▼▼各平台金额▼▼▼▼▼▼' + '<br>' +
         '京喜红包总额:' + jx + '<br>' +
         '京东红包总额:' + jd + '<br>' +
@@ -268,31 +269,31 @@ function cal(data, nickName) {
         '=======================' + '<br>' +
         '今天过期总金额:' + expiresToDay + '<br>';;
     if (expiresToDay != 0) {
-        $.pushNotify +=
+        pushNotify +=
             '▼▼▼▼▼▼今天过期详情▼▼▼▼▼▼' + '<br>' +
             '京喜红包:' + expiresToDayJX + '<br>' +
             '京东红包:' + expiresToDayJD + '<br>' +
             '京东优惠小程序红包:' + expiresToDayJDYH + '<br>';
     }
-    $.pushNotify += '=======================' + '<br>' +
+    pushNotify += '=======================' + '<br>' +
         '明天过期总金额:' + expiresTomorrow + '<br>';
     if (expiresTomorrow != 0) {
-        $.pushNotify +=
+        pushNotify +=
             '▼▼▼▼▼▼明天过期详情▼▼▼▼▼▼' + '<br>' +
             '京喜红包:' + expiresTomorrowJX + '<br>' +
             '京东红包:' + expiresTomorrowJD + '<br>' +
             '京东优惠小程序红包:' + expiresTomorrowJDYH + '<br>';
     }
-    $.pushNotify += '=======================' + '<br>' +
+    pushNotify += '=======================' + '<br>' +
         '后天过期总金额:' + expiresDAT + '<br>';
     if (expiresDAT != 0) {
-        $.pushNotify +=
+        pushNotify +=
             '▼▼▼▼▼▼后天过期详情▼▼▼▼▼▼' + '<br>' +
             '京喜红包:' + expiresDATJX + '<br>' +
             '京东红包:' + expiresDATJD + '<br>' +
             '京东优惠小程序红包:' + expiresDATJDYH;
     }
-	tasktext += `账号${$.index}：$.nickName\n$.pushNotify\n\n`;
+	
 }
 
 function calHB(orgLimitStr, hb, jx, jd, jdyh) {

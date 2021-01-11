@@ -251,28 +251,28 @@ function cal(data, nickName) {
     console.log('后天过期京东优惠小程序红包总额:' + expiresDATJDYH);
 
     //推送
-    let pushNotify = '红包总额:' + subHB + '%0a<br>%0a' +
-        '▼▼▼▼▼▼各平台金额▼▼▼▼▼▼' + '%0a<br>%0a' +
-        '京喜红包总额:' + jx + '%0a<br>%0a' +
-        '京东红包总额:' + jd + '%0a<br>%0a' +
-        '京东优惠小程序红包总额:' + jdyh + '%0a<br>%0a' +
-        '===================' + '%0a<br>%0a' +
-        '今天过期总金额:' + expiresToDay + '%0a<br>%0a' +
-        '▼▼▼▼▼▼各平台今天过期详情▼▼▼▼▼▼' + '%0a<br>%0a' +
-        '今天过期京喜红包总额:' + expiresToDayJX + '%0a<br>%0a' +
-        '今天过期京东红包总额:' + expiresToDayJD + '%0a<br>%0a' +
-        '今天过期京东优惠小程序红包总额:' + expiresToDayJDYH + '%0a<br>%0a' +
-        '===================' + '%0a<br>%0a' +
-        '明天过期总金额:' + expiresTomorrow + '%0a<br>%0a' +
-        '▼▼▼▼▼▼各平台明天过期详情▼▼▼▼▼▼' + '%0a<br>%0a' +
-        '明天过期京喜红包总额:' + expiresTomorrowJX + '%0a<br>%0a' +
-        '明天过期京东红包总额:' + expiresTomorrowJD + '%0a<br>%0a' +
-        '明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH + '%0a<br>%0a' +
-        '===================' + '%0a<br>%0a' +
-        '后天过期总金额:' + expiresDAT + '%0a<br>%0a' +
-        '▼▼▼▼▼▼各平台后天过期详情▼▼▼▼▼▼' + '%0a<br>%0a' +
-        '后天过期京喜红包总额:' + expiresDATJX + '%0a<br>%0a' +
-        '后天过期京东红包总额:' + expiresDATJD + '%0a<br>%0a' +
+    let pushNotify = '红包总额:' + subHB + '<br>' +
+        '▼▼▼▼▼▼各平台金额▼▼▼▼▼▼' + '<br>' +
+        '京喜红包总额:' + jx + '<br>' +
+        '京东红包总额:' + jd + '<br>' +
+        '京东优惠小程序红包总额:' + jdyh + '<br>' +
+        '===================' + '<br>' +
+        '今天过期总金额:' + expiresToDay + '<br>' +
+        '▼▼▼▼▼▼各平台今天过期详情▼▼▼▼▼▼' + '<br>' +
+        '今天过期京喜红包总额:' + expiresToDayJX + '<br>' +
+        '今天过期京东红包总额:' + expiresToDayJD + '<br>' +
+        '今天过期京东优惠小程序红包总额:' + expiresToDayJDYH + '<br>' +
+        '===================' + '<br>' +
+        '明天过期总金额:' + expiresTomorrow + '<br>' +
+        '▼▼▼▼▼▼各平台明天过期详情▼▼▼▼▼▼' + '<br>' +
+        '明天过期京喜红包总额:' + expiresTomorrowJX + '<br>' +
+        '明天过期京东红包总额:' + expiresTomorrowJD + '<br>' +
+        '明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH + '<br>' +
+        '===================' + '<br>' +
+        '后天过期总金额:' + expiresDAT + '<br>' +
+        '▼▼▼▼▼▼各平台后天过期详情▼▼▼▼▼▼' + '<br>' +
+        '后天过期京喜红包总额:' + expiresDATJX + '<br>' +
+        '后天过期京东红包总额:' + expiresDATJD + '<br>' +
         '后天过期京东优惠小程序红包总额:' + expiresDATJDYH;
     notify.sendNotify($.name + ' - ' + nickName, pushNotify);
 }

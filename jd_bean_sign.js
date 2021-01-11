@@ -19,6 +19,7 @@ let JD_DailyBonusPath = "./JD_DailyBonus.js";
 let outPutUrl = './';
 let NodeSet = 'CookieSet.json';
 let cookiesArr = [], cookie = '';
+let tasktext=[];	//合并通知
 
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -48,6 +49,7 @@ if ($.isNode()) {
       await execSign();
     }
   }
+await notify.sendNotify(`京豆签到`, tasktext);  
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
@@ -93,7 +95,7 @@ async function execSign() {
       $.beanSignTime = timeFormat(UTC8);
       console.log(`脚本执行完毕时间：${$.beanSignTime}`)
       if (BarkContent) {
-        await notify.sendNotify(`京豆签到 - 账号${$.index} - ${$.nickName || $.UserName}`, `【签到号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}`);
+		tasktext =+ `【签到号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}`);
       }
     }
     //运行完成后，删除下载的文件

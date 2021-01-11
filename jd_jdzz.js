@@ -46,7 +46,7 @@ if ($.isNode()) {
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const inviteCodes = [
-  `AVWccwPPHh2pWXw@ACjBUmqWRxDABCmSXnQ@AUWE5mviQzDENXGX8i3pMlg@AUWE5mqXDz2BcDzP_2nUflg` //在修复Secrets前，给自己助力 By:综综
+  `AVWccwPPHh2pWXw` 
 ]
 !(async () => {
   $.tuanList = []

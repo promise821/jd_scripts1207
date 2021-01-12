@@ -178,8 +178,8 @@ if ($.isNode()) {
   }
 console.log(`整理助力码输出`);
   console.log(`============`)
-console.log(`\r\n东东工厂：`ddgcArr, \r\n\n京喜工厂：`jxgcArr, `\r\n\n京东赚赚：`\n\njdzzArr, `\r\n\n京喜农场：`jxncArr, `\r\n\n京东萌宠：`jdmcArr, `\r\n\n种豆得豆：`zdddArr, `\n京东农场：`jdncArr, `\r\n疯狂joy：`crjoyArr);
- await notify.sendNotify(`助力码推送`, `\r\n东东工厂：`ddgcArr, \r\n\n京喜工厂：`jxgcArr, `\r\n\n京东赚赚：`\n\njdzzArr, `\r\n\n京喜农场：`jxncArr, `\r\n\n京东萌宠：`jdmcArr, `\r\n\n种豆得豆：`zdddArr, `\n京东农场：`jdncArr, `\r\n疯狂joy：`crjoyArr);
+console.log(`\r\n`+`东东工厂：`+ddgcArr,` \r\n`+`京喜工厂：`+jxgcArr, ` \r\n`+`京东赚赚：`+jdzzArr, ` \r\n`+`京喜农场：`+jxncArr, ` \r\n`+`京东萌宠：`+jdmcArr, ` \r\n\n`+`种豆得豆：`+zdddArr, ` \r\n`+`京东农场：`+jdncArr, ` \r\n`+`疯狂joy：`+crjoyArr);
+ await notify.sendNotify(`助力码推送`, `\r\n`+`东东工厂：`+ddgcArr,` \r\n`+`京喜工厂：`+jxgcArr, ` \r\n`+`京东赚赚：`+jdzzArr, ` \r\n`+`京喜农场：`+jxncArr, ` \r\n`+`京东萌宠：`+jdmcArr, ` \r\n\n`+`种豆得豆：`+zdddArr, ` \r\n`+`京东农场：`+jdncArr, ` \r\n`+`疯狂joy：`+crjoyArr);
 console.log(`============`)
 
 })()

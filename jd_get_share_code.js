@@ -178,9 +178,8 @@ if ($.isNode()) {
   }
 console.log(`整理助力码输出`);
   console.log(`============`)
-  zhulima =`\r\n`+`东东工厂：`+ddgcArr,` \r\n`+`京喜工厂：`+jxgcArr, ` \r\n`+`京东赚赚：`+jdzzArr, ` \r\n`+`京喜农场：`+jxncArr, ` \r\n`+`京东萌宠：`+jdmcArr, ` \r\n\n`+`种豆得豆：`+zdddArr, ` \r\n`+`京东农场：`+jdncArr, ` \r\n`+`疯狂joy：`+crjoyArr
-
-console.log(`\r\n`+`东东工厂：`+ddgcArr,` \r\n`+`京喜工厂：`+jxgcArr, ` \r\n`+`京东赚赚：`+jdzzArr, ` \r\n`+`京喜农场：`+jxncArr, ` \r\n`+`京东萌宠：`+jdmcArr, ` \r\n\n`+`种豆得豆：`+zdddArr, ` \r\n`+`京东农场：`+jdncArr, ` \r\n`+`疯狂joy：`+crjoyArr);
+  zhulima =`\r\n`+`东东工厂：`+ddgcArr+` \r\n`+`京喜工厂：`+jxgcArr+` \r\n`+`京东赚赚：`+jdzzArr+ ` \r\n`+`京喜农场：`+jxncArr+` \r\n`+`京东萌宠：`+jdmcArr+` \r\n\n`+`种豆得豆：`+zdddArr+` \r\n`+`京东农场：`+jdncArr+` \r\n`+`疯狂joy：`+crjoyArr
+console.log(zhulima);
  await notify.sendNotify(`助力码推送`, zhulima);
 console.log(`============`)
 
@@ -439,7 +438,7 @@ async function getJdZZ() {
                 console.log(`【账号${$.index}（${$.nickName || $.UserName}）京东赚赚】${data.data.shareTaskRes.itemId}`);
        jdzzArr +=`${data.data.shareTaskRes.itemId}@`
                               } else {
-                //console.log(`已满5人助力,暂时看不到您的京东赚赚好友助力码`)
+                console.log(`已满5人助力,暂时看不到您的京东赚赚好友助力码`)
               }
             }
           }

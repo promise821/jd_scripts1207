@@ -25,6 +25,7 @@ const JD_API_HOST = "https://api.m.jd.com/client.action";
 let ddgcArr = [],jxgcArr = [],jxncArr = [],jdzzArr = [],jdmcArr = [],zdddArr = [],jdncArr = [],crjoyArr = [];
 let cookiesArr = [], cookie = '', message;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+const notify = $.isNode() ? require('./sendNotify') : '';
 !function (n) {
   "use strict";
 
@@ -177,7 +178,8 @@ if ($.isNode()) {
   }
 console.log(`整理助力码输出`);
   console.log(`============`)
-console.log(ddgcArr,jxgcArr,jdzzArr,jxncArr ,jdmcArr ,zdddArr,jdncArr ,crjoyArr);
+console.log(`\n东东工厂：`ddgcArr, `\n\n京喜工厂：`jxgcArr, `\n\n京东赚赚：`\n\njdzzArr, `\n\n京喜农场：`jxncArr, `\n\n京东萌宠：`jdmcArr, `\n\n种豆得豆：`zdddArr, `\n京东农场：`jdncArr, `\n疯狂joy：`crjoyArr);
+ await notify.sendNotify(`助力码推送`, `\n东东工厂：`ddgcArr, `\n\n京喜工厂：`jxgcArr, `\n\n京东赚赚：`\n\njdzzArr, `\n\n京喜农场：`jxncArr, `\n\n京东萌宠：`jdmcArr, `\n\n种豆得豆：`zdddArr, `\n京东农场：`jdncArr, `\n疯狂joy：`crjoyArr);
 console.log(`============`)
 
 })()
@@ -206,7 +208,7 @@ function getJdFactory() {
                     console.log(
                       `【账号${$.index}（${$.nickName || $.UserName}）东东工厂】${item.assistTaskDetailVo.taskToken}`
                     );
-                  ddgcArr += `【账号${$.index}（${$.nickName || $.UserName}）东东工厂】${item.assistTaskDetailVo.taskToken}\n`
+                  ddgcArr += `${item.assistTaskDetailVo.taskToken}@`
                   }
                 });
               }

@@ -333,8 +333,9 @@ function getJxNc(){
               data = JSON.parse(data);
               if (data["ret"] === 0) {
                 console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜农场助力码】${data["smp"]}`);
-                console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜农场active】 ${$.info.active}`);
                 jxncArr +=`${data["smp"]}@`
+                console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜农场active】 ${$.info.active}`);
+                
               }
             } else {
               console.log(`京喜农场返回值解析异常：${JSON.stringify(data)}`);

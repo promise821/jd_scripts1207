@@ -22,6 +22,7 @@ cron "20 13 * * 6" script-path=https://raw.githubusercontent.com/lxk0301/jd_scri
  */
 const $ = new Env("获取互助码");
 const JD_API_HOST = "https://api.m.jd.com/client.action";
+let ddgcArr = [],jxgcArr = [],jxncArr = [],jdzzArr = [],jdmcArr = [],zdddArr = [],jdncArr = [],crjoyArr = []
 let cookiesArr = [], cookie = '', message;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 !function (n) {
@@ -174,6 +175,8 @@ if ($.isNode()) {
       await getShareCode()
     }
   }
+console.log(`整理助力码输出`);
+console.log(ddgcArr,jxgcArr,jdzzArr,jxncArr ,jdmcArr ,zdddArr,jdncArr ,crjoyArr);
 })()
   .catch((e) => {
     $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -200,6 +203,7 @@ function getJdFactory() {
                     console.log(
                       `【账号${$.index}（${$.nickName || $.UserName}）东东工厂】${item.assistTaskDetailVo.taskToken}`
                     );
+                  ddgcArr += `【账号${$.index}（${$.nickName || $.UserName}）东东工厂】${item.assistTaskDetailVo.taskToken}`
                   }
                 });
               }
@@ -263,6 +267,7 @@ function getJxFactory(){
                   $.encryptPin = data.user.encryptPin;
                   // subTitle = data.user.pin;
                   console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜工厂】${data.user.encryptPin}`);
+jxgcArr +=`【账号${$.index}（${$.nickName || $.UserName}）京喜工厂】${data.user.encryptPin}`
                 }
               } else {
                 $.unActive = false; //标记是否开启了京喜活动或者选购了商品进行生产
@@ -323,6 +328,7 @@ function getJxNc(){
               if (data["ret"] === 0) {
                 console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜农场助力码】${data["smp"]}`);
                 console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜农场active】 ${$.info.active}`);
+                jxncArr +=`【账号${$.index}（${$.nickName || $.UserName}）京喜农场助力码】${data["smp"]}`
               }
             } else {
               console.log(`京喜农场返回值解析异常：${JSON.stringify(data)}`);
@@ -391,6 +397,7 @@ function getJdPet(){
 
             console.log(
               `【账号${$.index}（${$.nickName || $.UserName}）京东萌宠】${$.petInfo.shareCode}`
+jdmcArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东萌宠】${$.petInfo.shareCode}`
             );
 
           } else if (initPetTownRes.code === "0") {
@@ -422,6 +429,7 @@ async function getJdZZ() {
               data = JSON.parse(data);
               if (data.data.shareTaskRes) {
                 console.log(`【账号${$.index}（${$.nickName || $.UserName}）京东赚赚】${data.data.shareTaskRes.itemId}`);
+       jdzzArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东赚赚】${data.data.shareTaskRes.itemId}`
                               } else {
                 //console.log(`已满5人助力,暂时看不到您的京东赚赚好友助力码`)
               }
@@ -523,6 +531,7 @@ async function getPlantBean() {
       const shareUrl = $.plantBeanIndexResult.data.jwordShareInfo.shareUrl;
       $.myPlantUuid = getParam(shareUrl, "plantUuid");
       console.log(`【账号${$.index}（${$.nickName || $.UserName}）种豆得豆】${$.myPlantUuid}`);
+zdddArr +=`【账号${$.index}（${$.nickName || $.UserName}）种豆得豆】${$.myPlantUuid}`
 
     } else {
       console.log(
@@ -588,6 +597,7 @@ async function getJDFruit() {
     if ($.farmInfo.farmUserPro) {
       console.log(
         `【账号${$.index}（${$.nickName || $.UserName}）京东农场】${$.farmInfo.farmUserPro.shareCode}`
+jdncArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东农场】${$.farmInfo.farmUserPro.shareCode}`
       );
 
     } else {
@@ -634,6 +644,7 @@ async function getJoy(){
             data = JSON.parse(data);
             if (data.success && data.data && data.data.userInviteCode) {
               console.log(`【账号${$.index}（${$.nickName || $.UserName}）crazyJoy】${data.data.userInviteCode}`)
+crjoyArr +=`【账号${$.index}（${$.nickName || $.UserName}）crazyJoy】${data.data.userInviteCode}`
             }
           }
         }

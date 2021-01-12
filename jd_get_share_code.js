@@ -176,7 +176,10 @@ if ($.isNode()) {
     }
   }
 console.log(`整理助力码输出`);
+  console.log(`============`)
 console.log(ddgcArr,jxgcArr,jdzzArr,jxncArr ,jdmcArr ,zdddArr,jdncArr ,crjoyArr);
+console.log(`============`)
+
 })()
   .catch((e) => {
     $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -203,7 +206,7 @@ function getJdFactory() {
                     console.log(
                       `【账号${$.index}（${$.nickName || $.UserName}）东东工厂】${item.assistTaskDetailVo.taskToken}`
                     );
-                  ddgcArr += `【账号${$.index}（${$.nickName || $.UserName}）东东工厂】${item.assistTaskDetailVo.taskToken}`
+                  ddgcArr += `【账号${$.index}（${$.nickName || $.UserName}）东东工厂】${item.assistTaskDetailVo.taskToken}\n`
                   }
                 });
               }
@@ -267,7 +270,7 @@ function getJxFactory(){
                   $.encryptPin = data.user.encryptPin;
                   // subTitle = data.user.pin;
                   console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜工厂】${data.user.encryptPin}`);
-jxgcArr +=`【账号${$.index}（${$.nickName || $.UserName}）京喜工厂】${data.user.encryptPin}`
+jxgcArr +=`【账号${$.index}（${$.nickName || $.UserName}）京喜工厂】${data.user.encryptPin}\n`
                 }
               } else {
                 $.unActive = false; //标记是否开启了京喜活动或者选购了商品进行生产
@@ -328,7 +331,7 @@ function getJxNc(){
               if (data["ret"] === 0) {
                 console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜农场助力码】${data["smp"]}`);
                 console.log(`【账号${$.index}（${$.nickName || $.UserName}）京喜农场active】 ${$.info.active}`);
-                jxncArr +=`【账号${$.index}（${$.nickName || $.UserName}）京喜农场助力码】${data["smp"]}`
+                jxncArr +=`【账号${$.index}（${$.nickName || $.UserName}）京喜农场助力码】${data["smp"]}\n`
               }
             } else {
               console.log(`京喜农场返回值解析异常：${JSON.stringify(data)}`);
@@ -399,7 +402,7 @@ function getJdPet(){
               `【账号${$.index}（${$.nickName || $.UserName}）京东萌宠】${$.petInfo.shareCode}`
 
             );
-jdmcArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东萌宠】${$.petInfo.shareCode}`
+jdmcArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东萌宠】${$.petInfo.shareCode}\n`
 
           } else if (initPetTownRes.code === "0") {
             console.log(`初始化萌宠失败:  ${initPetTownRes.message}`);
@@ -430,7 +433,7 @@ async function getJdZZ() {
               data = JSON.parse(data);
               if (data.data.shareTaskRes) {
                 console.log(`【账号${$.index}（${$.nickName || $.UserName}）京东赚赚】${data.data.shareTaskRes.itemId}`);
-       jdzzArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东赚赚】${data.data.shareTaskRes.itemId}`
+       jdzzArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东赚赚】${data.data.shareTaskRes.itemId}\n`
                               } else {
                 //console.log(`已满5人助力,暂时看不到您的京东赚赚好友助力码`)
               }
@@ -532,7 +535,7 @@ async function getPlantBean() {
       const shareUrl = $.plantBeanIndexResult.data.jwordShareInfo.shareUrl;
       $.myPlantUuid = getParam(shareUrl, "plantUuid");
       console.log(`【账号${$.index}（${$.nickName || $.UserName}）种豆得豆】${$.myPlantUuid}`);
-zdddArr +=`【账号${$.index}（${$.nickName || $.UserName}）种豆得豆】${$.myPlantUuid}`
+zdddArr +=`【账号${$.index}（${$.nickName || $.UserName}）种豆得豆】${$.myPlantUuid}\n`
 
     } else {
       console.log(
@@ -600,7 +603,7 @@ async function getJDFruit() {
         `【账号${$.index}（${$.nickName || $.UserName}）京东农场】${$.farmInfo.farmUserPro.shareCode}`
 
       );
-jdncArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东农场】${$.farmInfo.farmUserPro.shareCode}`
+jdncArr +=`【账号${$.index}（${$.nickName || $.UserName}）京东农场】${$.farmInfo.farmUserPro.shareCode}\n`
     } else {
       /*console.log(
         `初始化农场数据异常, 请登录京东 app查看农场0元水果功能是否正常,农场初始化数据: ${JSON.stringify(
@@ -645,7 +648,7 @@ async function getJoy(){
             data = JSON.parse(data);
             if (data.success && data.data && data.data.userInviteCode) {
               console.log(`【账号${$.index}（${$.nickName || $.UserName}）crazyJoy】${data.data.userInviteCode}`)
-crjoyArr +=`【账号${$.index}（${$.nickName || $.UserName}）crazyJoy】${data.data.userInviteCode}`
+crjoyArr +=`【账号${$.index}（${$.nickName || $.UserName}）crazyJoy】${data.data.userInviteCode}\n`
             }
           }
         }

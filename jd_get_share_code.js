@@ -180,7 +180,7 @@ console.log(`整理助力码输出`);
   console.log(`============`)
   zhulima =`\r\n`+`东东工厂：`+ddgcArr,` \r\n`+`京喜工厂：`+jxgcArr, ` \r\n`+`京东赚赚：`+jdzzArr, ` \r\n`+`京喜农场：`+jxncArr, ` \r\n`+`京东萌宠：`+jdmcArr, ` \r\n\n`+`种豆得豆：`+zdddArr, ` \r\n`+`京东农场：`+jdncArr, ` \r\n`+`疯狂joy：`+crjoyArr
 
-console.log(zhulima);
+console.log(`\r\n`+`东东工厂：`+ddgcArr,` \r\n`+`京喜工厂：`+jxgcArr, ` \r\n`+`京东赚赚：`+jdzzArr, ` \r\n`+`京喜农场：`+jxncArr, ` \r\n`+`京东萌宠：`+jdmcArr, ` \r\n\n`+`种豆得豆：`+zdddArr, ` \r\n`+`京东农场：`+jdncArr, ` \r\n`+`疯狂joy：`+crjoyArr);
  await notify.sendNotify(`助力码推送`, zhulima);
 console.log(`============`)
 

@@ -25,6 +25,9 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
 const ACT_ID = 'dz2010100034444201', shareUuid = '0b632c68677b4d7bbd2e28bc88f37736'
+let ADD_CART = false
+ADD_CART = $.isNode() ? (process.env.PURCHASE_SHOPS ? process.env.PURCHASE_SHOPS : ADD_CART) : ($.getdata("ADD_CART") ? $.getdata("ADD_CART") : ADD_CART);
+// 加入购物车开关，与东东小窝共享
 
 let inviteCodes = [
   '0b632c68677b4d7bbd2e28bc88f37736@0547ceff2d2043e8a40bdc803743fbc3',
@@ -300,7 +303,7 @@ function getActContent(info = false, shareUuid = '') {
               if (!info) {
                 const tasks = data.data.settingVo
                 for (let task of tasks) {
-                  if (['关注店铺', '加购商品'].includes(task.title)) {
+                  if (['关注店铺'].includes(task.title)) {
                     if (task.okNum < task.dayMaxNum) {
                       console.log(`去做${task.title}任务`)
                       await doTask(task.settings[0].type, task.settings[0].value)
@@ -322,6 +325,11 @@ function getActContent(info = false, shareUuid = '') {
                         if (res.result) break
                         await $.wait(500)
                       }
+                    }
+                  } else if (ADD_CART && ['加购商品'].includes(task.title)) {
+                    if (task.okNum < task.dayMaxNum) {
+                      console.log(`去做${task.title}任务`)
+                      await doTask(task.settings[0].type, task.settings[0].value)
                     }
                   }
                 }

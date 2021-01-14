@@ -398,7 +398,7 @@ function getMessage(endInfo, startInfo) {
         notifyBool = true;
         message += `【成熟】水果已成熟请及时收取\n`;
 		
-			await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}水果已成熟`, `【京东账号${$.index}】${$.nickName || $.UserName}\n【提醒⏰】${startInfo.prizename}已可领取\n请去京喜APP查看`);	
+		notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}水果已成熟`, `【京东账号${$.index}】${$.nickName || $.UserName}\n【提醒⏰】${startInfo.prizename}已可领取\n请去京喜APP查看`);	
 		
         return;
     }

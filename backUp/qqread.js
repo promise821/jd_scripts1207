@@ -80,6 +80,7 @@ let qqreadtimeurlVal = $.getdata(qqreadtimeurlKey)
 
 const qqreadtimeheaderKey = 'qqreadtimehd'
 let qqreadtimeheaderVal = $.getdata(qqreadtimeheaderKey)
+let nowTimes = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000);
 //云函数使用在下面填写
 let QQ_READ_COOKIES = [
   {
@@ -179,7 +180,7 @@ function GetCookie() {
 async function QQ_READ() {
   for (let i = 0; i < QQ_READ_COOKIES.length; i++) {
     $.log(`\n*************开始QQ账号${i + 1}**************\n`);
-    tz = '';
+    $.isLogin = true;
     if (!QQ_READ_COOKIES[i]["qqreadbodyVal"] || !QQ_READ_COOKIES[i]['qqreadtimeurlVal'] || !QQ_READ_COOKIES[i]['qqreadtimeheaderVal']) {
       $.log(`账号${i + 1}暂未提供脚本执行所需的cookie`);
       continue
@@ -188,6 +189,13 @@ async function QQ_READ() {
     qqreadtimeurlVal = QQ_READ_COOKIES[i]['qqreadtimeurlVal'];
     qqreadtimeheaderVal = QQ_READ_COOKIES[i]['qqreadtimeheaderVal'];
     await qqreadinfo();//用户名
+    if (!$.isLogin) {
+      $.log(`企鹅阅读账号${i + 1} cookie过期`);
+      if (nowTimes.getHours() % 12 === 0 && (nowTimes.getMinutes() > 0 && nowTimes.getMinutes() <= 15)) {
+        await notify.sendNotify(`企鹅阅读账号${i + 1} cookie过期`, '请及时更新 QQ_READ_TIME_HEADER_VAL')
+      }
+      continue
+    }
     await qqreadwktime();//周时长查询
     await qqreadtrack();
     await qqreadconfig();//时长查询
@@ -231,13 +239,12 @@ async function QQ_READ() {
     if (task.data.user.amount >= 100000) {
       await qqreadwithdraw();
     }
-    await showmsg();//通知
   }
+  await showmsg();//通知
 }
 function showmsg() {
   return new Promise(async resolve => {
-    let nowTimes = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000);
-    if (nowTimes.getHours() === 22 && (nowTimes.getMinutes() >= 0 && nowTimes.getMinutes() <= 15)) {
+    if (nowTimes.getHours() === 22 && (nowTimes.getMinutes() > 45 && nowTimes.getMinutes() <= 59)) {
       await notify.sendNotify(jsname, tz);
     }
     $.msg(jsname, "", tz);
@@ -328,6 +335,13 @@ function qqreadinfo() {
     $.get(toqqreadinfourl, (error, response, data) => {
       if (logs) $.log(`${jsname}, 用户名: ${data}`);
       let info = JSON.parse(data);
+      if (info.code === 0) {
+        $.isLogin = info.data['isLogin'];
+        if (!$.isLogin) {
+          resolve();
+          return
+        }
+      }
       kz += `\n========== 【${info.data.user.nickName}】 ==========\n`;
       tz += `\n========== 【${info.data.user.nickName}】 ==========\n`;
 

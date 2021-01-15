@@ -54,12 +54,15 @@ function generateQrcode() {
           $.stepsHeaders = resp.headers;
           data = JSON.parse(data);
           token = data['token'];
-           $.log('https://plogin.m.jd.com/cgi-bin/m/tmauth?appid=300&client_type=m&token=' + token)
+		  console.log("请复制下面的地址到 https://cli.im/url 生成二维码，使用京东APP扫码登录(有效期为3分钟)");
+		  
+           //$.log('https://plogin.m.jd.com/cgi-bin/m/tmauth?appid=300&client_type=m&token=' + token)
 
           const setCookie = resp.headers['set-cookie'][0];
           okl_token = setCookie.substring(setCookie.indexOf("=") + 1, setCookie.indexOf(";"))
           const url = 'https://plogin.m.jd.com/cgi-bin/m/tmauth?appid=300&client_type=m&token=' + token;
-          qrcode.generate(url, {small: true}); // 输出二维码
+		  $.log(url)
+          //qrcode.generate(url, {small: true}); // 输出二维码
           console.log("请打开 京东APP 扫码登录(二维码有效期为3分钟)");
         }
       } catch (e) {

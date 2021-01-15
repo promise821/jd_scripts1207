@@ -1,4 +1,4 @@
-# 不要fork! 请点亮Star
+# 低调使用，请勿使用github action、滥用github资源会封我仓库以及账号
 
 ## 特别声明: 
 
@@ -79,7 +79,6 @@
 
 **TODO**
 - [x] 所有活动互助码在一个脚本打印
-- [ ] 京喜工厂添加预测N天后可兑换功能
 
 ## 邀请码互助
   - [邀请码互助入口](https://github.com/lxk0301/jd_scripts/discussions)
@@ -112,22 +111,17 @@
  
 #### 注：以上三种运行机制都是Node.js，故您需仔细阅读下面几点
 
-
-  - 如果使用方法一与方法二，需自行提供京东cookie填写到 [jdCookie.js](https://github.com/lxk0301/jd_scripts/blob/master/jdCookie.js) 里面
-
-   
   - 获取京东cookie教程可参考 [浏览器获取京东cookie教程](https://github.com/lxk0301/jd_scripts/blob/master/backUp/GetJdCookie.md) , [插件获取京东cookie教程](https://github.com/lxk0301/jd_scripts/blob/master/backUp/GetJdCookie2.md)
 
   - 京东APP扫码获取cookie(此种方式获取的cookie有效期为90天)(执行`node getJDCookie.js`即可)
     
-  - 方法三Docker安装Cookie请见各自的说明。
+  - 方法二Docker安装Cookie请见各自的说明。
 
-### 方法四：iOS系统的代理软件（QuantumultX, Surge, Loon, 小火箭）
+### 方法三：iOS系统的代理软件（QuantumultX, Surge, Loon, 小火箭）
 
   - [京东cookie获取脚本 JD_extra_cookie.js](https://raw.githubusercontent.com/lxk0301/jd_scripts/master/JD_extra_cookie.js)
 
-### 赞赏码(开发维护不易,请赏杯茶水费)
-<div align=center><img width="250" height="250" src="https://raw.githubusercontent.com/lxk0301/jd_scripts/master/icon/thanks.jpg"/></div>
+
 
 ### 特别感谢(排名不分先后)：
 * [@NobyDa](https://github.com/NobyDa)

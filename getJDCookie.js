@@ -54,7 +54,7 @@ function generateQrcode() {
           $.stepsHeaders = resp.headers;
           data = JSON.parse(data);
           token = data['token'];
-           $.log('token', token)
+           $.log('https://plogin.m.jd.com/cgi-bin/m/tmauth?appid=300&client_type=m&token=' + token)
 
           const setCookie = resp.headers['set-cookie'][0];
           okl_token = setCookie.substring(setCookie.indexOf("=") + 1, setCookie.indexOf(";"))

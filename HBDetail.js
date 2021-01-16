@@ -262,14 +262,14 @@ function cal(data, nickName) {
     }
 
     //推送
-    redexpires += nickName+' - ' +'红包总额:' + subHB  +'今天过期:' + expiresToDay + '\n';
+    redexpires += nickName+' - ' +'红包总额:' + subHB  +'    今天过期:' + expiresToDay + '\n';
     pushNotify += '***************分割线****************'+ '\n'
-          '红包总额:' + subHB + '\n' 
-        '▼▼▼▼▼▼账号：'+nickName+ - ' +各平台金额▼▼▼▼▼▼' + '\n' 
-        '京喜红包总额:' + jx + '\n' 
-        '京东红包总额:' + jd + '\n' 
+        '账号：'+nickName+  ' 红包总额:' + subHB + '\n' +
+        '▼▼▼▼▼▼账号：'+nickName+ - ' +各平台金额▼▼▼▼▼▼' + '\n' +
+        '京喜红包总额:' + jx + '\n' +
+        '京东红包总额:' + jd + '\n' +
         '京东优惠小程序红包总额:' + jdyh + '\n\n' 
-        '=========账号：'+nickName+ - ' +==========' + '\n' +
+        '=========账号：'+nickName+ ' ==========' + '\n' +
         '今天过期总金额:' + expiresToDay + '\n\n';;
     if (expiresToDay != 0) {
         pushNotify +=
@@ -279,7 +279,7 @@ function cal(data, nickName) {
             '今天过期京东优惠小程序红包总额:' + expiresToDayJDYH + '\n\n';
       
     }
-    pushNotify += '========账号：'+nickName+ - ' +===========' + '\n' +
+    pushNotify += '========账号：'+nickName+  ' ===========' + '\n' +
         '明天过期总金额:' + expiresTomorrow + '\n';
     if (expiresTomorrow != 0) {
         pushNotify +=
@@ -288,7 +288,7 @@ function cal(data, nickName) {
             '明天过期京东红包总额:' + expiresTomorrowJD + '\n' +
             '明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH + '\n\n';
     }
-    pushNotify += '========账号：'+nickName+ - ' ===========' + '\n' +
+    pushNotify += '========账号：'+nickName+ ' ===========' + '\n' +
         '后天过期总金额:' + expiresDAT + '\n';
     if (expiresDAT != 0) {
         pushNotify +=

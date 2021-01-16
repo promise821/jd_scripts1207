@@ -55,7 +55,7 @@ if ($.isNode()) {
             await putMsg();
         }
     }
-    notify.sendNotify($.name ,redexpires+pushNotify);
+    notify.sendNotify(`${$.name}` ,redexpires+pushNotify);
 })()
     .catch((e) => {
         $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')

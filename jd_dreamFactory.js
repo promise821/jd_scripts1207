@@ -1359,7 +1359,7 @@ function requireConfig() {
   return new Promise(async resolve => {
     await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json');
     // if (!$.tuanIdS) await updateTuanIds();
-    // if (!$.tuanIdS) await updateTuanIdsCDN('https://cdn.jsdelivr.net/gh/lxk0301/updateTeam@master/jd_updateFactoryTuanId.json');
+    // if (!$.tuanIdS) await updateTuanIdsCDN('https://cdn.jsdelivr.net/gh/LXK9301/updateTeam@master/jd_updateFactoryTuanId.json');
     if ($.tuanIdS && $.tuanIdS.tuanActiveId) {
       tuanActiveId = $.tuanIdS.tuanActiveId;
     }

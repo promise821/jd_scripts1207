@@ -55,7 +55,7 @@
       ## 如果某个Cookie的账号种植的是app种子，则必须填入有效的TOKEN；而种植非app种子则不需要TOKEN
       ## TOKEN的形式：{"farm_jstoken":"749a90f871adsfads8ffda7bf3b1576760","timestamp":"1610165423873","phoneid":"42c7e3dadfadsfdsaac-18f0e4f4a0cf"}
       ## 因TOKEN中带有双引号，因此，变量值两侧必须由一对单引号引起来
-      ## TOKEN如何获取请阅读以下文件的注释：https://github.com/lxk0301/jd_scripts/blob/master/jd_jxnc.js
+      ## TOKEN如何获取请阅读以下文件的注释：https://github.com/LXK9301/jd_scripts/blob/master/jd_jxnc.js
       TokenJxnc1='{"farm_jstoken":"xxx","phoneid":"xxx","timestamp":"xxx"}'
       TokenJxnc2=''
       TokenJxnc3=''

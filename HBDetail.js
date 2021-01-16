@@ -269,9 +269,9 @@ function cal(data, nickName) {
         '▼▼▼▼▼▼账号：'+nickName+ - ' +各平台金额▼▼▼▼▼▼' + '\n' +
         '京喜红包总额:' + jx + '\n' +
         '京东红包总额:' + jd + '\n' +
-        '京东优惠小程序红包总额:' + jdyh + '\n\n' 
+        '京东优惠小程序红包总额:' + jdyh + '\n\n' +
         '=========账号：'+nickName+ ' ==========' + '\n' +
-        '今天过期总金额:' + expiresToDay + '\n\n';;
+        '今天过期总金额:' + expiresToDay + '\n';;
     if (expiresToDay != 0) {
         pushNotify +=
             '▼▼▼▼▼▼各平台今天过期详情▼▼▼▼▼▼' + '\n' +

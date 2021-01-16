@@ -9,6 +9,7 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [],
     cookie = '',
     message;
+let  redexpires = []
 if ($.isNode()) {
     Object.keys(jdCookieNode).forEach((item) => {
         cookiesArr.push(jdCookieNode[item])
@@ -231,14 +232,14 @@ function cal(data, nickName) {
     subHB = add(add(jd, jx), jdyh);
     console.clear();
     console.log('红包总额:' + subHB);
-    console.log('▼▼▼▼▼▼nickName+' - ' +各平台金额▼▼▼▼▼▼');
+    console.log('▼▼▼▼▼▼'+nickName+' - ' +'各平台金额▼▼▼▼▼▼');
     console.log('京喜红包总额:' + jx);
     console.log('京东红包总额:' + jd);
     console.log('京东优惠小程序红包总额:' + jdyh);
     console.log('===================');
     console.log('今天过期总金额:' + expiresToDay);
     if (expiresToDay != 0) {
-        console.log('▼▼▼▼▼▼nickName+' - ' +各平台今天过期详情▼▼▼▼▼▼');
+        console.log('▼▼▼▼▼▼'+nickName+' - ' +'各平台今天过期详情▼▼▼▼▼▼');
         console.log('今天过期京喜红包总额:' + expiresToDayJX);
         console.log('今天过期京东红包总额:' + expiresToDayJD);
         console.log('今天过期京东优惠小程序红包总额:' + expiresToDayJDYH);
@@ -246,7 +247,7 @@ function cal(data, nickName) {
     console.log('===================');
     console.log('明天过期总金额:' + expiresTomorrow);
     if (expiresTomorrow != 0) {
-        console.log('▼▼▼▼▼▼ nickName+' - ' +各平台明天过期详情▼▼▼▼▼▼');
+        console.log('▼▼▼▼▼▼'+nickName+' - ' +'各平台明天过期详情▼▼▼▼▼▼');
         console.log('明天过期京喜红包总额:' + expiresTomorrowJX);
         console.log('明天过期京东红包总额:' + expiresTomorrowJD);
         console.log('明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH);
@@ -254,27 +255,27 @@ function cal(data, nickName) {
     console.log('===================');
     console.log('后天过期总金额:' + expiresDAT);
     if (expiresDAT != 0) {
-        console.log('▼▼▼▼▼▼nickName+' - ' +各平台后天过期详情▼▼▼▼▼▼');
+        console.log('▼▼▼▼▼▼'+nickName+' - ' +'各平台后天过期详情▼▼▼▼▼▼');
         console.log('后天过期京喜红包总额:' + expiresDATJX);
         console.log('后天过期京东红包总额:' + expiresDATJD);
         console.log('后天过期京东优惠小程序红包总额:' + expiresDATJDYH);
     }
 
     //推送
-    let redexpires = nickName+' - ' +'红包总额:' + subHB + '\n' +'今天过期:' + expiresToDay + '\n';
+    redexpires += nickName+' - ' +'红包总额:' + subHB + '\n' +'今天过期:' + expiresToDay + '\n';
     let pushNotify = '红包总额:' + subHB + '\n' +
         '▼▼▼▼▼▼'+nickName+ - ' +各平台金额▼▼▼▼▼▼' + '\n' +
         '京喜红包总额:' + jx + '\n' +
         '京东红包总额:' + jd + '\n' +
         '京东优惠小程序红包总额:' + jdyh + '\n' +
         '===================' + '\n' +
-        '今天过期总金额:' + expiresToDay + '\n'+ '\n';;
+        '今天过期总金额:' + expiresToDay + '\n';;
     if (expiresToDay != 0) {
         pushNotify +=
             '▼▼▼▼▼▼'+nickName+ - ' +各平台今天过期详情▼▼▼▼▼▼' + '\n' +
             '今天过期京喜红包总额:' + expiresToDayJX + '\n' +
             '今天过期京东红包总额:' + expiresToDayJD + '\n' +
-            '今天过期京东优惠小程序红包总额:' + expiresToDayJDYH + '\n'+ '\n';
+            '今天过期京东优惠小程序红包总额:' + expiresToDayJDYH + '\n';
       
     }
     pushNotify += '===================' + '\n' +
@@ -284,7 +285,7 @@ function cal(data, nickName) {
             '▼▼▼▼▼▼'+nickName+ - ' +各平台明天过期详情▼▼▼▼▼▼' + '\n' +
             '明天过期京喜红包总额:' + expiresTomorrowJX + '\n' +
             '明天过期京东红包总额:' + expiresTomorrowJD + '\n' +
-            '明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH + '\n'+ '\n';
+            '明天过期京东优惠小程序红包总额:' + expiresTomorrowJDYH + '\n';
     }
     pushNotify += '===================' + '\n' +
         '后天过期总金额:' + expiresDAT + '\n';

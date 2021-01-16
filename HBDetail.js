@@ -262,8 +262,9 @@ function cal(data, nickName) {
     }
 
     //推送
-    redexpires += nickName+' - ' +'红包总额:' + subHB + '\n' +'今天过期:' + expiresToDay + '\n';
-    pushNotify += '红包总额:' + subHB + '' 
+    redexpires += nickName+' - ' +'红包总额:' + subHB  +'今天过期:' + expiresToDay + '\n';
+    pushNotify += '***************分割线****************'+ '\n'
+          '红包总额:' + subHB + '\n' 
         '▼▼▼▼▼▼账号：'+nickName+ - ' +各平台金额▼▼▼▼▼▼' + '\n' 
         '京喜红包总额:' + jx + '\n' 
         '京东红包总额:' + jd + '\n' 

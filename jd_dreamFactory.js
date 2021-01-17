@@ -36,6 +36,7 @@ const jxOpenUrl = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%2
 let cookiesArr = [], cookie = '', message = '';
 const inviteCodes = [`NeuVHXg0vw8-QRJS6fmL7A==@05tfe7_atmkggWus12BPbQ==`];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+$.tuanIds = [];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -904,6 +905,7 @@ async function tuanActivity() {
               }
             }
           } else {
+            $.tuanIds.push(tuanId);
             $.log(`\n此团未达领取团奖励人数：${tuanNum}人\n`)
           }
         }

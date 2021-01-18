@@ -7,17 +7,17 @@
 ============Quantumultx===============
 [task_local]
 #签到领现金
-2 0 * * * https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_cash.js, tag=签到领现金, enabled=true
+2 0 * * * https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_cash.js, tag=签到领现金, enabled=true
 
 ================Loon==============
 [Script]
-cron "2 0 * * *" script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_cash.js,tag=签到领现金
+cron "2 0 * * *" script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_cash.js,tag=签到领现金
 
 ===============Surge=================
-签到领现金 = type=cron,cronexp="2 0 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_cash.js
+签到领现金 = type=cron,cronexp="2 0 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_cash.js
 
 ============小火箭=========
-签到领现金 = type=cron,script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_cash.js, cronexpr="2 0 * * *", timeout=200, enable=true
+签到领现金 = type=cron,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_cash.js, cronexpr="2 0 * * *", timeout=200, enable=true
  */
 const $ = new Env('签到领现金');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -29,8 +29,8 @@ let cookiesArr = [], cookie = '', message;
 let helpAuthor = true;
 const randomCount = $.isNode() ? 20 : 5;
 const inviteCodes = [
-  `-4msulYas0O2JsRhE-2TA5XZmBQ@eU9Yar_mb_9z92_WmXNG0w@eU9YaO7jMvwh-W_VzyUX0Q`,
-  `-4msulYas0O2JsRhE-2TA5XZmBQ@eU9Yar_mb_9z92_WmXNG0w@eU9YaO7jMvwh-W_VzyUX0Q`
+  `-rmYukAfv3aJ@eU9YauqyM_Ql8G_Tw3EV0A`,
+  `-rmYukAfv3aJ@eU9YauqyM_Ql8G_Tw3EV0A`
 ]
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -116,23 +116,23 @@ function index(info=false) {
               for(let task of data.data.result.taskInfos){
                 if (task.type === 4) {
                   for (let i = task.doTimes; i < task.times; ++i) {
-                    console.log(`去做${task.name}任务 ${i}/${task.times}`)
+                    console.log(`去做${task.name}任务 ${i+1}/${task.times}`)
                     await doTask(task.type, task.jump.params.skuId)
-                    await $.wait(1000)
+                    await $.wait(5000)
                   }
                 }
                 else if (task.type === 2) {
                   for (let i = task.doTimes; i < task.times; ++i) {
-                    console.log(`去做${task.name}任务 ${i}/${task.times}`)
+                    console.log(`去做${task.name}任务 ${i+1}/${task.times}`)
                     await doTask(task.type, task.jump.params.shopId)
-                    await $.wait(1000)
+                    await $.wait(5000)
                   }
                 }
-                else if (task.type === 16 || task.type===3 || task.type===5) {
+                else if (task.type === 16 || task.type===3 || task.type===5 || task.type===17 || task.type===21) {
                   for (let i = task.doTimes; i < task.times; ++i) {
-                    console.log(`去做${task.name}任务 ${i}/${task.times}`)
+                    console.log(`去做${task.name}任务 ${i+1}/${task.times}`)
                     await doTask(task.type, task.jump.params.url)
-                    await $.wait(1000)
+                    await $.wait(5000)
                   }
                 }
               }
@@ -259,7 +259,7 @@ function showMsg() {
 function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
-    $.get({url: `https://code.chiang.fun/api/v1/jd/jdcash/read/${randomCount}/`}, (err, resp, data) => {
+    $.get({url: `https://code.chiang.fun/api/v1/jd/jdcash/read/${randomCount}/`, 'timeout': 10000}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -365,7 +365,7 @@ function taskUrl(functionId, body = {}) {
 
 function getAuthorShareCode() {
   return new Promise(resolve => {
-    $.get({url: "https://gitee.com/shylocks/updateTeam/raw/main/jd_cash.json",headers:{
+    $.get({url: "https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_cash.json",headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }}, async (err, resp, data) => {
       $.authorCode = [];

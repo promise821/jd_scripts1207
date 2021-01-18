@@ -109,6 +109,7 @@ function getRnd() {
 }
 function showMsg() {
   return new Promise(resolve => {
+    console.log('任务已做完！\n如有未完成的任务，请多执行几次。注：目前入会任务不会做')
     if (!jdNotify) {
       $.msg($.name, '', `${message}`);
     } else {
@@ -477,7 +478,7 @@ function getFriendData(inviteId) {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           data = JSON.parse(data);
-          if (data && data.data['bizCode'] === 0) {
+          if (data.data && data.data['bizCode'] === 0) {
             $.itemId = data.data.result.homeMainInfo.guestInfo.itemId
             await collectScore('2',$.itemId,null,inviteId)
           }
@@ -878,7 +879,7 @@ function taskPostUrl(function_id, body = {}, function_id2) {
       "origin": "https://h5.m.jd.com",
       "referer": "https://h5.m.jd.com/",
       'Content-Type': 'application/x-www-form-urlencoded',
-      "User-Agent":  "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0",
+      "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
     }
   }
 }

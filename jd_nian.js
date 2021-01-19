@@ -47,7 +47,7 @@ if ($.isNode()) {
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const inviteCodes = [
  // `A@B`,
-  `cgxZ9sMt8hZ3M4RmREnKhcaL4G4Wkvpob25H@cgxZdTXtIrzavwbKCQSv5z1-zgGeZEj2mmL2q1Ai8knRvGl0hCPZve5hQ7U@cgxZ-tY78Q1jP61r0agLNwD96dWzmMwVR2gkVm-xNYjIfdXg9N8HW5o@cgxZdTXtIruOvwmYWgeg7w8EDX6cJtNSfkf69NW-MH8A8EQ3tZZx5nfOvlo@cgxZdTXtYd2nqXW8Slz7qnIHCUszMhhdNcdgoNOEoSz3f_ttlSIwY7k@cgxZdTXtUNCpuFaMbnzAuWEOZ1SKKfUUqoh16IkRJCCd0LysNNu64Ac@cgxZdTXtIbPdvlrAWVau5vyBcm82nyvfg3r5MF4gN-viB3uZyK8pHncZaqI@cgxZRjDcfL_Y6kKFawSvqEbh0gswuBg@cgxZdTXtILrS7widXQz97tnCAgo2RpkxwVgMwiYQQNo8jWY4i-zYFlOFZY0@cgxZdTXtIezT6QmYCwWt5rPVMruJ_q3hypZxtxv9AfnBumUuHm1amNSCirA@cgxZdTXtI-nT61vMDFSru-WgIjo7ttqw1ako_jvyg0JVicrIJTXqPAk6jD0@cgxZdTXtI-jZvF_NAAT9veyMPSq4uCuQzIF8pMezx_2Q4082g0FCb_9T08E`
+  `cgxZ9sMt8hZ3M4RmREnKhcaL4G4Wkvpob25H`
 ];
 !(async () => {
   await requireConfig();

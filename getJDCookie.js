@@ -62,7 +62,7 @@ function generateQrcode() {
           okl_token = setCookie.substring(setCookie.indexOf("=") + 1, setCookie.indexOf(";"))
           const url = 'https://plogin.m.jd.com/cgi-bin/m/tmauth?appid=300&client_type=m&token=' + token;
 		  console.log("方法一：点击下面的二维码直链)");
-		  $.log('http://qr.liantu.com/api.php?text=https://plogin.m.jd.com/cgi-bin/m/tmauth?appid=300%26client_type=m%26token=' + token)
+		  $.log('http://qr.liantu.com/api.php?text=https://plogin.m.jd.com/cgi-bin/m/tmauth?appid=300%26client_type=m%26token=' + token + '&mhid=vRbOCQztnMIhMHYsLtVRMKk')
 		  console.log("如果方法一失效，请复制下面的地址到 https://cli.im/url 生成二维码，使用京东APP扫码登录(有效期为3分钟)");
 		  $.log(url)
           //qrcode.generate(url, {small: true}); // 输出二维码

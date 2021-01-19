@@ -148,11 +148,11 @@ function formatCookie(headers) {
 
     $.UserName = decodeURIComponent(cookie1.match(/pt_pin=(.+?);/) && cookie1.match(/pt_pin=(.+?);/)[1])
     $.log(`京东用户：${$.UserName} Cookie获取成功(有效期：${headers['strict-transport-security'].substring("max-age=7776000".indexOf('=') + 1, "max-age=7776000".length)}秒)，cookie如下：`);
-    $.log(`\n${cookie1}\n`);
+    //$.log(`\n${cookie1}\n`);
 	$.log(`\ncookie已通过通知发送，请查收\n`);
-	message += `cookie如下：\n${cookie1}\n`;
-	notify.sendNotify(`${$.UserName} Cookie获取成功` ,message);
-	$.log(`${$.UserName} Cookie获取成功\n ${message}`);
+		message += `Cookie如下：\n${cookie1}\n`;
+		notify.sendNotify(`京东用户：${$.UserName} Cookie获取成功` ,message);
+		//$.log(`${$.UserName} Cookie获取成功\n ${message}`);
     resolve()
   })
 }

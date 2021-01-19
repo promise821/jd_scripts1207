@@ -152,7 +152,7 @@ function formatCookie(headers) {
 	$.log(`\ncookie已通过通知发送，请查收\n`);
 	message += `cookie如下：\n${cookie1}\n`;
 	notify.sendNotify(`${$.UserName} Cookie获取成功` ,message);
-	$.log(`${$.UserName} Cookie获取成功\n`message);
+	$.log(`${$.UserName} Cookie获取成功\n ${message}`);
     resolve()
   })
 }

@@ -123,7 +123,7 @@ async function jdGy(help = true) {
 async function helpFriends() {
   for (let code of $.newShareCodes) {
     if (!code) continue
-    console.log(`去助力好友${code}`)
+    //console.log(`去助力好友${code}`)
     await getActInfo(code)
     await $.wait(500)
   }

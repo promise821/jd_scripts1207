@@ -193,7 +193,7 @@ function requireConfig() {
                 },
                 "timeout": 10000,
             }
-            let options = null; //去除内置互助码
+            let options = ''; //去除内置互助码
             $.get(options, (err, resp, data) => { // 初始化内置变量
                 if (!err) {
                     shareCode = data;

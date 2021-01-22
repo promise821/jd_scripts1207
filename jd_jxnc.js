@@ -193,7 +193,7 @@ function requireConfig() {
                 },
                 "timeout": 10000,
             }
-            let options = ''; //去除内置互助码
+            options = ''; //去除内置互助码
             $.get(options, (err, resp, data) => { // 初始化内置变量
                 if (!err) {
                     shareCode = data;
@@ -303,7 +303,7 @@ async function jdJXNC() {
                 await submitInviteId($.UserName);
                 await $.wait(500);
                 let next = await helpFriends();
-				let next = null; //屏蔽获取互助
+				next = null; //屏蔽获取互助
                 if (next) {
                     while ($.helpNum < $.maxHelpNum) {
                         $.helpNum++;

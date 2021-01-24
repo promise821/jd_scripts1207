@@ -108,22 +108,27 @@ function obj2param(obj) {
 
 async function jdGy(help = true) {
   $.reqId = 1
-  await getIsvToken()
-  await getIsvToken2()
-  await getActInfo()
-  await getTaskList()
-  await getDailyMatch()
-  if (help) {
-    await helpFriends()
+  try{
+    await getIsvToken()
+    await getIsvToken2()
+    await getActInfo()
+    await getTaskList()
+    await getDailyMatch()
+    if (help) {
+      await helpFriends()
+    }
+    // await marketGoods()
+    await play()
   }
-  // await marketGoods()
-  await play()
+  catch (e) {
+    console.log(e)
+  }
 }
 
 async function helpFriends() {
   for (let code of $.newShareCodes) {
     if (!code) continue
-    //console.log(`去助力好友${code}`)
+    console.log(`去助力好友${code}`)
     await getActInfo(code)
     await $.wait(500)
   }

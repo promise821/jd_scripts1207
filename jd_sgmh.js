@@ -28,8 +28,8 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let appId = '1EFRRxA' , homeDataFunPrefix = 'interact_template', collectScoreFunPrefix = 'harmony', message = ''
 let lotteryResultFunPrefix = homeDataFunPrefix, browseTime = 6
 const inviteCodes = [
-  '',
-  ''
+  'T0144K85H0BOvwuJdwCjVWmIaW5kRrbA',
+  'T0144K85H0BOvwuJdwCjVWmIaW5kRrbA'
 ];
 const randomCount = $.isNode() ? 20 : 5;
 let merge = {}

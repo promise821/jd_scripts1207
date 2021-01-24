@@ -164,7 +164,8 @@ function requireConfig() {
         // 检查互助码是否为 json [smp,active,joinnum] 格式，否则进行通知
         for (let i = 0; i < jxncShareCodeArr.length; i++) {
             if (jxncShareCodeArr[i]) {
-                let tmpjsonShareCodeArr = jxncShareCodeArr.splice('@');
+                let tmpJxncShareStr = jxncShareCodeArr[i];
+                let tmpjsonShareCodeArr = tmpJxncShareStr.split('@');
                 if (!changeShareCodeJson(tmpjsonShareCodeArr[0])) {
                     $.log('互助码格式已变更，请重新填写互助码');
                     $.msg($.name, '互助码格式变更通知', '互助码格式变更，请重新填写 ‼️‼️', option);
@@ -576,18 +577,27 @@ function helpShareCode(smp, active, joinnum) {
                     const {ret, retmsg = ''} = JSON.parse(res);
                     $.log(`助力结果：ret=${ret} retmsg="${retmsg ? retmsg : 'OK'}"`);
                     // ret=0 助力成功
-                    // ret=1021 cannot help self 不能助力自己
                     // ret=1011 active 不同
+                    // ret=1012 has complete 已完成
+                    // ret=1013 retmsg="has expired" 已过期
                     // ret=1009 retmsg="today has help p2p" 今天已助力过
-                    if (ret === 0 || ret === 1009 || ret === 1021 || ret === 1011) { // 0 助力成功
-                        resolve(true);
+                    // ret=1021 cannot help self 不能助力自己
+                    // ret=1032 retmsg="err operate env" 被助力者为 APP 专属种子，当前助力账号未配置 TOKEN
+                    // if (ret === 0 || ret === 1009 || ret === 1011 || ret === 1012 || ret === 1021 || ret === 1032) {
+                    //     resolve(true);
+                    //     return;
+                    // }
+                    // ret 1016 当前账号达到助力上限
+                    // ret 147 filter 当前账号黑号了
+                    if (ret === 147 || ret === 1016) {
+                        if (ret === 147) {
+                            $.log(`\n\n  !!!!!!!!   当前账号黑号了  !!!!!!!!  \n\n`);
+                        }
+                        resolve(false);
                         return;
                     }
-                    // ret 1016 助力上限
-                    // ret 147 filter 当前账号黑号了
-                    if (ret === 147) {
-                        $.log(`\n\n  !!!!!!!!   当前账号黑号了  !!!!!!!!  \n\n`);
-                    }
+                    resolve(true);
+                    return;
                 } catch (e) {
                     $.logErr(e, resp);
                 } finally {

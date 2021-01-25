@@ -49,7 +49,7 @@ const inviteCodes = [
  // `A@B`,
   `cgxZcTPIe-SNoFGXX0nljOuBQhwd5rnSRqJ0nnPV`
 ];
-const pkInviteCodes = [
+const pkInviteCodes = [``
 ]
 !(async () => {
   await requireConfig();

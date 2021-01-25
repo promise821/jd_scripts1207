@@ -90,16 +90,16 @@ const pkInviteCodes = [
 async function jdNian() {
   try {
     await getHomeData()
-    // if(!$.secretp) return
-    // let hour = new Date().getUTCHours()
-    // if (1<=hour && hour<=14) {
-      // 北京时间9点-22点做pk任务
-      // $.hasGroup = false
-      // await pkTaskDetail()
-      // if ($.hasGroup) await pkInfo()
+    if(!$.secretp) return
+    let hour = new Date().getUTCHours()
+    if (1<=hour && hour<=14) {
+      北京时间9点-22点做pk任务
+      $.hasGroup = false
+      await pkTaskDetail()
+      if ($.hasGroup) await pkInfo()
       // await helpFriendsPK()
-    // }
-    // await $.wait(2000)
+    }
+    await $.wait(2000)
     // await killCouponList()
     // await $.wait(2000)
     // await map()

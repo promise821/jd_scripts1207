@@ -15,10 +15,10 @@
 cron "10 7 * * *" script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_home.js, tag=领京豆额外奖励
 
 ===============Surge=================
-领京豆额外奖励 = type=cron,cronexp="10 7 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_home.js
+领京豆额外奖励 = type=cron,cronexp="10 7 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_home.js
 
 ============小火箭=========
-领京豆额外奖励 = type=cron,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_home.js, cronexpr="10 7 * * *", timeout=200, enable=true
+领京豆额外奖励 = type=cron,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_home.js, cronexpr="10 7 * * *", timeout=3600, enable=true
  */
 const $ = new Env('领京豆额外奖励');
 
@@ -188,7 +188,7 @@ function getAuthorShareCode() {
 }
 function getAuthorShareCode2() {
   return new Promise(resolve => {
-    $.get({url: "https://gitee.com/LXK9301/updateTeam/raw/master/jd_updateBeanHome.json",headers:{
+    $.get({url: "https://gitee.com/lxk0301/updateTeam/raw/master/jd_updateBeanHome.json",headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }}, async (err, resp, data) => {
       try {

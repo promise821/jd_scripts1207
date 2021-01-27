@@ -1230,7 +1230,7 @@ function updateTuanIds(url = 'https://raw.githubusercontent.com/nbzongzong/updat
     })
   })
 }
-function updateTuanIdsCDN(url) {
+function updateTuanIdsCDN((url = 'https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json')) {
   return new Promise(async resolve => {
     $.get({url,
       headers:{
@@ -1372,7 +1372,7 @@ function shareCodesFormat() {
 function requireConfig() {
   return new Promise(async resolve => {
     await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json');
-    // if (!$.tuanIdS) await updateTuanIds();
+    if (!$.tuanIdS) await updateTuanIds();
     // if (!$.tuanIdS) await updateTuanIdsCDN('https://cdn.jsdelivr.net/gh/LXK9301/updateTeam@master/jd_updateFactoryTuanId.json');
     if ($.tuanIdS && $.tuanIdS.tuanActiveId) {
       tuanActiveId = $.tuanIdS.tuanActiveId;

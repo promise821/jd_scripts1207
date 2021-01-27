@@ -1230,7 +1230,7 @@ function updateTuanIds(url = 'https://raw.githubusercontent.com/nbzongzong/updat
     })
   })
 }
-function updateTuanIdsCDN((url = 'https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json')) {
+function updateTuanIdsCDN(url = 'https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json') {
   return new Promise(async resolve => {
     $.get({url,
       headers:{

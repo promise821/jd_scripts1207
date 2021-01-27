@@ -105,6 +105,7 @@ async function jdNian() {
       $.hasGroup = false
       await pkTaskStealDetail()
       if ($.hasGroup) await pkInfo()
+      await helpFriendsPK()
     }
     await $.wait(2000)
     await killCouponList()

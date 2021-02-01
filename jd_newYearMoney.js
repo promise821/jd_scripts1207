@@ -169,6 +169,7 @@ function getHomeData(info = false) {
             $.cardList = data.data.result.cardInfos
             if (info) {
               $.total = poolMoney
+			  console.log(`sendAccount=${sendAccount}`)
               if (sendAccount.includes($.index.toString())) {
                 let cardList = $.cardList.filter(vo => vo.cardType !== 7)
                 if (cardList.length) {

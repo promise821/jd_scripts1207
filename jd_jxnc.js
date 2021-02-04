@@ -286,6 +286,9 @@ async function jdJXNC() {
         if (startInfo.target <= startInfo.score) {
             notifyBool = true;
             message += `【成熟】水果已成熟请及时收取，deliverState：${startInfo.deliverState}\n`;
+			//单独通知
+			notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}水果已成熟`, `【京东账号${$.index}】${$.nickName || $.UserName}\n【提醒⏰】${startInfo.prizename}已可领取\n请去京喜APP查看\ndeliverState：${endInfo.deliverState}\n`);	
+		
         } else {
             let shareCodeJson = {
                 "smp": $.info.smp,
@@ -458,8 +461,6 @@ function getMessage(endInfo, startInfo) {
         notifyBool = true;
         message += `【成熟】水果已成熟请及时收取，deliverState：${endInfo.deliverState}\n`;
         
-		//单独通知
-		notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}水果已成熟`, `【京东账号${$.index}】${$.nickName || $.UserName}\n【提醒⏰】${startInfo.prizename}已可领取\n请去京喜APP查看\ndeliverState：${endInfo.deliverState}\n`);	
 		
         return;
     }

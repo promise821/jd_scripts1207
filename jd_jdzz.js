@@ -26,9 +26,10 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let helpAuthor=true; // 帮助作者
 const randomCount = 5;
-let jdNotify = true; // 是否关闭通知，false打开通知推送，true关闭通知推送
+let jdNotify = false; // 是否关闭通知，false打开通知推送，true关闭通知推送
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
+let tasktext=[];	//合并通知
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -89,6 +90,8 @@ const inviteCodes = [
       }
     }
   }
+  tasktext += `入口：微信小程序-京东赚赚`;
+  await notify.sendNotify(`${$.name}`, tasktext); //合并通知
 })()
   .catch((e) => {
     $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -128,7 +131,7 @@ async function jdWish() {
     }
   }
   await getTaskList();
-  await showMsg();
+  await showMsg(); 
 }
 
 function showMsg() {
@@ -141,8 +144,11 @@ function showMsg() {
       $.log(message)
     }
     // 云端大于10元无门槛红包时进行通知推送
-    if ($.isNode() && $.totalNum >= 100000) await notify.sendNotify(`${$.name} - 京东账号${$.index} - ${$.nickName}`, `京东账号${$.index} ${$.nickName}\n当前金币：${$.totalNum}个\n可兑换无门槛红包：${parseInt($.totalNum) / 10000}元\n`,)
-    resolve();
+    //if ($.isNode() && $.totalNum >= 100000) await notify.sendNotify(`${$.name} - 京东账号${$.index} - ${$.nickName}`, `京东账号${$.index} ${$.nickName}\n当前金币：${$.totalNum}个\n可兑换无门槛红包：${parseInt($.totalNum) / 10000}元\n`,)
+	if ($.isNode() && $.totalNum >= 100000){
+	  tasktext += `京东账号${$.index} ${$.nickName}\n可兑换无门槛红包：${parseInt($.totalNum) / 10000}元\n\n` 
+	}
+resolve();
   })
 }
 function getAuthorShareCode(url) {

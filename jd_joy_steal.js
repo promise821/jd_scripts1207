@@ -5,6 +5,7 @@
  * @Last Modified time: 2021-1-21 21:22:37
  */
 /*
+活动入口：京东APP我的-更多工具-宠汪汪
 最近经常出现给偷好友积分与狗粮失败的情况，故建议cron设置为多次
 jd宠汪汪偷好友积分与狗粮,及给好友喂食
 偷好友积分上限是20个好友(即获得100积分)，帮好友喂食上限是20个好友(即获得200积分)，偷好友狗粮上限也是20个好友(最多获得120g狗粮)
@@ -14,14 +15,17 @@ IOS用户支持京东双账号,NodeJs用户支持N个京东账号
 ==========Quantumult X==========
 [task_local]
 #宠汪汪偷好友积分与狗粮
-0 0-10/2 * * * https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_steal.js, tag=宠汪汪偷好友积分与狗粮, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
+0 0-10/2 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_steal.js, tag=宠汪汪偷好友积分与狗粮, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
+
 =======Loon========
 [Script]
-cron "0 0-10/2 * * *" script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_steal.js,tag=宠汪汪偷好友积分与狗粮
+cron "0 0-10/2 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_steal.js,tag=宠汪汪偷好友积分与狗粮
+
 ========Surge==========
-宠汪汪偷好友积分与狗粮 = type=cron,cronexp="0 0-10/2 * * *",wake-system=1,timeout=2200,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_steal.js
+宠汪汪偷好友积分与狗粮 = type=cron,cronexp="0 0-10/2 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_steal.js
+
 =======小火箭=====
-宠汪汪偷好友积分与狗粮 = type=cron,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_steal.js, cronexpr="0 0-10/2 * * *", timeout=2200, enable=true
+宠汪汪偷好友积分与狗粮 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_steal.js, cronexpr="0 0-10/2 * * *", timeout=3600, enable=true
 */
 
 const $ = new Env('宠汪汪偷好友积分与狗粮');
@@ -81,8 +85,8 @@ if ($.isNode() && process.env.jdJoyStealCoin) {
       $.index = i + 1;
       $.isLogin = true;
       $.nickName = '';
-      $.HelpFeed = ctrTemp;
-      if (!ctrTemp) $.HelpFeed = true
+      $.HelpFeedFlag = ctrTemp;
+      if (!ctrTemp) $.HelpFeedFlag = true
       await TotalBean();
       console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
       if (!$.isLogin) {
@@ -141,8 +145,20 @@ async function jdJoySteal() {
             }
             break
           }
-          if (nowTimes.getHours() < 6) {
-            $.log('偷好友狗粮 未到6点时间')
+          if (nowTimes.getHours() < 6 && nowTimes.getHours() > 0) {
+            $.log('未到早餐时间, 暂不能偷好友狗粮\n')
+            break
+          }
+          if (nowTimes.getHours() === 10 ? (nowTimes.getMinutes() > 30) : (nowTimes.getHours() === 11 && nowTimes.getMinutes() < 30)) {
+            $.log('未到中餐时间, 暂不能偷好友狗粮\n')
+            break
+          }
+          if ((nowTimes.getHours() >= 15 && nowTimes.getMinutes() > 0) && (nowTimes.getHours() < 17 && nowTimes.getMinutes() <= 59)) {
+            $.log('未到晚餐时间, 暂不能偷好友狗粮\n')
+            break
+          }
+          if (nowTimes.getHours() >= 21 && nowTimes.getMinutes() > 0 && nowTimes.getHours() <= 23 && nowTimes.getMinutes() <= 59) {
+            $.log('已过晚餐时间, 暂不能偷好友狗粮\n')
             break
           }
           console.log(`偷好友狗粮 开始查询第${i}页好友\n`);
@@ -160,7 +176,8 @@ async function jdJoySteal() {
             console.log('帮好友喂食失败，狗粮不足10g 跳出\n');
             break
           }
-          if (!$.HelpFeed) {
+          if ($.help_feed >= 10) $.HelpFeedFlag = false;//修复每次运行都会给好友喂食一次的bug
+          if (!$.HelpFeedFlag) {
             console.log('您已设置不为好友喂食，现在跳过喂食，如需为好友喂食请在BoxJs打开喂食开关或者更改脚本 jdJoyHelpFeed 处');
             break
           }
@@ -229,7 +246,7 @@ async function stealFriendCoinFun() {
 //给好友喂食
 async function helpFriendsFeed() {
   if ($.help_feed !== 200) {
-    if ($.HelpFeed) {
+    if ($.HelpFeedFlag) {
       console.log(`\n开始给好友喂食`);
       for (let friends of $.allFriends) {
         const { friendPin, status, stealStatus } = friends;
@@ -242,7 +259,7 @@ async function helpFriendsFeed() {
             console.log(`帮好友[${friendPin}]喂食10g狗粮成功,你获得10积分\n`);
             if (!ctrTemp) {
               $.log('为完成为好友单独喂食一次的任务，故此处进行喂食一次')
-              $.HelpFeed = false;
+              $.HelpFeedFlag = false;
               break
             }
             $.helpFood += 10;

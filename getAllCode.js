@@ -1077,7 +1077,7 @@ async function getjdNian() {
 
 async function getShareCode() {
     await getjdNian()
-    /*
+    
     await getJdFactory();
     await getJxFactory();
     await getJxNc();
@@ -1097,7 +1097,7 @@ async function getShareCode() {
     await getUserInfo();
     await getActContent();
 
-    await getJxnc();*/
+    await getJxnc();
 }
 
 function safeGet(data) {

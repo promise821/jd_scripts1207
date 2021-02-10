@@ -33,7 +33,7 @@ const randomCount = $.isNode() ? 20 : 5;
 //IOS等用户直接用NobyDa的jd cookie
 //let cookiesArr = [], cookie = '', message, sendAccount = [], receiveAccount = [], receiveCardList = [];
 
-let cookiesArr = [], cookie = '', message, sendAccount = ['4','6','7','8','9','10','11',,'12','13','14','15','16','17','18','19','20'], receiveAccount = ['1','2','3','5'], receiveCardList = [];
+let cookiesArr = [], cookie = '', message, sendAccount = ['5','6','7','8','9','10','11',,'12','13','14','15','16','17','18','19','20'], receiveAccount = ['1','2','3','4','5','6'], receiveCardList = [];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])

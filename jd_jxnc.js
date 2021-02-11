@@ -291,7 +291,7 @@ async function jdJXNC() {
                 $.log(`【成熟】水果已成熟请及时收取，activestatus：${startInfo.activestatus}\n`);
                 message += `【成熟】水果已成熟请及时收取，activestatus：${startInfo.activestatus}\n`;
                 //单独通知
-		          	notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}水果已成熟`, `【京东账号${$.index}】${$.nickName || $.UserName}\n【提醒⏰】${startInfo.prizename}已可领取\n请去京喜APP查看\ndeliverState：${endInfo.deliverState}\n`);	
+		          	notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}水果已成熟`, `【京东账号${$.index}】${$.nickName || $.UserName}\n【提醒⏰】${startInfo.prizename}已可领取\n请去京喜APP查看\n`);	
             } else if (startInfo.activestatus === 0) { // 未种植（成熟已收取）
                 $.log('账号未选择种子，请先去京喜农场选择种子。\n如果选择 APP 专属种子，必须提供 token。');
                 message += '账号未选择种子，请先去京喜农场选择种子。\n如果选择 APP 专属种子，必须提供 token。\n';

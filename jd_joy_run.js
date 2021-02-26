@@ -1,6 +1,6 @@
 /**
 宠汪汪邀请助力与赛跑助力脚本，感谢github@Zero-S1提供帮助
-更新时间：2021-1-7（宠汪汪助力更新Token的配置正则表达式已改）
+更新时间：2021-2-26
 活动入口：京东APP我的-更多工具-宠汪汪
 token时效很短，几个小时就失效了,闲麻烦的放弃就行
 每天拿到token后，可一次性运行完毕即可。
@@ -57,7 +57,10 @@ temp = [...fixPins, ...randomPins];
 run_pins = [temp.join(',')];
 // $.LKYLToken = '76fe7794c475c18711e3b47185f114b5' || $.getdata('jdJoyRunToken');
 // $.LKYLToken = $.getdata('jdJoyRunToken');
-const friendsArr = ["15258195924_p","jd_5e0145d54f663","jd_58c2ed7c779e3","小凡仔8733","nbzongzong"];
+//friendsArr内置太多会导致IOS端部分软件重启,可PR过来(此处目的:帮别人助力可得30g狗粮)
+let friendsArr = ["jd_6cd93e613b0e5", "被折叠的记忆33", "jd_704a2e5e28a66", "jd_45a6b5953b15b", "zooooo58", "jd_66f5cecc1efcd", "jd_41345a6f96aa5"]
+// $.LKYLToken = '76fe7794c475c18711e3b47185f114b5' || $.getdata('jdJoyRunToken');
+// $.LKYLToken = $.getdata('jdJoyRunToken');
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //IOS等用户直接用NobyDa的jd cookie
@@ -84,13 +87,7 @@ if ($.isNode()) {
   })
 } else {
   //支持 "京东多账号 Ck 管理"的cookie
-  let cookiesData = $.getdata('CookiesJD') || "[]";
-  cookiesData = jsonParse(cookiesData);
-  cookiesArr = cookiesData.map(item => item.cookie);
-  cookiesArr.reverse();
-  cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
-  cookiesArr.reverse();
-  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
+  cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
   if ($.getdata('jd_joy_invite_pin')) {
     invite_pins = [];
     invite_pins.push($.getdata('jd_joy_invite_pin'));
@@ -127,24 +124,38 @@ async function getToken() {
     const LKYLToken = body.data && body.data.token;
     if (LKYLToken) {
       $.log(`${$.name} token\n${LKYLToken}\n`);
-      count = $.getdata('countFlag') ? $.getdata('countFlag') * 1 : 0;
-      count ++;
-      console.log(`count: ${count}`)
-      $.setdata(`${count}`, 'countFlag');
-      if ($.getdata('countFlag') * 1 === 2) {
-        count = 0;
-        $.setdata(`${count}`, 'countFlag');
-        $.msg($.name, '更新Token: 成功🎉', ``);
-        console.log(`开始上传Token，${LKYLToken}\n`)
-        await $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
-          if (resp.statusCode === 200) {
+      $.msg($.name, '更新Token: 成功🎉', ``);
+      console.log(`\nToken，${LKYLToken}\n`)
+      $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
+        if (resp.statusCode === 200) {
+          try {
             let { body } = resp;
             console.log(`Token提交结果:${body}\n`)
             body = JSON.parse(body);
             console.log(`${body.message}`)
+          } catch (e) {
+            console.log(`更新Token异常:${e}`)
           }
-        });
-      }
+        }
+      });
+      // count = $.getdata('countFlag') ? $.getdata('countFlag') * 1 : 0;
+      // count ++;
+      // console.log(`count: ${count}`)
+      // $.setdata(`${count}`, 'countFlag');
+      // if ($.getdata('countFlag') * 1 === 2) {
+      //   count = 0;
+      //   $.setdata(`${count}`, 'countFlag');
+      //   $.msg($.name, '更新Token: 成功🎉', ``);
+      //   console.log(`开始上传Token，${LKYLToken}\n`)
+      //   await $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
+      //     if (resp.statusCode === 200) {
+      //       let { body } = resp;
+      //       console.log(`Token提交结果:${body}\n`)
+      //       body = JSON.parse(body);
+      //       console.log(`${body.message}`)
+      //     }
+      //   });
+      // }
       $.setdata(LKYLToken, 'jdJoyRunToken');
     }
     $.done({ body: JSON.stringify(body) })

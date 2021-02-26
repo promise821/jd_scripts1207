@@ -37,13 +37,7 @@ if ($.isNode()) {
   })
   if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
 } else {
-  let cookiesData = $.getdata('CookiesJD') || "[]";
-  cookiesData = jsonParse(cookiesData);
-  cookiesArr = cookiesData.map(item => item.cookie);
-  cookiesArr.reverse();
-  cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
-  cookiesArr.reverse();
-  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
+  cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 const JD_API_HOST = 'https://jdjoy.jd.com';
 !(async () => {
@@ -53,6 +47,7 @@ const JD_API_HOST = 'https://jdjoy.jd.com';
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
+      console.log(`${cookie}\n`);
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
       $.index = i + 1;
       $.isLogin = true;
@@ -79,6 +74,7 @@ const JD_API_HOST = 'https://jdjoy.jd.com';
     .finally(() => {
       $.done();
     })
+
 
 async function joyReward() {
   await getExchangeRewards();
@@ -168,9 +164,16 @@ async function joyReward() {
   }
 }
 function getExchangeRewards() {
+  let opt = {
+    url: "//jdjoy.jd.com/common/gift/getHomeInfo?reqSource=h5",
+    method: "GET",
+    data: {},
+    credentials: "include",
+    header: {"content-type": "application/json"}
+  }
   return new Promise((resolve) => {
     const option = {
-      url: `${JD_API_HOST}/gift/getHomeInfo`,
+      url: "https:"+ taroRequest(opt)['url'],
       headers: {
         "Host": "jdjoy.jd.com",
         "Content-Type": "application/json",
@@ -204,30 +207,15 @@ function getExchangeRewards() {
   })
 }
 function exchange(saleInfoId, orderSource) {
+  let body = {"buyParam":{"orderSource":orderSource,"saleInfoId":saleInfoId},"deviceInfo":{}}
+  let opt = {
+    "url": "//jdjoy.jd.com/common/gift/new/exchange",
+    "data":body,
+    "credentials":"include","method":"POST","header":{"content-type":"application/json"}
+  }
   return new Promise((resolve) => {
-    const body = {
-      "buyParam": { saleInfoId, orderSource },
-      "deviceInfo": {
-        "eid": "",
-        "fp": "",
-        "deviceType": "",
-        "macAddress": "",
-        "imei": "",
-        "os": "",
-        "osVersion": "",
-        "ip": "",
-        "appId": "",
-        "openUUID": "",
-        "idfa": "",
-        "uuid": "",
-        "clientVersion": "",
-        "networkType": "",
-        "appType": "",
-        "sdkToken": ""
-      }
-    }
     const option = {
-      url: `${JD_API_HOST}/gift/new/exchange?reqSource=h5`,
+      url: "https:"+ taroRequest(opt)['url'],
       body: `${JSON.stringify(body)}`,
       headers: {
         "Host": "jdjoy.jd.com",
@@ -291,7 +279,11 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            if (data['retcode'] === 0) {
+              $.nickName = data['base'].nickname;
+            } else {
+              $.nickName = $.UserName
+            }
           } else {
             console.log(`京东服务器返回空数据`)
           }

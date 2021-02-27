@@ -1,7 +1,11 @@
 /*
-2020-02-05发现兑换京豆API京东加了lks验证,目前此脚本已失效
+ * @Author: lxk0301 https://github.com/lxk0301
+ * @Date: 2020-08-16 18:54:16
+ * @Last Modified by: lxk0301
+ * @Last Modified time: 2021-2-27 21:22:37
+ */
+/*
 宠汪汪积分兑换奖品脚本, 目前脚本只兑换京豆，兑换京豆成功，才会发出通知提示，其他情况不通知。
-更新时间：2021-02-06
 活动入口：京东APP我的-更多工具-宠汪汪
 兑换规则：一个账号一天只能兑换一次京豆。
 兑换奖品成功后才会有系统弹窗通知
@@ -24,6 +28,7 @@ cron "0 0-16/8 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/maste
 宠汪汪积分兑换奖品 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_joy_reward.js, cronexpr="0 0-16/8 * * *", timeout=3600, enable=true
  */
 const $ = new Env('宠汪汪积分兑换奖品');
+let allMessage = '';
 let joyRewardName = 20;//是否兑换京豆，默认开启兑换功能，其中20为兑换20京豆,500为兑换500京豆，0为不兑换京豆.数量有限先到先得
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
@@ -66,6 +71,9 @@ const JD_API_HOST = 'https://jdjoy.jd.com';
       await joyReward();
       // $.msg($.name, '兑换脚本暂不能使用', `请停止使用，等待后期更新\n如果新版本兑换您有兑换机会，请抓包兑换\n再把抓包数据发送telegram用户@LXK9301`);
     }
+  }
+  if ($.isNode() && allMessage && $.ctrTemp) {
+    await notify.sendNotify(`${$.name}`, `${allMessage}`)
   }
 })()
     .catch((e) => {
@@ -121,18 +129,18 @@ async function joyReward() {
           if ($.exchangeRes && $.exchangeRes.success) {
             if ($.exchangeRes.errorCode === 'buy_success') {
               console.log(`兑换${giftValue}成功,【宠物等级】${data.level}\n【消耗积分】${salePrice}个\n【剩余积分】${data.coin - salePrice}个\n`)
-              let ctrTemp;
               if ($.isNode() && process.env.JD_JOY_REWARD_NOTIFY) {
-                ctrTemp = `${process.env.JD_JOY_REWARD_NOTIFY}` === 'false';
+                $.ctrTemp = `${process.env.JD_JOY_REWARD_NOTIFY}` === 'false';
               } else if ($.getdata('jdJoyRewardNotify')) {
-                ctrTemp = $.getdata('jdJoyRewardNotify') === 'false';
+                $.ctrTemp = $.getdata('jdJoyRewardNotify') === 'false';
               } else {
-                ctrTemp = `${jdNotify}` === 'false';
+                $.ctrTemp = `${jdNotify}` === 'false';
               }
-              if (ctrTemp) {
+              if ($.ctrTemp) {
                 $.msg($.name, ``, `【京东账号${$.index}】${$.nickName}\n【${giftValue}京豆】兑换成功\n【宠物等级】${data.level}\n【积分详情】消耗积分 ${salePrice}, 剩余积分 ${data.coin - salePrice}`);
                 if ($.isNode()) {
-                  await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功\n【宠物等级】${data.level}\n【积分详情】消耗积分 ${salePrice}, 剩余积分 ${data.coin - salePrice}`);
+                  allMessage += `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功\n【宠物等级】${data.level}\n【积分详情】消耗积分 ${salePrice}, 剩余积分 ${data.coin - salePrice}${$.index !== cookiesArr.length ? '\n\n' : ''}`
+                  // await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `【京东账号${$.index}】 ${$.nickName}\n【${giftValue}京豆】兑换成功\n【宠物等级】${data.level}\n【积分详情】消耗积分 ${salePrice}, 剩余积分 ${data.coin - salePrice}`);
                 }
               }
               // if ($.isNode()) {

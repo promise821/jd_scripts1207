@@ -1,6 +1,6 @@
 /*
 京东京喜工厂
-更新时间：2021-1-27
+更新时间：2021-2-27
 活动入口：京东APP-游戏与互动-查看更多-京喜工厂
 或者: 京东APP首页搜索 "玩一玩" ,造物工厂即可
 
@@ -39,7 +39,7 @@ let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭�
 const randomCount = $.isNode() ? 20 : 5;
 let tuanActiveId = `6S9y4sJUfA2vPQP6TLdVIQ==`;
 const jxOpenUrl = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%20%22des%22:%20%22m%22,%20%22url%22:%20%22https://wqsd.jd.com/pingou/dream_factory/index.html%22%20%7D`;
-let cookiesArr = [], cookie = '', message = '';
+let cookiesArr = [], cookie = '', message = '', allMessage = '';
 const inviteCodes = [`NeuVHXg0vw8-QRJS6fmL7A==@05tfe7_atmkggWus12BPbQ==`];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 $.tuanIds = [];
@@ -96,6 +96,9 @@ if ($.isNode()) {
       await joinLeaderTuan();//参团
     }
   }
+  if ($.isNode() && allMessage) {
+    await notify.sendNotify(`${$.name}`, `${allMessage}`, { url: jxOpenUrl })
+  }
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -105,21 +108,25 @@ if ($.isNode()) {
     })
 
 async function jdDreamFactory() {
-  await userInfo();
-  await QueryFriendList();//查询今日招工情况以及剩余助力次数
-  // await joinLeaderTuan();//参团
-  await helpFriends();
-  if (!$.unActive) return
-  await getUserElectricity();
-  await taskList();
-  await investElectric();
-  await QueryHireReward();//收取招工电力
-  await PickUp();//收取自家的地下零件
-  await stealFriend();
-  await tuanActivity();
-  await QueryAllTuan();
-  await exchangeProNotify();
-  await showMsg();
+  try {
+    await userInfo();
+    await QueryFriendList();//查询今日招工情况以及剩余助力次数
+    //await joinLeaderTuan();//参团
+    await helpFriends();
+    if (!$.unActive) return
+    await getUserElectricity();
+    await taskList();
+    await investElectric();
+    await QueryHireReward();//收取招工电力
+    await PickUp();//收取自家的地下零件
+    await stealFriend();
+    await tuanActivity();
+    await QueryAllTuan();
+    await exchangeProNotify();
+    await showMsg();
+  } catch (e) {
+    $.logErr(e)
+  }
 }
 
 
@@ -582,7 +589,8 @@ function userInfo() {
                   if (nowTimes.getHours()  === 12) {
                     //如按每小时运行一次，则此处将一天推送2次提醒
                     $.msg($.name, '提醒⏰', `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品`);
-                    if ($.isNode()) await notify.sendNotify(`${$.name} - 京东账号${$.index} - ${$.nickName}`, `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品`)
+                    // if ($.isNode()) await notify.sendNotify(`${$.name} - 京东账号${$.index} - ${$.nickName}`, `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品`)
+                    if ($.isNode()) allMessage += `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品${$.index !== cookiesArr.length ? '\n\n' : ''}`
                   }
                 }
               }
@@ -1296,20 +1304,14 @@ async function showMsg() {
   return new Promise(async resolve => {
     message += `【收取自己零件】${$.pickUpMyselfComponent ? `获得${$.pickEle}电力` : `今日已达上限`}\n`;
     message += `【收取好友零件】${$.pickUpMyselfComponent ? `获得${$.pickFriendEle}电力` : `今日已达上限`}\n`;
-    let ctrTemp;
     if ($.isNode() && process.env.DREAMFACTORY_NOTIFY_CONTROL) {
-      ctrTemp = `${process.env.DREAMFACTORY_NOTIFY_CONTROL}` === 'false';
+      $.ctrTemp = `${process.env.DREAMFACTORY_NOTIFY_CONTROL}` === 'false';
     } else if ($.getdata('jdDreamFactory')) {
-      ctrTemp = $.getdata('jdDreamFactory') === 'false';
+      $.ctrTemp = $.getdata('jdDreamFactory') === 'false';
     } else {
-      ctrTemp = `${jdNotify}` === 'false';
+      $.ctrTemp = `${jdNotify}` === 'false';
     }
-    if (ctrTemp) {
-      $.msg($.name, '', message);
-      if ($.isNode()) {
-        await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `${message}`);
-      }
-    } else if (new Date().getHours() === 22) {
+    if (new Date().getHours() === 22) {
       $.msg($.name, '', `${message}`)
       $.log(`\n${message}`);
     } else {

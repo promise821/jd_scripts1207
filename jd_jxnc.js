@@ -4,7 +4,7 @@
 感谢 @whyour 大佬
 
 京喜农场:脚本更新地址 https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxnc.js
-更新时间：2021-01-10 22:47:51
+更新时间：2021-02-27 16:17:51
 活动入口：京喜APP我的-京喜农场
 东东农场活动链接：https://wqsh.jd.com/sns/201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2
 已支持IOS双京东账号,Node.js支持N个京东账号
@@ -52,8 +52,7 @@ let currentShareCode = []; // 当前用户 要助力的助力码
 const openUrl = `openjd://virtual?params=${encodeURIComponent('{ "category": "jump", "des": "m", "url": "https://wqsh.jd.com/sns/201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2"}',)}`; // 打开京喜农场
 let subTitle = '', message = '', option = {'open-url': openUrl}; // 消息副标题，消息正文，消息扩展参数
 const JXNC_API_HOST = 'https://wq.jd.com/';
-let tasktext=[];	//合并通知
-
+let allMessage = '';
 $.detail = []; // 今日明细列表
 $.helpTask = null;
 $.allTask = []; // 任务列表
@@ -99,7 +98,9 @@ let assistUserShareCode = 0; // 随机助力用户 share code
             await jdJXNC(); // 执行当前账号 主代码流程
         }
     }
-	await showMsg() //集中通知
+    if ($.isNode() && allMessage) {
+      await notify.sendNotify(`${$.name}`, `${allMessage}`)
+    }
 })()
     .catch((e) => {
         $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -340,8 +341,7 @@ async function jdJXNC() {
             }
         }
     }
-       //await showMsg()
-	tasktext += `${subTitle}\n${message}\n\n`;
+    await showMsg()
 }
 
 // 获取任务列表与用户信息
@@ -673,8 +673,8 @@ async function showMsg() {
     if (notifyBool) {
         $.msg($.name, subTitle, message, option);
         if ($.isNode()) {
-            await notify.sendNotify(`${$.name}`, tasktext);
-			//await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `${subTitle}\n${message}`);
+            // await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `${subTitle}\n${message}`);
+            allMessage += `${subTitle}\n${message}${$.index !== cookiesArr.length ? '\n\n' : ''}`
         }
     } else {
         $.log(`${$.name} - notify 通知已关闭\n账号${$.index} - ${$.nickName}\n${subTitle}\n${message}`);

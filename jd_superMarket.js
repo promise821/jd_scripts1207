@@ -2,7 +2,7 @@
  * @Author: LXK9301 https://github.com/LXK9301
  * @Date: 2020-08-16 18:54:16
  * @Last Modified by: LXK9301
- * @Last Modified time: 2021-1-29 21:22:37
+ * @Last Modified time: 2021-3-4 21:22:37
  */
 /*
 东东超市
@@ -87,24 +87,28 @@ let shareCodes = [ // IOS本地脚本用户这个列表填入你要助力的好�
       $.done();
     })
 async function jdSuperMarket() {
-  // await receiveGoldCoin();//收金币
-  await businessCircleActivity();//商圈活动
-  await receiveBlueCoin();//收蓝币（小费）
-  // await receiveLimitProductBlueCoin();//收限时商品的蓝币
-  await daySign();//每日签到
-  await BeanSign()//
-  await doDailyTask();//做日常任务，分享，关注店铺，
-  // await help();//商圈助力
-  //await smtgQueryPkTask();//做商品PK任务
-  await drawLottery();//抽奖功能(招财进宝)
-  // await myProductList();//货架
-  // await upgrade();//升级货架和商品
-  // await manageProduct();
-  // await limitTimeProduct();
-  await smtg_shopIndex();
-  await smtgHome();
-  await receiveUserUpgradeBlue();
-  await Home();
+  try {
+    await receiveGoldCoin();//收金币
+    await businessCircleActivity();//商圈活动
+    await receiveBlueCoin();//收蓝币（小费）
+    // await receiveLimitProductBlueCoin();//收限时商品的蓝币
+    await daySign();//每日签到
+    await BeanSign()//
+    await doDailyTask();//做日常任务，分享，关注店铺，
+    // await help();//商圈助力
+    //await smtgQueryPkTask();//做商品PK任务
+    await drawLottery();//抽奖功能(招财进宝)
+    // await myProductList();//货架
+    // await upgrade();//升级货架和商品
+    // await manageProduct();
+    // await limitTimeProduct();
+    await smtg_shopIndex();
+    await smtgHome();
+    await receiveUserUpgradeBlue();
+    await Home();
+  } catch (e) {
+    $.logErr(e)
+  }
 }
 function showMsg() {
   $.log(`【京东账号${$.index}】${$.nickName}\n${message}`);
@@ -203,7 +207,7 @@ async function doDailyTask() {
         }
       }
       if ((item.type === 8 || item.type === 2 || item.type === 10) && item.taskStatus === 0) {
-        await doDailyTask();
+        // await doDailyTask();
       }
     }
   }
@@ -319,17 +323,17 @@ async function businessCircleActivity() {
 
     if (joinStatus === 0) {
       if (joinPkTeam === 'true') {
-        await getTeam();
         console.log(`\n注：PK会在每天的七点自动随机加入LXK9301创建的队伍\n`)
-        await updatePkActivityId();
-        if (!$.updatePkActivityIdRes) await updatePkActivityIdCDN('https://gitee.com/lxk0301/updateTeam/raw/master/jd_updateTeam.json');
-        if (!$.updatePkActivityIdRes) await updatePkActivityIdCDN('https://cdn.jsdelivr.net/gh/LXK9301/updateTeam@master/jd_updateTeam.json');
-        console.log(`\nupdatePkActivityId[pkActivityId]:::${$.updatePkActivityIdRes.pkActivityId}`);
+        await updatePkActivityIdCDN('https://gitee.com/lxk0301/updateTeam/raw/master/shareCodes/jd_updateTeam.json');
+        console.log(`\nupdatePkActivityId[pkActivityId]:::${$.updatePkActivityIdRes && $.updatePkActivityIdRes.pkActivityId}`);
         console.log(`\n京东服务器返回的[pkActivityId] ${pkActivityId}`);
         if ($.updatePkActivityIdRes && ($.updatePkActivityIdRes.pkActivityId === pkActivityId)) {
+          await getTeam();
           let Teams = []
           Teams = $.updatePkActivityIdRes['Teams'] || Teams;
-          Teams = [...Teams, ...$.getTeams.filter(item => item['pkActivityId'] === `${pkActivityId}`)];
+          if ($.getTeams && $.getTeams.length) {
+            Teams = [...Teams, ...$.getTeams.filter(item => item['pkActivityId'] === `${pkActivityId}`)];
+          }
           const randomNum = randomNumber(0, Teams.length);
 
           const res = await smtg_joinPkTeam(Teams[randomNum] && Teams[randomNum].teamId, Teams[randomNum] && Teams[randomNum].inviteCode, pkActivityId);
@@ -871,7 +875,7 @@ function updatePkActivityIdCDN(url) {
     const headers = {
       "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
     }
-    $.get({ url, headers }, async (err, resp, data) => {
+    $.get({ url, headers, timeout: 10000, }, async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -885,7 +889,7 @@ function updatePkActivityIdCDN(url) {
         resolve();
       }
     })
-    await $.wait(3000)
+    await $.wait(10000)
     resolve();
   })
 }
@@ -1512,13 +1516,7 @@ function requireConfig() {
       })
       if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
     } else {
-      let cookiesData = $.getdata('CookiesJD') || "[]";
-      cookiesData = jsonParse(cookiesData);
-      cookiesArr = cookiesData.map(item => item.cookie);
-      cookiesArr.reverse();
-      cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
-      cookiesArr.reverse();
-      cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
+      cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
     }
     console.log(`共${cookiesArr.length}个京东账号\n`);
     // console.log(`东东超市已改版,目前暂不用助力, 故无助力码`)
@@ -1554,7 +1552,11 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            if (data['retcode'] === 0) {
+              $.nickName = data['base'].nickname;
+            } else {
+              $.nickName = $.UserName
+            }
           } else {
             console.log(`京东服务器返回空数据`)
           }
@@ -1574,10 +1576,10 @@ function getTeam() {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} supermarket/read/ API请求失败，请检查网路重试`)
         } else {
           data = JSON.parse(data);
-          $.getTeams = data['data'];
+          $.getTeams = data && data['data'];
         }
       } catch (e) {
         $.logErr(e, resp)

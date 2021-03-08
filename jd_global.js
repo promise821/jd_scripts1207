@@ -1,7 +1,6 @@
 /*
 环球挑战赛
-活动时间：2021-02-02 至 2021-02-22
-1个号可以助力5人，需要5人助力，如每天跑满能换1000+京豆
+活动时间：2021-03-08 至 2021-03-31
 多个账号会相互互助
 活动地址：https://gmart.jd.com/?appId=54935130
 活动入口：京东app搜索京东国际-环球挑战赛
@@ -10,7 +9,7 @@
 ============Quantumultx===============
 [task_local]
 #环球挑战赛
-0 9,12,20,21 2-22 2 * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js, tag=环球挑战赛, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/main/Icon/lxk0301/jd_global.png, enabled=true
+0 9,12,20,21 2-22 2 * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global.js, tag=环球挑战赛, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 
 ================Loon==============
 [Script]
@@ -39,18 +38,12 @@ if ($.isNode()) {
   if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {
   };
 } else {
-  let cookiesData = $.getdata('CookiesJD') || "[]";
-  cookiesData = jsonParse(cookiesData);
-  cookiesArr = cookiesData.map(item => item.cookie);
-  cookiesArr.reverse();
-  cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
-  cookiesArr.reverse();
-  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
+  cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 
 const JD_API_HOST = 'https://api.m.jd.com/', actCode = 'visa-card-001';
 const inviteCodes = [
-  '',
+  'RXpBWjRySllkNXlCWE5HckkrcWlQUT09@cXJQS1R3ZUpERWs1c0xTSXhSTWU3dz09@SENLNjVsbVlRRVFTZEgwUTZUeWx1MDZHdmJudGNlN0hzaXFGOUJWWGVDUT0=',
 
 ];
 $.invites = [];
@@ -450,7 +443,11 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            if (data['retcode'] === 0) {
+              $.nickName = (data['base'] && data['base'].nickname) || $.UserName;
+            } else {
+              $.nickName = $.UserName
+            }
           } else {
             console.log(`京东服务器返回空数据`)
           }

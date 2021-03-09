@@ -2,10 +2,10 @@
  * @Author: LXK9301 https://github.com/LXK9301
  * @Date: 2020-11-01 16:25:41
  * @Last Modified by:   LXK9301
- * @Last Modified time: 2021-02-19 10:25:41
+ * @Last Modified time: 2021-02-27 10:25:41
  */
 /*
-京豆变动通知脚本：https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_bean_change.js
+京豆变动通知脚本：https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bean_change.js
 统计昨日京豆的变化情况，包括收入，支出，以及显示当前京豆数量,目前小问题:下单使用京豆后,退款重新购买会出现异常
 网页查看地址 : https://bean.m.jd.com/beanDetail/index.action?resourceValue=bean
 支持京东双账号
@@ -166,7 +166,7 @@ function TotalBean() {
               return
             }
             if (data['retcode'] === 0) {
-              $.nickName = data['base'].nickname;
+              $.nickName = (data['base'] && data['base'].nickname) || $.UserName;
             } else {
               $.nickName = $.UserName
             }
@@ -240,7 +240,7 @@ function queryexpirejingdou() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(data)
+            // console.log(data)
             data = JSON.parse(data.slice(23, -13));
             // console.log(data)
             if (data.ret === 0) {
@@ -290,7 +290,7 @@ function redPacket() {
             $.balance = data.balance
             $.expiredBalance = data.expiredBalance || 0;
             $.message += `\n当前红包：${$.balance}元🧧`;
-            if ($.expiredBalance > 0) $.message += `\n今日将过期：${$.expiredBalance}元红包🧧`;
+            if ($.expiredBalance > 0) $.message += `\n今明二日过期：${$.expiredBalance}元红包🧧`;
           } else {
             console.log(`京东服务器返回空数据`)
           }

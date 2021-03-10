@@ -1,43 +1,42 @@
 /*
- * @Author: LXK9301 https://github.com/LXK9301 
+ * @Author: lxk0301 https://gitee.com/lxk0301
  * @Date: 2020-08-19 16:12:40 
- * @Last Modified by: LXK9301
- * @Last Modified time: 2021-1-7 17:52:54
+ * @Last Modified by: lxk0301
+ * @Last Modified time: 2021-3-10 11:52:54
  */
 const querystring = require("querystring");
 const $ = new Env();
 // =======================================微信server酱通知设置区域===========================================
 //此处填你申请的SCKEY.
-//注：此处设置github action用户填写到Settings-Secrets里面(Name输入PUSH_KEY)
+//(环境变量名 PUSH_KEY)
 let SCKEY = '';
 
 // =======================================Bark App通知设置区域===========================================
 //此处填你BarkAPP的信息(IP/设备码，例如：https://api.day.app/XXXXXXXX)
-//注：此处设置github action用户填写到Settings-Secrets里面（Name输入BARK_PUSH）
 let BARK_PUSH = '';
 //BARK app推送铃声,铃声列表去APP查看复制填写
-//注：此处设置github action用户填写到Settings-Secrets里面（Name输入BARK_SOUND , Value输入app提供的铃声名称，例如:birdsong）
 let BARK_SOUND = '';
 
 
 // =======================================telegram机器人通知设置区域===========================================
 //此处填你telegram bot 的Token，例如：1077xxx4424:AAFjv0FcqxxxxxxgEMGfi22B4yh15R5uw
-//注：此处设置github action用户填写到Settings-Secrets里面(Name输入TG_BOT_TOKEN)
+//(环境变量名 TG_BOT_TOKEN)
 let TG_BOT_TOKEN = '';
 //此处填你接收通知消息的telegram用户的id，例如：129xxx206
-//注：此处设置github action用户填写到Settings-Secrets里面(Name输入TG_USER_ID)
+//(环境变量名 TG_USER_ID)
 let TG_USER_ID = '';
-
+//Telegram api自建的反向代理地址(不懂可忽略),默认tg官方api(环境变量名:TG_API_HOST)
+let TG_API_HOST = 'api.telegram.org'
 // =======================================钉钉机器人通知设置区域===========================================
 //此处填你钉钉 bot 的webhook，例如：5a544165465465645d0f31dca676e7bd07415asdasd
-//注：此处设置github action用户填写到Settings-Secrets里面(Name输入DD_BOT_TOKEN)
+//(环境变量名 DD_BOT_TOKEN)
 let DD_BOT_TOKEN = '';
 //密钥，机器人安全设置页面，加签一栏下面显示的SEC开头的字符串
 let DD_BOT_SECRET = '';
 
 // =======================================企业微信机器人通知设置区域===========================================
 //此处填你企业微信机器人的 webhook(详见文档 https://work.weixin.qq.com/api/doc/90000/90136/91770)，例如：693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa
-//注：此处设置github action用户填写到Settings-Secrets里面(Name输入QYWX_KEY)
+//(环境变量名 QYWX_KEY)
 let QYWX_KEY = '';
 
 // =======================================企业微信应用消息通知设置区域===========================================
@@ -54,7 +53,6 @@ let QYWX_AM = '';
 
 // =======================================iGot聚合推送通知设置区域===========================================
 //此处填您iGot的信息(推送key，例如：https://push.hellyw.com/XXXXXXXX)
-//注：此处设置github action用户填写到Settings-Secrets里面（Name输入IGOT_PUSH_KEY）
 let IGOT_PUSH_KEY = '';
 
 // =======================================push+设置区域=======================================
@@ -100,6 +98,7 @@ if (process.env.TG_BOT_TOKEN) {
 if (process.env.TG_USER_ID) {
   TG_USER_ID = process.env.TG_USER_ID;
 }
+if (process.env.TG_API_HOST) TG_API_HOST = process.env.TG_API_HOST;
 
 if (process.env.DD_BOT_TOKEN) {
   DD_BOT_TOKEN = process.env.DD_BOT_TOKEN;
@@ -130,7 +129,7 @@ if (process.env.PUSH_PLUS_USER) {
 
 
 async function sendNotify(text, desp, params = {}) {
-  //提供7种通知
+  //提供6种通知
   //desp += `\n本脚本开源免费使用 By：https://github.com/LXK9301/jd_scripts`;
   await Promise.all([
     serverNotify(text, desp),//微信server酱
@@ -306,7 +305,7 @@ function tgBotNotify(text, desp) {
   return  new Promise(resolve => {
     if (TG_BOT_TOKEN && TG_USER_ID) {
       const options = {
-        url: `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`,
+        url: `https://${TG_API_HOST}/bot${TG_BOT_TOKEN}/sendMessage`,
         body: `chat_id=${TG_USER_ID}&text=${text}\n\n${desp}&disable_web_page_preview=true`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

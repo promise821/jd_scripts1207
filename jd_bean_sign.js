@@ -51,7 +51,9 @@ if ($.isNode()) {
     }
   }
   await deleteFile(JD_DailyBonusPath);//删除下载的JD_DailyBonus.js文件
-  if ($.isNode() && allMessage && process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE === 'true') {
+  //if ($.isNode() && allMessage && process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE === 'true') {
+	  //始终合并通知
+	if ($.isNode() && allMessage) {  
     await notify.sendNotify(`${$.name}`, `${allMessage}`)
   }
 })()
@@ -98,9 +100,9 @@ async function execSign() {
       console.log(`脚本执行完毕时间：${$.beanSignTime}`)
       if (BarkContent) {
         allMessage += `【京东号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}${$.index !== cookiesArr.length ? '\n\n' : ''}`;
-        if (!process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE || (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE && process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE !== 'true')) {
-          await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName || $.UserName}`, `【签到号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}`);
-        }
+        //if (!process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE || (process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE && process.env.JD_BEAN_SIGN_NOTIFY_SIMPLE !== 'true')) {
+         // await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName || $.UserName}`, `【签到号 ${$.index}】: ${$.nickName || $.UserName}\n【签到时间】:  ${$.beanSignTime}\n${BarkContent}`);
+        //}
       }
       //运行完成后，删除下载的文件
       await deleteFile(resultPath);//删除result.txt

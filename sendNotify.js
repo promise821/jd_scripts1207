@@ -639,7 +639,7 @@ function pushPlusNotify(text, desp) {
         topic: `${PUSH_PLUS_USER}`
       };
       const options = {
-        url: `https://pushplus.hxtrip.com/send`,
+        url: `http://www.pushplus.plus/send`,
         body: JSON.stringify(body),
         headers: {
           'Content-Type': ' application/json'

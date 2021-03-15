@@ -50,12 +50,12 @@ if ($.isNode()) {
 }
 const starID = ["sanxing", "meizu", "xiaomi", "oppo", "vivo", "sony"];
 const shareID = [
-  "39440572-136a-4b38-bc13-f767d07406fb",
-  "796a8a5e-ef50-4501-a6a6-b7717de022ae",
-  "2bc87513-9344-453c-8733-a106bcbbb6a7",
-  "f18b535a-d9c0-48c7-9a15-16f674065b64",
-  "a778e308-858d-4039-a4f0-15aafbb83181",
-  "45f97217-e150-4dc9-baed-054a4e07ae02",
+  "e4043603-58dc-4a20-a1fa-97391147e81b",
+  "efddce0b-e97e-4af2-9969-bab1629384e6",
+  "c9c9eaff-f1c2-45a8-b6e4-850daa9ad059",
+  "465ba807-3f6c-4f3e-bde2-43c36d8d5efa",
+  "7e1bb996-4a9b-41fd-a3b8-b1fa47909e8c",
+  "c2a63564-6be4-4052-b3c9-f6edfe000b2f",
 ];
 $.allShareId = {};
 const JD_API_HOST = "https://urvsaggpt.m.jd.com/guardianstar";

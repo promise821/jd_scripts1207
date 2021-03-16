@@ -45,7 +45,6 @@ if ($.isNode()) {
       $.nickName = '';
       await TotalBean();
       console.log(`*****************开始京东账号${$.index} ${$.nickName || $.UserName}京豆签到*******************\n`);
-      console.log(`⚠️⚠️⚠️⚠️目前Bark APP推送通知消息对推送内容长度有限制，如推送通知中包含此推送方式脚本会默认转换成简洁内容推送 ⚠️⚠️⚠️⚠️\n`)
       await changeFile(content);
       await execSign();
     }

@@ -37,7 +37,7 @@ if ($.isNode()) {
 
 const JD_API_HOST = 'https://isp5g.m.jd.com';
 //邀请码可能一天一变化，先测试
-$.shareId = ["8051f482-5619-47d3-8d2e-7b49a1c1675e","27352a8c-365c-408f-83d4-175daeb147f0"];
+$.shareId = ["4e17ba5f-f810-4083-a957-6cce6ba693d8"];
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
@@ -79,7 +79,7 @@ $.shareId = ["8051f482-5619-47d3-8d2e-7b49a1c1675e","27352a8c-365c-408f-83d4-175
   if (new Date().getHours() === 22) {
     $.msg($.name, '', `任务已做完\n抽奖详情查看 https://isp5g.m.jd.com`, {"open-url": "https://isp5g.m.jd.com"});
   }
-  await $.http.get({url: `https://code.chiang.fun//api/v1/jd/mohe/read/20`, timeout: 10000}).then(async (resp) => {
+  await $.http.get({url: `https://code.chiang.fun//api/v1/jd/mohe/read/5`, timeout: 10000}).then(async (resp) => {
     if (resp.statusCode === 200) {
       try {
         let { body } = resp;
@@ -96,15 +96,7 @@ $.shareId = ["8051f482-5619-47d3-8d2e-7b49a1c1675e","27352a8c-365c-408f-83d4-175
     cookie = cookiesArr[v];
     $.index = v + 1;
     $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1]);
-    console.log(`\n\n开始随机互助互助`);
-    for (let item of $.body || []) {
-      console.log(`账号 ${$.index} ${$.UserName} 开始给 ${item}进行助力`)
-      const res = await addShare(item);
-      if (res && res['code'] === 2005) {
-        console.log(`次数已用完，跳出助力`)
-        break
-      }
-    }
+
     console.log(`\n\n自己账号内部互助`);
     for (let item of $.shareId) {
       console.log(`账号 ${$.index} ${$.UserName} 开始给 ${item}进行助力`)
@@ -114,7 +106,16 @@ $.shareId = ["8051f482-5619-47d3-8d2e-7b49a1c1675e","27352a8c-365c-408f-83d4-175
         break
       }
     }
-  }
+      console.log(`\n\n开始随机互助互助`);
+    for (let item of $.body || []) {
+      console.log(`账号 ${$.index} ${$.UserName} 开始给 ${item}进行助力`)
+      const res = await addShare(item);
+      if (res && res['code'] === 2005) {
+        console.log(`次数已用完，跳出助力`)
+        break
+      }
+    }
+	}
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')

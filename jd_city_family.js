@@ -1,5 +1,6 @@
 /*
 城城领现金
+更新：2021-03-21 03:01
 活动时间：2021-03-20到2021-03-24
 更新时间：2021-03-20 22:55
 脚本兼容: QuantumultX, Surge,Loon, JSBox, Node.js
@@ -18,7 +19,7 @@ cron "0 0-23/1 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/maste
 ====================================小火箭=============================
 城城领现金 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_city.js, cronexpr="0 0-23/1 * * *", timeout=3600, enable=true
  */
-const $ = new Env('城城领现金');
+const $ = new Env('群内——城城领现金');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
@@ -27,6 +28,7 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [],
     cookie = '',
     message;
+var abcde = 0,abc = [];
 //自动抽奖 ，环境变量  JD_CITY_EXCHANGE ，建议活动快结束开启，默认关闭
 let exchangeFlag = $.getdata('jdCityExchange') || !!0;
 var _0xodz = 'jsjiami.com.v6',
@@ -767,9 +769,6 @@ function shareCodesFormat() {
         }
     };
     return new Promise(async _0x47f940 => {
-        let slee = Math.floor(Math.random() * 9000) 
-        console.log(`\n************获取互助码随机延时${slee}毫秒************\n`);
-        await $.wait(slee);
         $[_0x551f('159', 'oRQB')] = [];
         if ($['shareCodesArr'][_0x797e35['mDLlq']($[_0x551f('15a', 'hHKL')], 0x1)]) {
             $[_0x551f('15b', ')!aO')] = $[_0x551f('15c', '[i0*')][$[_0x551f('15d', 'wGg0')] - 0x1][_0x551f('15e', '[G7V')]('@');
@@ -778,7 +777,15 @@ function shareCodesFormat() {
             const _0x18eb6b = $[_0x551f('160', 'R*Ma')] > inviteCodes['length'] ? _0x797e35[_0x551f('161', '(W!2')](inviteCodes['length'], 0x1) : $['index'] - 0x1;
             $[_0x551f('162', 'uTl]')] = inviteCodes[_0x18eb6b]['split']('@');
         }
-        const _0x59bbb8 = await _0x797e35[_0x551f('163', 'm2qs')](readShareCode);
+        if(abcde == 0){
+            let slee = Math.floor(Math.random() * 9000) 
+            console.log(`\n************第一次获取互助码随机延时${slee}毫秒************\n`);
+            await $.wait(slee);
+            abcde = 1
+            console[_0x551f('7a', 'b7uC')]('1')
+            var abc = await _0x797e35[_0x551f('163', 'm2qs')](readShareCode)
+        }
+        const _0x59bbb8 = abc;
         if (_0x59bbb8 && _0x59bbb8['code'] === 0xc8) {
             // $['newShareCodes'] = [...new Set([..._0x59bbb8[_0x551f('165', 'qXlN')] || []])];
             let inviteCodes = _0x59bbb8[_0x551f('165', 'qXlN')]
@@ -788,6 +795,7 @@ function shareCodesFormat() {
                 [inviteCodes[length], inviteCodes[index]] = [inviteCodes[index], inviteCodes[length]];
             }//随机
             $['newShareCodes'] = inviteCodes
+            var abc = inviteCodes
         }
         console[_0x551f('7a', 'b7uC')]('第' + $[_0x551f('166', 'Gf[z')] + _0x551f('167', 'P&87') + JSON[_0x551f('168', 'aG7W')]($['newShareCodes']));
         _0x797e35[_0x551f('169', 'qXlN')](_0x47f940);

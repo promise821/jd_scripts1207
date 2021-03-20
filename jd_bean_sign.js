@@ -105,7 +105,7 @@ async function execSign() {
       }
       //运行完成后，删除下载的文件
       await deleteFile(resultPath);//删除result.txt
-      console.log(`*****************京东账号${$.index} ${$.nickName || $.UserName}京豆签到完成*******************\n`);
+      console.log(`\n\n*****************京东账号${$.index} ${$.nickName || $.UserName}京豆签到完成*******************\n\n`);
     } else {
       console.log(`\nJD_DailyBonus.js文件不存在\n`)
     }
@@ -241,7 +241,12 @@ function downloadUrl(url = 'https://raw.githubusercontent.com/NobyDa/Script/mast
       try {
         if (err) {
           // console.log(`${JSON.stringify(err)}`)
-          console.log(`检测到您当前网络环境不能访问外网,将使用CDN下载JD_DailyBonus.js文件`)
+          console.log(`检测到您当前网络环境不能访问外网,将使用jsdelivr CDN下载JD_DailyBonus.js文件`);
+          await $.http.get({url: `https://purge.jsdelivr.net/gh/NobyDa/Script@master/JD-DailyBonus/JD_DailyBonus.js`, timeout: 10000}).then((resp) => {
+            if (resp.statusCode === 200) {
+              console.log(`JD_DailyBonus.js文件jsdelivr CDN缓存刷新成功`)
+            }
+          });
         } else {
           $.body = data;
         }

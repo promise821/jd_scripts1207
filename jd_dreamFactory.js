@@ -1506,7 +1506,7 @@ async function requestAlgo() {
       "expandParams": ""
     })
   }
-  new Promise(async resolve => {
+
     $.post(options, (err, resp, data) => {
       
           if (data) {
@@ -1530,7 +1530,7 @@ async function requestAlgo() {
         
       
     })
-  })
+
 }
 function decrypt(time, stk, type, url) {
   stk = stk || (url ? getUrlData(url, '_stk') : '')

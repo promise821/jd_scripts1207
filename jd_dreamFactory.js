@@ -949,9 +949,9 @@ async function joinLeaderTuan() {
   $.tuanIdS = null;
   if (!$.tuanIdS) await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json');
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
-	  console.log(`获取的tuanId为：${$.tuanIdS.tuanIds}`);
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
+	  console.log(`获取的tuanId为：${tuanId}`);
       await JoinTuan(tuanId);
     }
   }

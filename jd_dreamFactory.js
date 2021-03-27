@@ -102,10 +102,11 @@ if ($.isNode()) {
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
       if (cookiesArr && cookiesArr.length < 2) return
       console.log(`\n账号内部相互进团\n`);
-      for (let item of $.tuanIds) {
-        console.log(`${$.UserName} 去参加团 ${item}\n`);
-        await JoinTuan(item);
-      }
+	  //临时禁用，测试
+      // for (let item of $.tuanIds) {
+        // console.log(`${$.UserName} 去参加团 ${item}\n`);
+        // await JoinTuan(item);
+      // }
     }
   }
   if ($.isNode() && allMessage) {

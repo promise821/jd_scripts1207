@@ -951,7 +951,7 @@ async function joinLeaderTuan() {
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
-	  console.log(`获取的tuanId为：${tuanId}`);
+	  //console.log(`获取的tuanId为：${tuanId}`);
       await JoinTuan(tuanId);
     }
   }

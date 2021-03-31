@@ -1,5 +1,8 @@
 /*
-自用于github action
+
+活动入口：京东APP首页-更多频道-排行榜-悬浮按钮
+
+自用
 author：yangtingxiao
 github： https://github.com/yangtingxiao
 京东排行榜

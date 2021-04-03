@@ -155,7 +155,7 @@ async function sendNotify(text, desp, params = {}) {
   ])
 }
 
-function serverNotify(text, desp, timeout = 2100) {
+function serverNotify(text, desp, time = 2100) {
   return  new Promise(resolve => {
     if (SCKEY) {
       //微信server酱推送通知一个\n不会换行，需要两个\n才能换行，故做此替换
@@ -165,7 +165,8 @@ function serverNotify(text, desp, timeout = 2100) {
         body: `text=${text}&desp=${desp}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        },
+        timeout
       }
       setTimeout(() => {
         $.post(options, (err, resp, data) => {
@@ -191,9 +192,9 @@ function serverNotify(text, desp, timeout = 2100) {
             resolve(data);
           }
         })
-      }, timeout)
+      }, time)
     } else {
-      console.log('您未提供server酱的SCKEY，取消微信推送消息通知🚫\n');
+      console.log('\n\n您未提供server酱的SCKEY，取消微信推送消息通知🚫\n');
       resolve()
     }
   })
@@ -280,7 +281,8 @@ function BarkNotify(text, desp, params={}) {
         url: `${BARK_PUSH}/${encodeURIComponent(text)}/${encodeURIComponent(desp)}?sound=${BARK_SOUND}&${querystring.stringify(params)}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        },
+        timeout
       }
       $.get(options, (err, resp, data) => {
         try {
@@ -316,7 +318,8 @@ function tgBotNotify(text, desp) {
         body: `chat_id=${TG_USER_ID}&text=${text}\n\n${desp}&disable_web_page_preview=true`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        },
+        timeout
       }
       if (TG_PROXY_HOST && TG_PROXY_PORT) {
         const tunnel = require("tunnel");
@@ -370,7 +373,8 @@ function ddBotNotify(text, desp) {
       },
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      timeout
     }
     if (DD_BOT_TOKEN && DD_BOT_SECRET) {
       const crypto = require('crypto');
@@ -438,6 +442,7 @@ function qywxBotNotify(text, desp) {
       headers: {
         'Content-Type': 'application/json',
       },
+      timeout
     };
     if (QYWX_KEY) {
       $.post(options, (err, resp, data) => {
@@ -498,6 +503,7 @@ function qywxamNotify(text, desp) {
         headers: {
           'Content-Type': 'application/json',
         },
+        timeout
       };
       $.post(options_accesstoken, (err, resp, data) => {
         html = desp.replace(/\n/g, "<br/>")
@@ -608,7 +614,8 @@ function iGotNotify(text, desp, params={}){
         body: `title=${text}&content=${desp}&${querystring.stringify(params)}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        },
+        timeout
       }
       $.post(options, (err, resp, data) => {
         try {
@@ -651,7 +658,8 @@ function pushPlusNotify(text, desp) {
         body: JSON.stringify(body),
         headers: {
           'Content-Type': ' application/json'
-        }
+        },
+        timeout
       }
       $.post(options, (err, resp, data) => {
         try {

@@ -2,10 +2,11 @@
  * @Author: lxk0301 https://gitee.com/lxk0301
  * @Date: 2020-08-19 16:12:40 
  * @Last Modified by: lxk0301
- * @Last Modified time: 2021-3-16 9:52:54
+ * @Last Modified time: 2021-4-3 16:00:54
  */
 const querystring = require("querystring");
 const $ = new Env();
+const timeout = 15000;//超时时间(单位毫秒)
 // =======================================微信server酱通知设置区域===========================================
 //此处填你申请的SCKEY.
 //(环境变量名 PUSH_KEY)

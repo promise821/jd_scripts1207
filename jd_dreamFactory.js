@@ -1,6 +1,6 @@
 /*
 京东京喜工厂
-更新时间：2021-4-2
+更新时间：2021-4-7
 修复做任务、收集电力出现火爆，不能完成任务，重新计算h5st验证
 参考自 ：https://www.orzlee.com/web-development/2021/03/03/lxk0301-jingdong-signin-scriptjingxi-factory-solves-the-problem-of-unable-to-signin.html
 活动入口：京东APP-游戏与互动-查看更多-京喜工厂
@@ -99,7 +99,6 @@ if ($.isNode()) {
       if (!$.isLogin) {
         continue
       }
-      await joinLeaderTuan();//参团
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
       if ((cookiesArr && cookiesArr.length >= ($.tuanNum || 5)) && $.canHelp) {
         console.log(`\n账号内部相互进团\n`);
@@ -109,6 +108,7 @@ if ($.isNode()) {
           await JoinTuan(item);
         }
       }
+      if ($.canHelp) await joinLeaderTuan();//参团
     }
   }
   if ($.isNode() && allMessage) {
@@ -1322,7 +1322,7 @@ function requireConfig() {
       console.log(`拼团活动ID: 获取成功 ${tuanActiveId}`)
     } else {
       if (!$.tuanConfigs) {
-        await updateTuanIdsCDN('https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json');
+        await updateTuanIdsCDN('https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_updateFactoryTuanId.json');
         if ($.tuanConfigs && $.tuanConfigs['tuanActiveId']) {
           tuanActiveId = $.tuanConfigs['tuanActiveId'];
           console.log(`拼团活动ID: 获取成功 ${tuanActiveId}`)

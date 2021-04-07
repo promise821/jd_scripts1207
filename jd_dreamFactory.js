@@ -961,7 +961,7 @@ async function tuanActivity() {
   }
 }
 async function joinLeaderTuan() {
-  let res = await updateTuanIdsCDN(), res2 = await updateTuanIdsCDN("https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json")
+  let res = await updateTuanIdsCDN(), res2 = await updateTuanIdsCDN("http://qr6pzoy01.hn-bkt.clouddn.com/factory.json")
   $.authorTuanIds = [...(res && res.tuanIds || []),...(res2 && res2.tuanIds || [])]
   if ($.authorTuanIds && $.authorTuanIds.length) {
     console.log(`\n参加作者的团`);
@@ -1183,7 +1183,7 @@ function tuanAward(activeId, tuanId, isTuanLeader = true) {
   })
 }
 
-function updateTuanIdsCDN(url = 'https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_updateFactoryTuanId.json') {
+function updateTuanIdsCDN(url = 'https://raw.githubusercontent.com/gitupdate/updateTeam/master/shareCodes/jd_updateFactoryTuanId.json') {
   return new Promise(async resolve => {
     $.get({url,
       timeout: 200000,

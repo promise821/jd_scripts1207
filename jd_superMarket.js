@@ -100,6 +100,7 @@ async function jdSuperMarket() {
     await smtgHome();
     await receiveUserUpgradeBlue();
     await Home();
+    await rankVote();
   } catch (e) {
     $.logErr(e)
   }

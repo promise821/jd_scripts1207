@@ -4,6 +4,14 @@
  * @Last Modified by: lxk0301
  * @Last Modified time: 2021-4-3 16:00:54
  */
+/**
+ * sendNotify 推送通知功能
+ * @param text 通知头
+ * @param desp 通知体
+ * @param params 某些推送通知方式点击弹窗可跳转, 例：{ url: 'https://abc.com' }
+ * @param author 作者仓库等信息  例：`本脚本免费使用 By：https://gitee.com/lxk0301/jd_docker`
+ * @returns {Promise<unknown>}
+ */
 const querystring = require("querystring");
 const $ = new Env();
 const timeout = 15000;//超时时间(单位毫秒)
@@ -135,7 +143,14 @@ if (process.env.PUSH_PLUS_USER) {
 }
 //==========================云端环境变量的判断与接收=========================
 
-
+/**
+ * sendNotify 推送通知功能
+ * @param text 通知头
+ * @param desp 通知体
+ * @param params 某些推送通知方式点击弹窗可跳转, 例：{ url: 'https://abc.com' }
+ * @param author 作者仓库等信息  例：`本脚本免费使用 By：https://gitee.com/lxk0301/jd_docker`
+ * @returns {Promise<unknown>}
+ */
 async function sendNotify(text, desp, params = {}) {
   //提供6种通知
   //desp += `\n本脚本开源免费使用 By：https://github.com/LXK9301/jd_scripts`;

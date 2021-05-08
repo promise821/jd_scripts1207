@@ -82,11 +82,11 @@ async function accountCheck(){
   await getIsvToken2()
   await getToken()
   if (!$.token) {
-    console.log(`\n\n提示：请尝试换服务器ip或者设置"xinruimz-isv.isvjcloud.com"域名直连，或者自定义UA再次尝试(环境变量JD_USER_AGENT)\n\n`)
+    console.log(`\n\n提示：请尝试换服务器ip或者设置"116.198.3.218"域名直连，或者自定义UA再次尝试(环境变量JD_USER_AGENT)\n\n`)
     process.exit(0);
     return
   }
-  let client = new WebSocket(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.token}`,null,{
+  let client = new WebSocket(`wss://116.198.3.218/wss/?token=${$.token}`,null,{
     headers:{
       'user-agent': "jdapp;android;9.5.0;5.1.1;8363331303230333330383934363-73D2138356239366237373730303;network/wifi;model/vivo X7;addressid/4092959325;aid/e3378926a846c4f7;oaid/;osVer/22;appBuild/87697;partner/vivo;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 5.1.1; vivo X7 Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044942 Mobile Safari/537.36",
     }
@@ -129,7 +129,7 @@ async function jdBeauty() {
   // await getIsvToken2()
   // await getToken()
   // if (!$.token) {
-  //   console.log(`\n\n提示：请尝试换服务器ip或者设置"xinruimz-isv.isvjcloud.com"域名直连，或者自定义UA再次尝试(环境变量JD_USER_AGENT)\n\n`)
+  //   console.log(`\n\n提示：请尝试换服务器ip或者设置"116.198.3.218"域名直连，或者自定义UA再次尝试(环境变量JD_USER_AGENT)\n\n`)
   //   return
   // }
   await mr()
@@ -146,12 +146,12 @@ async function mr() {
   $.pos = []
   $.helpInfo = []
   $.needs = []
-  let client = new WebSocket(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.token}`,null,{
+  let client = new WebSocket(`wss://116.198.3.218/wss/?token=${$.token}`,null,{
     headers:{
       'user-agent': "jdapp;android;9.5.0;5.1.1;8363331303230333330383934363-73D2138356239366237373730303;network/wifi;model/vivo X7;addressid/4092959325;aid/e3378926a846c4f7;oaid/;osVer/22;appBuild/87697;partner/vivo;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 5.1.1; vivo X7 Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044942 Mobile Safari/537.36",
     }
   })
-  console.log(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.token}`)
+  console.log(`wss://116.198.3.218/wss/?token=${$.token}`)
   client.onopen = async () => {
     console.log(`美容研究院服务器连接成功`);
     client.send('{"msg":{"type":"action","args":{"source":1},"action":"_init_"}}');
@@ -505,7 +505,7 @@ async function mr() {
 function getIsvToken() {
   let config = {
     url: 'https://api.m.jd.com/client.action?functionId=genToken',
-    body: 'body=%7B%22to%22%3A%22https%3A%5C/%5C/xinruimz-isv.isvjcloud.com%5C/?channel%3Dmeizhuangguandibudaohang%26collectionId%3D96%26tttparams%3DYEyYQjMIeyJnTG5nIjoiMTE4Ljc2MjQyMSIsImdMYXQiOiIzMi4yNDE4ODIifQ8%253D%253D%26un_area%3D12_904_908_57903%26lng%3D118.7159742308471%26lat%3D32.2010317443041%22%2C%22action%22%3A%22to%22%7D&build=167490&client=apple&clientVersion=9.3.2&openudid=53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2&osVersion=14.2&partner=apple&rfs=0000&scope=01&sign=b0aac3dd04b1c6d68cee3d425e27f480&st=1610161913667&sv=111',
+    body: 'body=%7B%22to%22%3A%22https%3A%5C/%5C/116.198.3.218%5C/?channel%3Dmeizhuangguandibudaohang%26collectionId%3D96%26tttparams%3DYEyYQjMIeyJnTG5nIjoiMTE4Ljc2MjQyMSIsImdMYXQiOiIzMi4yNDE4ODIifQ8%253D%253D%26un_area%3D12_904_908_57903%26lng%3D118.7159742308471%26lat%3D32.2010317443041%22%2C%22action%22%3A%22to%22%7D&build=167490&client=apple&clientVersion=9.3.2&openudid=53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2&osVersion=14.2&partner=apple&rfs=0000&scope=01&sign=b0aac3dd04b1c6d68cee3d425e27f480&st=1610161913667&sv=111',
     headers: {
       'Host': 'api.m.jd.com',
       'accept': '*/*',
@@ -540,7 +540,7 @@ function getIsvToken() {
 function getIsvToken2() {
   let config = {
     url: 'https://api.m.jd.com/client.action?functionId=isvObfuscator',
-    body: 'body=%7B%22url%22%3A%22https%3A%5C/%5C/xinruimz-isv.isvjcloud.com%22%2C%22id%22%3A%22%22%7D&build=167490&client=apple&clientVersion=9.3.2&openudid=53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2&osVersion=14.2&partner=apple&rfs=0000&scope=01&sign=6eb3237cff376c07a11c1e185761d073&st=1610161927336&sv=102&uuid=hjudwgohxzVu96krv/T6Hg%3D%3D',
+    body: 'body=%7B%22url%22%3A%22https%3A%5C/%5C/116.198.3.218%22%2C%22id%22%3A%22%22%7D&build=167490&client=apple&clientVersion=9.3.2&openudid=53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2&osVersion=14.2&partner=apple&rfs=0000&scope=01&sign=6eb3237cff376c07a11c1e185761d073&st=1610161927336&sv=102&uuid=hjudwgohxzVu96krv/T6Hg%3D%3D',
     headers: {
       'Host': 'api.m.jd.com',
       'accept': '*/*',
@@ -574,17 +574,17 @@ function getIsvToken2() {
 
 function getToken() {
   let config = {
-    url: 'https://xinruimz-isv.isvjcloud.com/api/auth',
+    url: 'https://116.198.3.218/api/auth',
     body: JSON.stringify({"token":$.token2,"source":"01"}),
     headers: {
-      'Host': 'xinruimz-isv.isvjcloud.com',
+      'Host': '116.198.3.218',
       'Accept': 'application/x.jd-school-island.v1+json',
       'Source': '02',
       'Accept-Language': 'zh-cn',
       'Content-Type': 'application/json;charset=utf-8',
-      'Origin': 'https://xinruimz-isv.isvjcloud.com',
+      'Origin': 'https://116.198.3.218',
       'User-Agent': "jdapp;android;9.5.2;10;2353932316161666-6313563383338363;network/wifi;model/EVR-AL00;addressid/4032588137;aid/2592aaaf61e38386;oaid/1d53eb96-e090-4538-ab6f-0e5e3d4664b7;osVer/29;appBuild/87971;partner/huawei;eufv/1;jdSupportDarkMode/0;Mozilla/5.0 (Linux; Android 10; EVR-AL00 Build/HUAWEIEVR-AL00; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36",
-      'Referer': 'https://xinruimz-isv.isvjcloud.com/logined_jd/',
+      'Referer': 'https://116.198.3.218/logined_jd/',
       'Authorization': 'Bearer undefined',
       'Cookie': `IsvToken=${$.isvToken};`
     }

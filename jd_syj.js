@@ -2,7 +2,7 @@
  * @Author: lxk0301 https://gitee.com/lxk0301
  * @Date: 2020-11-27 09:19:21
  * @Last Modified by: lxk0301
- * @Last Modified time: 2021-5-12 16:58:02
+ * @Last Modified time: 2021-5-14 16:58:02
  */
 /*
 赚京豆脚本，一：签到(一周签到可获得30京豆)，二：做任务 天天领京豆(加速领京豆)、三：赚京豆-瓜分京豆
@@ -51,7 +51,7 @@ const JD_API_HOST = 'https://api.m.jd.com/api';
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
-  await getAuthorShareCode('https://raw.githubusercontent.com/nbzongzong/updateTeam/master/jd_zz.json');
+  await getAuthorShareCode('https://raw.fastgit.org/nbzongzong/updateTeam/master/jd_zz.json');
   //await getAuthorShareCode('https://raw.githubusercontent.com/gitupdate/updateTeam/master/shareCodes/jd_zz.json');
   //await getRandomCode();
   for (let i = 0; i < cookiesArr.length; i++) {
@@ -551,10 +551,11 @@ async function distributeBeanActivity() {
     }
     if ($.tuan && $.tuan.hasOwnProperty('assistedPinEncrypted') && $.assistStatus !== 3) {
       $.tuanList.push($.tuan);
+      const code = Object.assign($.tuan, {"time": Date.now()});
       $.http.post({
-        url: `https://code.c-hiang.cn/autocommit/zuan/insert`,
+        url: `http://go.chiang.fun/autocommit`,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.assign($.tuan, {"time": Date.now()})),
+        body: JSON.stringify({ "act": "zuan", code }),
         timeout: 30000
       }).then((resp) => {
         if (resp.statusCode === 200) {
@@ -724,7 +725,7 @@ function getAuthorShareCode(url) {
   })
 }
 async function getRandomCode() {
-  await $.http.get({url: `https://code.c-hiang.cn/api/v1/jd/zuan/read/${randomCount}`, timeout: 10000}).then(async (resp) => {
+  await $.http.get({url: `http://go.chiang.fun/read/zuan/${randomCount}`, timeout: 10000}).then(async (resp) => {
     if (resp.statusCode === 200) {
       try {
         let { body } = resp;

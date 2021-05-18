@@ -79,10 +79,12 @@ const JD_API_HOST = 'https://api.m.jd.com/';
       }
       if (helpAuthor && $.authorCode) {
         console.log(`去帮助作者`)
-        const helpRes = await help(code.shareCode, code.groupCode)
-        if (helpRes && helpRes.data.respCode === 'SG209') {
-          console.log(`助力次数已耗尽，跳出助力`)
-          break;
+        for (let code of $.authorCode) {
+          const helpRes = await help(code.shareCode, code.groupCode);
+          if (helpRes && helpRes.data.respCode === 'SG209') {
+            console.log(`助力次数已耗尽，跳出助力`)
+            break;
+          }
         }
       }
       if (helpAuthor && $.authorCode2) {
@@ -165,13 +167,13 @@ function doTask2() {
 
 function getAuthorShareCode() {
   return new Promise(resolve => {
-    $.get({url: "https://gitee.com/shylocks/updateTeam/raw/main/jd_bean_home",headers:{
+    $.get({url: "https://a.nz.lu/bean.json",headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }}, async (err, resp, data) => {
       try {
         if (err) {
         } else {
-          $.authorCode = data.replace('\n', '').split(' ')
+          $.authorCode = JSON.parse(data);
         }
       } catch (e) {
         $.logErr(e, resp)
@@ -183,7 +185,7 @@ function getAuthorShareCode() {
 }
 function getAuthorShareCode2() {
   return new Promise(resolve => {
-    $.get({url: "https://gitee.com/lxk0301/updateTeam/raw/master/shareCodes/jd_updateBeanHome.json",headers:{
+    $.get({url: "https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_updateBeanHome.json",headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }}, async (err, resp, data) => {
       try {

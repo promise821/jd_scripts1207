@@ -72,7 +72,7 @@ let inviteCodes = ['Qtevl7LzC1X9Kc_WW9R_mjVio5m_tTM1Qj015BYZug@HYbsyOqgQAqge-zHW
         console.log(`开始助力 【${$.newShareCodes[i]}】`)
         let res = await getInfo($.newShareCodes[i])
         if (res && res['data']['bizCode'] === 0) {
-          if (res['data']['result']['toasts'] && res['data']['result']['toasts'][0]['status'] === '3') {
+          if (res['data']['result']['toasts'] && res['data']['result']['toasts'][0] && res['data']['result']['toasts'][0]['status'] === '3') {
             console.log(`助力次数已耗尽，跳出`)
             break
           }
@@ -147,7 +147,7 @@ function getInfo(inviteId, flag = false) {
             }
             if (data.data && data['data']['bizCode'] === 0) {
               for(let vo of data.data.result && data.data.result.mainInfos || []){
-                if (vo.remaingAssistNum === 0 && vo.status === "1") {
+                if (vo && vo.remaingAssistNum === 0 && vo.status === "1") {
                   console.log(vo.roundNum)
                   await receiveCash(vo.roundNum)
                   await $.wait(2*1000)

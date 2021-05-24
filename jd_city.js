@@ -76,6 +76,9 @@ let inviteCodes = ['Qtevl7LzC1X9Kc_WW9R_mjVio5m_tTM1Qj015BYZug@HYbsyOqgQAqge-zHW
             console.log(`助力次数已耗尽，跳出`)
             break
           }
+          if (res['data']['result']['toasts'] && res['data']['result']['toasts'][0]) {
+            console.log(`助力 【${$.newShareCodes[i]}】:${res.data.result.toasts[0].msg}`)
+          }
         }
         if ((res && res['status'] && res['status'] === '3') || (res && res.data && res.data.bizCode === -11)) {
           // 助力次数耗尽 || 黑号
@@ -138,7 +141,7 @@ function getInfo(inviteId, flag = false) {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
-            if (inviteId) $.log(`助力结果:\n${data}\n`)
+            // if (inviteId) $.log(`\n助力结果:\n${data}\n`)
             data = JSON.parse(data);
             if (data.data && !data.data.result.userActBaseInfo.inviteId) {
               console.log(`账号已黑，看不到邀请码`);

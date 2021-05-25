@@ -87,7 +87,7 @@ if ($.isNode()) {
       console.log(`${$.UserName} 去助力PK码 ${$.pkInviteList[i]}`);
       $.pkInviteId = $.pkInviteList[i];
       await takePostRequest('pkHelp');
-	  $.pkInviteId = 'sSKNX-MpqKONtv7nx8yTW-dKRcFzvOI1On3fwe4Zn75gur0';
+	  $.pkInviteId = 'sSKNX-MpqKONtv7nx8yTW-dKRcFzvOI1On3fwe4Zn75gur4';
       await takePostRequest('pkHelp');
     }
     console.log(`\n******开始邀请好友助力*********\n`);

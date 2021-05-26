@@ -9,7 +9,7 @@ PK互助：内部账号自行互助(排名靠前账号得到的机会多),多余
 地图任务：已添加，抽奖未添加
 金融APP任务：未完成，后期添加
 活动时间：2021-05-24至2021-06-20
-脚本更新时间：2021-05-26 15:20
+脚本更新时间：2021-05-26 18:00
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 ===================quantumultx================
 [task_local]
@@ -55,13 +55,13 @@ if ($.isNode()) {
     return;
   }
   console.log('活动入口：京东APP-》搜索 玩一玩-》瓜分20亿\n' +
-      '邀请好友助力：内部账号自行互助(排名靠前账号得到的机会多)\n' +
-      'PK互助：内部账号自行互助(排名靠前账号得到的机会多),多余的助力次数会默认助力内置助力码\n' +
-      '小程序任务：已完成\n' +
-      '地图任务：已添加，抽奖暂未添加\n' +
-      '金融APP任务：未完成，后期添加\n' +
-      '活动时间：2021-05-24至2021-06-20\n' +
-      '脚本更新时间：2021-05-26 9:55');
+    '邀请好友助力：内部账号自行互助(排名靠前账号得到的机会多)\n' +
+    'PK互助：内部账号自行互助(排名靠前账号得到的机会多),多余的助力次数会默认助力作者内置助力码\n' +
+    '小程序任务：已完成\n' +
+    '地图任务：已添加，抽奖暂未添加\n' +
+    '金融APP任务：未完成，后期添加\n' +
+    '活动时间：2021-05-24至2021-06-20\n' +
+    '脚本更新时间：2021-05-26 9:55');
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       $.cookie = cookiesArr[i];
@@ -124,12 +124,12 @@ if ($.isNode()) {
     }
   }
 })()
-    .catch((e) => {
-      $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
-    })
-    .finally(() => {
-      $.done();
-    })
+  .catch((e) => {
+    $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
+  })
+  .finally(() => {
+    $.done();
+  })
 
 async function zoo() {
   try {
@@ -207,6 +207,18 @@ async function zoo() {
       }
     }
     //===================================图鉴里的店铺====================================================================
+    if (new Date().getUTCHours() + 8 >= 17 && new Date().getUTCHours() + 8 <= 18) {//分享
+      $.myMapList = [];
+      await takePostRequest('zoo_myMap');
+      for (let i = 0; i < $.myMapList.length; i++) {
+        await $.wait(3000);
+        $.currentScence = i + 1;
+        if ($.myMapList[i].isFirstShare === 1) {
+          console.log(`去分享${$.myMapList[i].partyName}`);
+          await takePostRequest('zoo_getWelfareScore');
+        }
+      }
+    }
     if (new Date().getUTCHours() + 8 >= 14 && new Date().getUTCHours() + 8 <= 17){//30个店铺，为了避免代码执行太久，下午2点到5点才做店铺任务
       console.log(`去做店铺任务`);
       $.shopInfoList = [];
@@ -293,11 +305,19 @@ async function zoo() {
         }
       }
     }
-    //助力
-    // for (let i = 0; i < $.inviteList.length; i++) {
-    //     $.inviteId = $.inviteList[i];
-    //     await takePostRequest('help');
-    //     await $.wait(2000);
+    //=======================================================京东金融=================================================================================
+    // $.jdjrTaskList = [];
+    // await takePostRequest('jdjrTaskDetail');
+    // await $.wait(1000);
+    // console.log(`11111：${$.jdjrTaskList.length}`)
+    // for (let i = 0; i < $.jdjrTaskList.length; i++) {
+    //   if($.jdjrTaskList[i].status !== '1'){
+    //       continue;
+    //   }
+    //   $.taskId = $.jdjrTaskList[i].id;
+    //   console.log(`去做任务：${$.jdjrTaskList[i].name}`)
+    //   await takePostRequest('jdjrAcceptTask');
+    //   await $.wait(8000);
     // }
     //======================================================怪兽大作战==============================================================================================================
     $.pkHomeData = {};
@@ -440,6 +460,22 @@ async function takePostRequest(type) {
     case `zoo_wishShopLottery`:
       body = `functionId=zoo_wishShopLottery&body={"shopSign":"${$.shopSign}"}&client=wh5&clientVersion=1.0.0`;
       myRequest = await getPostRequest(`zoo_boxShopLottery`,body);
+      break;
+    case `zoo_myMap`:
+      body = `functionId=zoo_myMap&body={}&client=wh5&clientVersion=1.0.0`;
+      myRequest = await getPostRequest(`zoo_myMap`,body);
+      break;
+    case 'zoo_getWelfareScore':
+      body = getBody(type);
+      myRequest = await getPostRequest(`zoo_getWelfareScore`,body);
+      break;
+    case 'jdjrTaskDetail':
+      body = `reqData={"eid":"","sdkToken":"jdd014JYKVE2S6UEEIWPKA4B5ZKBS4N6Y6X5GX2NXL4IYUMHKF3EEVK52RQHBYXRZ67XWQF5N7XB6Y2YKYRTGQW4GV5OFGPDPFP3MZINWG2A01234567"}`;
+      myRequest = await getPostRequest(`listTask`,body);
+      break;
+    case 'jdjrAcceptTask':
+      body = `reqData={"eid":"","sdkToken":"jdd014JYKVE2S6UEEIWPKA4B5ZKBS4N6Y6X5GX2NXL4IYUMHKF3EEVK52RQHBYXRZ67XWQF5N7XB6Y2YKYRTGQW4GV5OFGPDPFP3MZINWG2A01234567","id":"${$.taskId}"}`;
+      myRequest = await getPostRequest(`acceptTask`,body);
       break;
     default:
       console.log(`错误${type}`);
@@ -600,6 +636,26 @@ async function dealReturn(type, data) {
     case 'zoo_wishShopLottery':
       console.log(JSON.stringify(data));
       break
+    case `zoo_myMap`:
+      if (data.code === 0) {
+        $.myMapList = data.data.result.sceneMap.sceneInfo;
+      }
+      break;
+    case 'zoo_getWelfareScore':
+      if (data.code === 0) {
+        console.log(`分享成功，获得：${data.data.result.score}`);
+      }
+      break;
+    case 'jdjrTaskDetail':
+      if (data.resultCode === 0) {
+        $.jdjrTaskList = data.resultData.top;
+      }
+      break;
+    case 'jdjrAcceptTask':
+      if (data.resultCode === 0) {
+        console.log(`领任务成功`);
+      }
+      break;
     default:
       console.log(`未判断的异常${type}`);
   }
@@ -637,7 +693,10 @@ function callbackResult(info) {
 }
 
 async function getPostRequest(type, body) {
-  const url = `https://api.m.jd.com/client.action?functionId=${type}`;
+  let url = `https://api.m.jd.com/client.action?functionId=${type}`;
+  if(type === 'listTask' || type === 'acceptTask' ){
+    url = `https://ms.jr.jd.com/gw/generic/hy/h5/m/${type}`;
+  }
   const method = `POST`;
   const headers = {
     'Accept': `application/json, text/plain, */*`,
@@ -692,6 +751,8 @@ function getBody(type) {
     taskBody = `functionId=zoo_pk_assistGroup&body={"taskId":2,"ss":"{\\"extraData\\":{\\"is_trust\\":true,\\"sign\\":\\"${sign}\\",\\"fpb\\":\\"\\",\\"time\\":${time},\\"encrypt\\":\\"3\\",\\"nonstr\\":\\"${nonstr}\\",\\"jj\\":\\"\\",\\"cf_v\\":\\"1.0.2\\",\\"client_version\\":\\"2.2.1\\",\\"buttonid\\":\\"jmdd-react-smash_62\\",\\"sceneid\\":\\"homePageh5\\"},\\"secretp\\":\\"${$.secretp}\\",\\"random\\":\\"${rnd}\\"}","inviteId":"${$.pkInviteId}","actionType":1}&client=wh5&clientVersion=1.0.0`;
   } else if (type === 'zoo_collectProduceScore') {
     taskBody = `functionId=zoo_collectProduceScore&body={"ss":"{\\"extraData\\":{\\"is_trust\\":true,\\"sign\\":\\"${sign}\\",\\"fpb\\":\\"\\",\\"time\\":${time},\\"encrypt\\":\\"3\\",\\"nonstr\\":\\"${nonstr}\\",\\"jj\\":\\"\\",\\"cf_v\\":\\"1.0.2\\",\\"client_version\\":\\"2.2.1\\",\\"buttonid\\":\\"jmdd-react-smash_0\\",\\"sceneid\\":\\"homePageh5\\"},\\"secretp\\":\\"${$.secretp}\\",\\"random\\":\\"${rnd}\\"}"}&client=wh5&clientVersion=1.0.0`;
+  } else if(type === 'zoo_getWelfareScore'){
+    taskBody = `functionId=zoo_getWelfareScore&body={"type":2,"currentScence":${$.currentScence},"ss":"{\\"extraData\\":{\\"is_trust\\":true,\\"sign\\":\\"${sign}\\",\\"fpb\\":\\"\\",\\"time\\":${time},\\"encrypt\\":\\"3\\",\\"nonstr\\":\\"${nonstr}\\",\\"jj\\":\\"\\",\\"cf_v\\":\\"1.0.2\\",\\"client_version\\":\\"2.2.1\\",\\"buttonid\\":\\"jmdd-react-smash_62\\",\\"sceneid\\":\\"homePageh5\\"},\\"secretp\\":\\"${$.secretp}\\",\\"random\\":\\"${rnd}\\"}"}&client=wh5&clientVersion=1.0.0`;
   } else {
     taskBody = `functionId=${type}&body={"taskId":"${$.oneTask.taskId}","taskToken":"${$.oneActivityInfo.taskToken}","actionType":1,"ss":"{\\"extraData\\":{\\"is_trust\\":true,\\"sign\\":\\"${sign}\\",\\"fpb\\":\\"\\",\\"time\\":${time},\\"encrypt\\":\\"3\\",\\"nonstr\\":\\"${nonstr}\\",\\"jj\\":\\"\\",\\"cf_v\\":\\"1.0.2\\",\\"client_version\\":\\"2.2.1\\",\\"buttonid\\":\\"jmdd-react-smash_62\\",\\"sceneid\\":\\"homePageh5\\"},\\"secretp\\":\\"${$.secretp}\\",\\"random\\":\\"${rnd}\\"}","itemId":"${$.oneActivityInfo.itemId}","shopSign":"${$.shopSign}"}&client=wh5&clientVersion=1.0.0`
   }
@@ -779,8 +840,8 @@ function TotalBean() {
 
 function randomWord(randomFlag, min, max) {
   let str = "",
-      range = min,
-      arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    range = min,
+    arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
   // 随机产生
   if (randomFlag) {
     range = Math.round(Math.random() * (max - min)) + min;
@@ -794,16 +855,16 @@ function randomWord(randomFlag, min, max) {
 
 function minusByByte(t, n) {
   var e = t.length
-      , r = n.length
-      , o = Math.max(e, r)
-      , i = toAscii(t)
-      , a = toAscii(n)
-      , s = ""
-      , u = 0;
+    , r = n.length
+    , o = Math.max(e, r)
+    , i = toAscii(t)
+    , a = toAscii(n)
+    , s = ""
+    , u = 0;
   for (e !== r && (i = add0(i, o),
-      a = this.add0(a, o)); u < o;)
+    a = this.add0(a, o)); u < o;)
     s += Math.abs(i[u] - a[u]),
-        u++;
+      u++;
   return s
 }
 
@@ -811,7 +872,7 @@ function toAscii(t) {
   var n = "";
   for (var e in t) {
     var r = t[e]
-        , o = /[a-zA-Z]/.test(r);
+      , o = /[a-zA-Z]/.test(r);
     if (t.hasOwnProperty(e))
       if (o)
         n += getLastAscii(r);
@@ -839,7 +900,7 @@ function wordsToBytes(t) {
 function bytesToHex(t) {
   for (var n = [], e = 0; e < t.length; e++)
     n.push((t[e] >>> 4).toString(16)),
-        n.push((15 & t[e]).toString(16));
+      n.push((15 & t[e]).toString(16));
   return n.join("")
 }
 
@@ -852,7 +913,7 @@ function stringToBytes(t) {
 
 function bytesToWords(t) {
   for (var n = [], e = 0, r = 0; e < t.length; e++,
-      r += 8)
+    r += 8)
     n[r >>> 5] |= t[e] << 24 - r % 32;
   return n
 }
@@ -860,15 +921,15 @@ function bytesToWords(t) {
 function getSign(t) {
   t = stringToBytes(t)
   var e = bytesToWords(t)
-      , i = 8 * t.length
-      , a = []
-      , s = 1732584193
-      , u = -271733879
-      , c = -1732584194
-      , f = 271733878
-      , h = -1009589776;
+    , i = 8 * t.length
+    , a = []
+    , s = 1732584193
+    , u = -271733879
+    , c = -1732584194
+    , f = 271733878
+    , h = -1009589776;
   e[i >> 5] |= 128 << 24 - i % 32,
-      e[15 + (i + 64 >>> 9 << 4)] = i;
+    e[15 + (i + 64 >>> 9 << 4)] = i;
   for (var l = 0; l < e.length; l += 16) {
     for (var p = s, g = u, v = c, d = f, y = h, m = 0; m < 80; m++) {
       if (m < 16)
@@ -879,16 +940,16 @@ function getSign(t) {
       }
       var _ = (s << 5 | s >>> 27) + h + (a[m] >>> 0) + (m < 20 ? 1518500249 + (u & c | ~u & f) : m < 40 ? 1859775393 + (u ^ c ^ f) : m < 60 ? (u & c | u & f | c & f) - 1894007588 : (u ^ c ^ f) - 899497514);
       h = f,
-          f = c,
-          c = u << 30 | u >>> 2,
-          u = s,
-          s = _
+        f = c,
+        c = u << 30 | u >>> 2,
+        u = s,
+        s = _
     }
     s += p,
-        u += g,
-        c += v,
-        f += d,
-        h += y
+      u += g,
+      c += v,
+      f += d,
+      h += y
   }
   return [s, u, c, f, h]
 }

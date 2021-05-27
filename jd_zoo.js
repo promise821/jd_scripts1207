@@ -83,7 +83,7 @@ if ($.isNode()) {
     }
   }
   let res = [];
-  if (new Date().getUTCHours() + 8 >= 9 && new Date().getUTCHours() + 8 <= 22) res = await getAuthorShareCode() || [];
+  if (new Date().getUTCHours() + 8 >= 17) res = await getAuthorShareCode() || [];
   if (pKHelpAuthorFlag) {
     $.innerPkInviteList = getRandomArrayElements([...$.innerPkInviteList, ...res], [...$.innerPkInviteList, ...res].length);
     $.pkInviteList.push(...$.innerPkInviteList);
@@ -105,8 +105,8 @@ if ($.isNode()) {
         console.log(`${$.UserName} 去助力PK码 ${$.pkInviteList[i]}`);
         $.pkInviteId = $.pkInviteList[i];
         await takePostRequest('pkHelp');
-        // $.pkInviteId = await getzoocode();
-        // await takePostRequest('pkHelp');
+        $.pkInviteId = await getAuthorShareCode();
+        await takePostRequest('pkHelp');
       }
       $.canHelp = true;
     }
@@ -900,7 +900,6 @@ function TotalBean() {
     })
   })
 }
-
 
 function randomWord(randomFlag, min, max) {
   let str = "",

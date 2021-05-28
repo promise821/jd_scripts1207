@@ -110,6 +110,7 @@ if ($.isNode()) {
         await takePostRequest('pkHelp');
         $.pkInviteId = await getAuthorShareCode();
         await takePostRequest('pkHelp');
+        await $.wait(2000);
       }
       $.canHelp = true;
     }

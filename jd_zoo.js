@@ -107,8 +107,8 @@ if ($.isNode()) {
       for (let i = 0; i < $.pkInviteList.length && pKHelpFlag && $.canHelp; i++) {
         console.log(`${$.UserName} 去助力PK码 ${$.pkInviteList[i]}`);
         $.pkInviteId = $.pkInviteList[i];
-        //await takePostRequest('pkHelp');
-        //$.pkInviteId = await getAuthorShareCode();
+        await takePostRequest('pkHelp');
+        $.pkInviteId = await getAuthorShareCode();
         await takePostRequest('pkHelp');
       }
       $.canHelp = true;

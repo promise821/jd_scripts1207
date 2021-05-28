@@ -547,8 +547,13 @@ async function dealReturn(type, data) {
       }
       break;
     case 'zoo_collectProduceScore':
-      if (data.code === 0) {
+      if (data.code === 0 && data.data && data.data.result) {
         console.log(`收取成功，获得：${data.data.result.produceScore}`);
+      }else{
+        console.log(JSON.stringify(data));
+      }
+      if(data.code === 0 && data.data && data.data.bizCode === -1002){
+        $.hotFlag = true;
       }
       break;
     case 'zoo_getTaskDetail':

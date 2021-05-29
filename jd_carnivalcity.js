@@ -30,6 +30,7 @@ const $ = new Env('京东手机狂欢城');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+const DoLottery = false; //抽奖开关
 
 //IOS等用户直接用NobyDa的jd cookie
 
@@ -669,7 +670,7 @@ function getListIntegral() {
             $.integralCount = data.data.integralNum || 0;//累计活动积分
             message += `累计获得积分：${$.integralCount}\n`;
             console.log(`开始抽奖，当前积分可抽奖${parseInt($.integralCount / 50)}次\n`);
-            for (let i = 0; i < parseInt($.integralCount / 50); i ++) {
+            for (let i = 0; i < parseInt($.integralCount / 50) && DoLottery; i ++) {
               await lottery();
               await $.wait(500);
             }

@@ -66,6 +66,9 @@ $.shareId = [];
         }
         continue
       }
+	  if (new Date().getHours() <1 ) {
+      await getAward();//抽奖
+	  }
       await shareUrl();
       await getCoin();//领取每三小时自动生产的热力值
       await Promise.all([
@@ -73,7 +76,9 @@ $.shareId = [];
         task1(),
       ])
       await taskList();
+	  if (new Date().getHours() <1 ) {
       await getAward();//抽奖
+	  }
     }
   }
   if (allMessage) {

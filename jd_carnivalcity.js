@@ -30,7 +30,7 @@ const $ = new Env('京东手机狂欢城');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-const DoLottery = false; //抽奖开关
+const DoLottery = true; //抽奖开关
 
 //IOS等用户直接用NobyDa的jd cookie
 
